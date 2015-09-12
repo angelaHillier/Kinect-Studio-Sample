@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3F7D9A1-48A5-4581-A45D-D9FC96B2E1D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KinectStudioUtility</RootNamespace>
+    <AssemblyName>KinectStudioUtility</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Kinect.Tools, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Redist\KinectTools\x64\Microsoft.Kinect.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArrayConverter.cs" />
+    <Compile Include="BinaryMetadataProxy.cs" />
+    <Compile Include="BooleanDataTemplateSelector.cs" />
+    <Compile Include="ComparisonConverter.cs" />
+    <Compile Include="DebugHelper.cs" />
+    <Compile Include="DependencyObjectExtensions.cs" />
+    <Compile Include="EnumConverter.cs" />
+    <Compile Include="EnumToStringConverter.cs" />
+    <Compile Include="EventLane2.cs" />
+    <Compile Include="FileNameStripperConverter.cs" />
+    <Compile Include="FormatConverter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HGlobalBuffer.cs" />
+    <Compile Include="InverterConverter.cs" />
+    <Compile Include="IsNullConverter.cs" />
+    <Compile Include="KStudioEventExtensions.cs" />
+    <Compile Include="LocalDateTimeConverter.cs" />
+    <Compile Include="MetadataArrayProxy.cs" />
+    <Compile Include="MetadataKeyValuePair.cs" />
+    <Compile Include="NativeWindowControl.cs" />
+    <Compile Include="NullToVisibilityConverter.cs" />
+    <Compile Include="OverlayWindow.cs" />
+    <Compile Include="PercentageConverter.cs" />
+    <Compile Include="PixTimeToTimeSpanTicksConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="RelativePanel.cs" />
+    <Compile Include="SizeConverter.cs" />
+    <Compile Include="SpinControl.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SpinControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="Thumb2.cs" />
+    <Compile Include="Timeline2.cs" />
+    <Compile Include="TimeSpanSecondsConverter.cs" />
+    <Compile Include="TypeConverters.cs" />
+    <Compile Include="UnsafeNativeMethods.cs" />
+    <Compile Include="WaitCursor.cs" />
+    <Compile Include="WritableMetadataProxy.cs" />
+    <Compile Include="XmlExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="SpinControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Xbox.Tools.Shared\Microsoft.Xbox.Tools.Shared.csproj">
+      <Project>{afad4ccc-a149-4d5f-a61d-bf084614cbdd}</Project>
+      <Name>Microsoft.Xbox.Tools.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WindowState Version="4">
+  <DefaultLayoutVersions />
+  <LayoutDefinitions>
+    <LayoutDefinition Name="MONITOR" Id="1e62d5ca-1afc-46d2-adaf-e8c28c1e1a7b" NextSlotName="5" NextViewId="5">
+      <Slot Name="4" Length="*" Orientation="Horizontal">
+        <Slot Name="0" Length="0.476712249559108*" Orientation="Horizontal" />
+        <Slot Name="3" Length="1.52328775044089*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="TargetMonitorableStreamsView" SlotName="0" Id="0" />
+      <View RegisteredName="Image2DVisualizationView" SlotName="3" Id="3" />
+      <View RegisteredName="Image3DVisualizationView" SlotName="3" Id="4" />
+    </LayoutDefinition>
+    <LayoutDefinition Name="RECORD" Id="03bfe337-b624-48b9-a3e2-28ad38f6f9bb" NextSlotName="3" NextViewId="3">
+      <Slot Name="2" Length="*" Orientation="Horizontal">
+        <Slot Name="0" Length="0.479603342102981*" Orientation="Horizontal" />
+        <Slot Name="1" Length="1.52039665789702*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="TargetRecordableStreamsView" SlotName="0" Id="0" />
+      <View RegisteredName="Image2DVisualizationView" SlotName="1" Id="1" />
+      <View RegisteredName="Image3DVisualizationView" SlotName="1" Id="2" />
+    </LayoutDefinition>
+    <LayoutDefinition Name="PLAY" Id="4338e96a-6192-4bdd-a8bd-9ab0211e317f" NextSlotName="9" NextViewId="9">
+      <Slot Name="4" Length="*" Orientation="Vertical">
+        <Slot Name="8" Length="1.12567578293808*" Orientation="Horizontal">
+          <Slot Name="3" Length="*" Orientation="Horizontal" />
+          <Slot Name="7" Length="*" Orientation="Horizontal" />
+        </Slot>
+        <Slot Name="0" Length="0.874324217061921*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="PlaybackableStreamsView" SlotName="0" Id="0" />
+      <View RegisteredName="Image2DVisualizationView" SlotName="3" Id="2" />
+      <View RegisteredName="Image3DVisualizationView" SlotName="3" Id="3" />
+      <View RegisteredName="Image2DPropertyView" SlotName="3" Id="5" />
+      <View RegisteredName="InspectionImage2DVisualizationView" SlotName="7" Id="6" />
+      <View RegisteredName="InspectionImage3DVisualizationView" SlotName="7" Id="7" />
+      <View RegisteredName="MetadataView" SlotName="3" Id="8" />
+    </LayoutDefinition>
+    <LayoutDefinition Name="LOG" Id="c8938ba2-1486-4f86-a900-836ad8db980e" NextSlotName="1" NextViewId="1">
+      <Slot Name="0" Length="*" Orientation="Horizontal" />
+      <View RegisteredName="Microsoft.Xbox.Tools.Shared.OutputView" SlotName="0" Id="0" />
+    </LayoutDefinition>
+  </LayoutDefinitions>
+  <MainWindow Width="1200" Height="849" Left="221" Top="86" IsMaximized="false">
+    <Layout Name="MONITOR" IsSelected="true" ActivationIndex="234">
+      <Slot Name="4" Length="*" Orientation="Horizontal">
+        <Slot Name="0" Length="0.476712249559108*" Orientation="Horizontal" />
+        <Slot Name="3" Length="1.52328775044089*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="TargetMonitorableStreamsView" SlotName="0" Id="0" Title="Monitor" IsSelected="true">
+        <ViewState />
+      </View>
+      <View RegisteredName="Image2DVisualizationView" SlotName="3" Id="3" Title="Monitor 2D View" IsSelected="true">
+        <ViewState>
+          <view zoomToFit="True" zoomLevel="153" />
+        </ViewState>
+      </View>
+      <View RegisteredName="Image3DVisualizationView" SlotName="3" Id="4" Title="Monitor 3D View">
+        <ViewState>
+          <view />
+        </ViewState>
+      </View>
+    </Layout>
+    <Layout Name="RECORD" ActivationIndex="227">
+      <Slot Name="2" Length="*" Orientation="Horizontal">
+        <Slot Name="0" Length="0.479603342102981*" Orientation="Horizontal" />
+        <Slot Name="1" Length="1.52039665789702*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="TargetRecordableStreamsView" SlotName="0" Id="0" Title="Record" IsSelected="true">
+        <ViewState />
+      </View>
+      <View RegisteredName="Image2DVisualizationView" SlotName="1" Id="1" Title="Monitor 2D View">
+        <ViewState>
+          <view zoomToFit="True" zoomLevel="153" />
+        </ViewState>
+      </View>
+      <View RegisteredName="Image3DVisualizationView" SlotName="1" Id="2" Title="Monitor 3D View" IsSelected="true">
+        <ViewState>
+          <view />
+        </ViewState>
+      </View>
+    </Layout>
+    <Layout Name="PLAY" ActivationIndex="229">
+      <Slot Name="4" Length="*" Orientation="Vertical">
+        <Slot Name="8" Length="1.12567578293808*" Orientation="Horizontal">
+          <Slot Name="3" Length="*" Orientation="Horizontal" />
+          <Slot Name="7" Length="*" Orientation="Horizontal" />
+        </Slot>
+        <Slot Name="0" Length="0.874324217061921*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="PlaybackableStreamsView" SlotName="0" Id="0" Title="Playback" IsSelected="true">
+        <ViewState>
+          <Settings sidebarExpanded="False" />
+        </ViewState>
+      </View>
+      <View RegisteredName="Image2DVisualizationView" SlotName="3" Id="2" Title="Monitor 2D View">
+        <ViewState>
+          <view zoomToFit="True" zoomLevel="73" />
+        </ViewState>
+      </View>
+      <View RegisteredName="Image3DVisualizationView" SlotName="3" Id="3" Title="Monitor 3D View">
+        <ViewState>
+          <view />
+        </ViewState>
+      </View>
+      <View RegisteredName="Image2DPropertyView" SlotName="3" Id="5" Title="2D Properties">
+        <ViewState>
+          <view />
+        </ViewState>
+      </View>
+      <View RegisteredName="MetadataView" SlotName="3" Id="8" Title="Metadata" IsSelected="true">
+        <ViewState>
+          <Columns publicKeyWidth="173" publicValueWidth="100" personalKeyWidth="100" personalValueWidth="100" />
+        </ViewState>
+      </View>
+      <View RegisteredName="InspectionImage2DVisualizationView" SlotName="7" Id="6" Title="Playback 2D View">
+        <ViewState>
+          <view zoomToFit="False" zoomLevel="75" />
+        </ViewState>
+      </View>
+      <View RegisteredName="InspectionImage3DVisualizationView" SlotName="7" Id="7" Title="Playback 3D View" IsSelected="true">
+        <ViewState>
+          <view editWidth="450" editHeight="400">
+            <plugin enabled="True" order="0" id="4fc932f6-77a4-4a22-be1f-93424d8ebb1a">
+              <data viewType="Color" surface="False" />
+            </plugin>
+            <plugin enabled="False" order="1" id="5ef876c2-cec2-4b2d-88a8-1de8e6df4e63">
+              <data amplification="1" gamma="0.32" />
+            </plugin>
+            <plugin enabled="False" order="2" id="640d29b1-663a-4913-9eba-bec2b8aa81ea">
+              <data />
+            </plugin>
+            <plugin enabled="False" order="3" id="7887714d-5331-406a-a290-9d2981214603">
+              <data />
+            </plugin>
+            <plugin enabled="True" order="4" id="85a371bc-7bb2-4534-865d-b7026754e876">
+              <data bodies="True" hands="True" jointOrientations="False" info="True" />
+            </plugin>
+            <plugin enabled="True" order="5" id="d1ec6fb2-b19d-4285-9b69-dc921febf69f">
+              <data frustum="True" orientationCube="True" floorPlane="True" />
+            </plugin>
+            <plugin enabled="False" order="6" id="edb90d43-b874-40c2-9ad1-73e767b1f7d2">
+              <data viewType="DepthColor" surface="False" />
+            </plugin>
+          </view>
+        </ViewState>
+      </View>
+    </Layout>
+    <Layout Name="LOG" ActivationIndex="232">
+      <Slot Name="0" Length="*" Orientation="Horizontal" />
+      <View RegisteredName="Microsoft.Xbox.Tools.Shared.OutputView" SlotName="0" Id="0" Title="Output" IsSelected="true">
+        <ViewState />
+      </View>
+    </Layout>
+  </MainWindow>
+</WindowState>

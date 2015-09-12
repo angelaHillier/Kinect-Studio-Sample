@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A9F33A61-6051-4619-B859-9747C34D7B93}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KinectStudioPlugin</RootNamespace>
+    <AssemblyName>KinectStudioPlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="KinectManaged, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KinectManaged.dll</HintPath>
+    </Reference>
+    <Reference Include="KinectViz, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KinectViz.dll</HintPath>
+    </Reference>
+    <Reference Include="KStudioBridge, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KStudioBridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Kinect.Tools, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Redist\KinectTools\x64\Microsoft.Kinect.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BasePlugin.cs" />
+    <Compile Include="BinaryMetadataBinding.cs" />
+    <Compile Include="BinaryMetadataConverter.cs" />
+    <Compile Include="FileMetadataDataTemplateKey.cs" />
+    <Compile Include="FileMetadataValueTemplateSelector.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Hacks.cs" />
+    <Compile Include="I2DVisualPlugin.cs" />
+    <Compile Include="I3DVisualPlugin.cs" />
+    <Compile Include="IEventHandlerPlugin.cs" />
+    <Compile Include="IImageVisualPlugin.cs" />
+    <Compile Include="Image2DPropertyViewContent.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Image2DPropertyViewContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Image2DVisualizationControl.cs" />
+    <Compile Include="Image2DVisualizationViewContent.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Image2DVisualizationViewContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Image3DVisualizationControl.cs" />
+    <Compile Include="Image3DVisualizationViewContent.xaml.cs">
+      <DependentUpon>Image3DVisualizationViewContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImageVisualizationControl.cs" />
+    <Compile Include="IMetadataPlugin.cs" />
+    <Compile Include="IPlugin3DViewSettings.cs" />
+    <Compile Include="IPluginService.cs" />
+    <Compile Include="IPluginViewSettings.cs" />
+    <Compile Include="IVisualPlugin.cs" />
+    <Compile Include="IWpfVisualPlugin.cs" />
+    <Compile Include="MetadataPluginsDialog.xaml.cs">
+      <DependentUpon>MetadataPluginsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PluginMetadataState.cs" />
+    <Compile Include="PluginService.cs" />
+    <Compile Include="PluginViewSettingsTemplateSelector.cs" />
+    <Compile Include="PluginViewState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="RenderViewSettings.cs" />
+    <Compile Include="RenderViewSettingsDialog.xaml.cs">
+      <DependentUpon>RenderViewSettingsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StreamMetadataDataTemplateKey.cs" />
+    <Compile Include="StreamMetadataValueTemplateSelector.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Temp.cs" />
+    <Compile Include="TypeValidationRule.cs" />
+    <Compile Include="VisualizationControl.cs" />
+    <Compile Include="VisualizationViewSettings.cs" />
+    <Compile Include="WpfVisualizationControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Image2DPropertyViewContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Image2DVisualizationViewContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Image3DVisualizationViewContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MetadataPluginsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RenderViewSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Cursors\PanCursor.cur" />
+    <Resource Include="Cursors\RotateCursor.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Front3D.png" />
+    <Resource Include="Images\GoUp.png" />
+    <Resource Include="Images\Home3D.png" />
+    <Resource Include="Images\Left3D.png" />
+    <Resource Include="Images\Placeholder.png" />
+    <Resource Include="Images\Settings.png" />
+    <Resource Include="Images\Top3D.png" />
+    <Resource Include="Images\ZoomIn.png" />
+    <Resource Include="Images\ZoomOut.png" />
+    <Resource Include="Images\ZoomToFit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KinectStudioUtility\KinectStudioUtility.csproj">
+      <Project>{b3f7d9a1-48a5-4581-a45d-d9fc96b2e1d2}</Project>
+      <Name>KinectStudioUtility</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Xbox.Tools.Shared\Microsoft.Xbox.Tools.Shared.csproj">
+      <Project>{afad4ccc-a149-4d5f-a61d-bf084614cbdd}</Project>
+      <Name>Microsoft.Xbox.Tools.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

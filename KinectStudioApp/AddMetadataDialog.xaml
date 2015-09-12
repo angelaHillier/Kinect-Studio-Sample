@@ -1,0 +1,65 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<Window x:Class="KinectStudioApp.AddMetadataDialog"
+        AutomationProperties.AutomationId="AddMetadataDialog" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:KinectStudioApp"
+        Width="220" Height="220" 
+        FocusManager.FocusedElement="{Binding ElementName=KeyTextBox}" 
+        WindowStyle="ToolWindow" ShowInTaskbar="False" ResizeMode="NoResize" 
+        Title="{x:Static l:Strings.AddMetadata_Title}">
+    <Window.Resources>
+        <l:FriendlyNameTypeConverter x:Key="TypeConv" />
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10" VerticalAlignment="Stretch">
+        <StackPanel VerticalAlignment="Top">
+            <TextBlock AutomationProperties.AutomationId="KeyPrompt" Text="{x:Static l:Strings.AddMetadata_Key_Prompt}" />
+            <TextBox AutomationProperties.AutomationId="Key" x:Name="KeyTextBox" MaxLength="64">
+                <TextBox.Text>
+                    <Binding Path="Key" ValidatesOnNotifyDataErrors="True" UpdateSourceTrigger="PropertyChanged" />
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock AutomationProperties.AutomationId="ValuePrompt" Text="{x:Static l:Strings.AddMetadata_ValueType_Prompt}" Margin="0,10,0,0" />
+            <ComboBox AutomationProperties.AutomationId="ValueTypes" ItemsSource="{Binding SupportedValueTypes}" SelectedItem="{Binding SelectedValueType}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock AutomationProperties.AutomationId="{Binding Name}" Text="{Binding Converter={StaticResource TypeConv}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button AutomationProperties.AutomationId="OK" Content="{x:Static l:Strings.Button_Ok}" Click="Button_Click_OK" IsDefault="True">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=KeyTextBox, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button AutomationProperties.AutomationId="Cancel" Content="{x:Static l:Strings.Button_Cancel}" Click="Button_Click_Cancel" IsCancel="True" Margin="10,0,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

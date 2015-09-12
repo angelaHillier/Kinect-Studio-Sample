@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WindowState Version="4">
+  <DefaultLayoutVersions />
+  <LayoutDefinitions>
+    <LayoutDefinition Name="MONITOR" Id="b8514665-9452-442f-98fe-7a15104aeefd" NextSlotName="3" NextViewId="3">
+      <Slot Name="2" Length="*" Orientation="Horizontal">
+        <Slot Name="0" Length="0.4*" Orientation="Horizontal" />
+        <Slot Name="1" Length="1.6*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="TargetMonitorableStreamsView" SlotName="0" Id="0" />
+      <View RegisteredName="Image2DVisualizationView" SlotName="1" Id="1" />
+      <View RegisteredName="Image3DVisualizationView" SlotName="1" Id="2" />
+    </LayoutDefinition>
+    <LayoutDefinition Name="RECORD" Id="7d599e68-7b19-4cfd-a78c-ad770ac38745" NextSlotName="3" NextViewId="3">
+      <Slot Name="2" Length="*" Orientation="Horizontal">
+        <Slot Name="0" Length="0.4*" Orientation="Horizontal" />
+        <Slot Name="1" Length="1.6*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="TargetRecordableStreamsView" SlotName="0" Id="0" />
+      <View RegisteredName="Image2DVisualizationView" SlotName="1" Id="1" />
+      <View RegisteredName="Image3DVisualizationView" SlotName="1" Id="2" />
+    </LayoutDefinition>
+    <LayoutDefinition Name="PLAY" Id="bd585b7d-3243-45f5-ac89-f9e937d78c5c" NextSlotName="5" NextViewId="14">
+      <Slot Name="2" Length="*" Orientation="Vertical">
+        <Slot Name="4" Length="*" Orientation="Horizontal">
+          <Slot Name="1" Length="*" Orientation="Horizontal" />
+          <Slot Name="3" Length="*" Orientation="Horizontal" />
+        </Slot>
+        <Slot Name="0" Length="*" Orientation="Horizontal" />
+      </Slot>
+      <View RegisteredName="PlaybackableStreamsView" SlotName="0" Id="0" />
+      <View RegisteredName="InspectionImage2DVisualizationView" SlotName="3" Id="6" />
+      <View RegisteredName="Image2DVisualizationView" SlotName="1" Id="9" />
+      <View RegisteredName="Image3DVisualizationView" SlotName="1" Id="10" />
+      <View RegisteredName="Image2DPropertyView" SlotName="1" Id="11" />
+      <View RegisteredName="MetadataView" SlotName="1" Id="12" />
+      <View RegisteredName="InspectionImage3DVisualizationView" SlotName="3" Id="13" />
+    </LayoutDefinition>
+    <LayoutDefinition Name="LOG" Id="1995bacd-4686-4d14-b5b1-9088c20d75b7" NextSlotName="1" NextViewId="1">
+      <Slot Name="0" Length="*" Orientation="Horizontal" />
+      <View RegisteredName="Microsoft.Xbox.Tools.Shared.OutputView" SlotName="0" Id="0" />
+    </LayoutDefinition>
+  </LayoutDefinitions>
+</WindowState>

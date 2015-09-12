@@ -1,0 +1,52 @@
+﻿<Window x:Class="Microsoft.Xbox.Tools.Shared.PDBPathSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit PDB Search Path" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="Current PDB search path"/>
+
+        <ListBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Paths}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel HorizontalAlignment="Stretch">
+                        <Button DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,10,10" Content="X" Click="DeletePath"/>                        
+                        <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="3,0,3,0" Text="{Binding}" />
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <CheckBox  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="0" IsEnabled ="{Binding Path=NTSymbolPathSet}" IsChecked="{Binding Path=UseNTSymbolPath}" Margin="7,1,7,9"/>
+        <TextBlock VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Text="Use _NT_SYMBOL_PATH environment variable"/>
+
+        <TextBlock   VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Text="{Binding Path=NTSymbolPathString}"/>
+
+        <DockPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" >
+            <Button DockPanel.Dock="Right" Margin="2,0,2,0" Width="55" Content="..." Click="FolderSelect"/>
+            <Button DockPanel.Dock="Right" Margin="2,0,2,0" Width="60" Content="Add" Click="AddFolder"/>
+            <TextBox  VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="0" Name="NewPathEntry"/>
+
+        </DockPanel>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Width="100" Margin="3" IsDefault="True" Content="OK" Click="OKClick"/>
+            <Button Width="100" Margin="3" IsCancel="True" Content="Cancel"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

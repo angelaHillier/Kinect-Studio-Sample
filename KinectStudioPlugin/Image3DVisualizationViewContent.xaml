@@ -1,0 +1,78 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<UserControl x:Class="KinectStudioPlugin.Image3DVisualizationViewContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:l="clr-namespace:KinectStudioPlugin" 
+             x:Name="This">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" DataContext="{Binding ElementName=This}">
+                <TextBlock AutomationProperties.AutomationId="TypeTitle" Text="{Binding ViewerTypeTitle}" />
+                <TextBlock AutomationProperties.AutomationId="StateTitle" Margin="5,0,0,0" FontWeight="Bold" Width="35">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding EventType}" Value="Monitor">
+                                    <Setter Property="Text" Value="{Binding AvailableStreamsGetter.MonitorViewStateTitle}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding EventType}" Value="Inspection">
+                                    <Setter Property="Text" Value="{Binding AvailableStreamsGetter.ComboViewStateTitle}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+            <Button AutomationProperties.AutomationId="Settings" Style="{StaticResource KinectStudioPlugin.SmallToolbarButtonStyle}" ToolTip="{x:Static l:Strings.View_Settings_Button_ToolTip}" Click="Settings_Button_Click" Margin="15,0,0,0">
+                <Button.Content>
+                    <Image Source="Images\Settings.png" />
+                </Button.Content>
+            </Button>
+            <Button AutomationProperties.AutomationId="DefaultView" Style="{StaticResource KinectStudioPlugin.SmallToolbarButtonStyle}" ToolTip="{x:Static l:Strings.View_DefaultView_Button_ToolTip}" Click="DefaultView_Button_Click" Margin="15,0,0,0">
+                <Button.Content>
+                    <Image Source="Images\Home3D.png" />
+                </Button.Content>
+            </Button>
+            <Button AutomationProperties.AutomationId="FrontView" Style="{StaticResource KinectStudioPlugin.SmallToolbarButtonStyle}" ToolTip="{x:Static l:Strings.View_FrontView_Button_ToolTip}" Click="FrontView_Button_Click" Margin="5,0,0,0">
+                <Button.Content>
+                    <Image Source="Images\Front3D.png" />
+                </Button.Content>
+            </Button>
+            <Button AutomationProperties.AutomationId="LeftView" Style="{StaticResource KinectStudioPlugin.SmallToolbarButtonStyle}" ToolTip="{x:Static l:Strings.View_LeftView_Button_ToolTip}" Click="LeftView_Button_Click" Margin="5,0,0,0">
+                <Button.Content>
+                    <Image Source="Images\Left3D.png" />
+                </Button.Content>
+            </Button>
+            <Button AutomationProperties.AutomationId="TopView" Style="{StaticResource KinectStudioPlugin.SmallToolbarButtonStyle}" ToolTip="{x:Static l:Strings.View_TopView_Button_ToolTip}" Click="TopView_Button_Click" Margin="5,0,0,0">
+                <Button.Content>
+                    <Image Source="Images\Top3D.png" />
+                </Button.Content>
+            </Button>
+            <Button AutomationProperties.AutomationId="ZoomOut" Style="{StaticResource KinectStudioPlugin.SmallToolbarButtonStyle}" ToolTip="{x:Static l:Strings.View_ZoomOut_Button_ToolTip}" Click="ZoomOut_Button_Click" Margin="15,0,0,0">
+                <Button.Content>
+                    <Image Source="Images\ZoomOut.png" />
+                </Button.Content>
+            </Button>
+            <Button AutomationProperties.AutomationId="ZoomIn" Style="{StaticResource KinectStudioPlugin.SmallToolbarButtonStyle}" ToolTip="{x:Static l:Strings.View_ZoomIn_Button_ToolTip}" Click="ZoomIn_Button_Click" Margin="5,0,0,0">
+                <Button.Content>
+                    <Image Source="Images\ZoomIn.png" />
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Border x:Name="ControlHost" />
+        </Grid>
+    </Grid>
+</UserControl>

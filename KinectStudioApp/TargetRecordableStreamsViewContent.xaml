@@ -1,0 +1,128 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<UserControl x:Class="KinectStudioApp.TargetRecordableStreamsViewContent" 
+             AutomationProperties.AutomationId="TargetRecordableStreamsViewContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:u="clr-namespace:KinectStudioUtility;assembly=KinectStudioUtility" 
+             xmlns:l="clr-namespace:KinectStudioApp">
+    <Grid MinWidth="300" Margin="10" DataContext="{Binding KStudioService, RelativeSource={RelativeSource AncestorType=l:TargetRecordableStreamsViewContent}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" MinHeight="25" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <Grid>
+                <Button AutomationProperties.AutomationId="Connect" Style="{StaticResource ConnectToolbarButtonStyle}" />
+                <Button AutomationProperties.AutomationId="Disconnect" Style="{StaticResource DisconnectToolbarButtonStyle}" />
+            </Grid>
+            <ContentControl Margin="5,0,0,0" Style="{StaticResource ConnnectStatusToolbarDisplayStyle}" Content="{Binding}" />
+            <ContentControl Style="{StaticResource ToolBarSeparatorStyle}" Margin="5,0,0,0" />
+            <Grid Margin="5,0,0,0">
+                <Button AutomationProperties.AutomationId="RecordStart" Style="{StaticResource RecordStartToolbarButtonStyle}" />
+                <Button AutomationProperties.AutomationId="RecordStop" Style="{StaticResource RecordStopToolbarButtonStyle}" />
+                <!--
+                <Button AutomationProperties.AutomationId="RecordClose" Style="{StaticResource RecordCloseToolbarButtonStyle}" />
+                -->
+            </Grid>
+            <!-- 
+            <Button AutomationProperties.AutomationId="RecordMetadata" Margin="5,0,0,0" CommandParameter="{Binding RecordingMetadata}" Style="{StaticResource FileMetadataToolbarButtonStyle}" />
+            -->
+        </StackPanel>
+        <!--
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock AutomationProperties.AutomationId="NotConnectedStatus" Style="{StaticResource NotConnectedElementVisibilityStyle}" Text="{x:Static l:Strings.RecordingState_NotConnected}" />
+            <TextBlock AutomationProperties.AutomationId="ConnectedStatus" Style="{StaticResource ConnectedElementVisibilityStyle}" Text="{Binding RecordingState, Converter={StaticResource EnumToStringConverter}, ConverterParameter=RecordingState_}" />
+        </StackPanel>
+        -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RecordingBufferSizeMegabytes}" Value="0">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <TextBlock Text="{x:Static l:Strings.BufferInUse_Label}" VerticalAlignment="Center" />
+            <ProgressBar Grid.Column="2" Maximum="{Binding RecordingBufferSizeMegabytes}" Value="{Binding RecordingBufferInUseMegabytes}" Height="5">
+                <ProgressBar.ToolTip>
+                    <MultiBinding Converter="{StaticResource PercentageConverter}" ConverterParameter="{x:Static l:Strings.BufferInUse_Percentage_Format}">
+                        <Binding Path="RecordingBufferSizeMegabytes" />
+                        <Binding Path="RecordingBufferInUseMegabytes"  />
+                    </MultiBinding>
+                </ProgressBar.ToolTip>
+            </ProgressBar>
+        </Grid>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <TextBox AutomationProperties.AutomationId="RecordFileName" Text="{Binding RecordingFilePath, Converter={StaticResource FileNameStripperConverter}}" ToolTip="{Binding RecordingFilePath}" BorderThickness="0" Padding="0" IsReadOnly="True" Foreground="Black" />
+        </StackPanel>
+        <TextBlock AutomationProperties.AutomationId="FileSize" Grid.Row="6" Visibility="{Binding HasRecording, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding RecordingFileSizeBytes, StringFormat={x:Static l:Strings.RecordView_Size_Format}}" />
+        <TextBlock AutomationProperties.AutomationId="RecordTime"  Grid.Row="6" HorizontalAlignment="Right" Visibility="{Binding HasRecording, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="10,0,0,0" Text="{Binding RecordingTime, StringFormat={x:Static l:Strings.RecordView_Time_Format}}" />
+        <StackPanel Grid.Row="8" Orientation="Horizontal">
+            <Button AutomationProperties.AutomationId="RecordUnselectAll" Style="{StaticResource ConnectedUnselectAllToolbarButtonStyle}" Command="{StaticResource RecordUnselectAllCommand}" Margin="8,0,0,0" />
+            <u:BooleanButton AutomationProperties.AutomationId="RecordShowHideStreams" Margin="4,0,0,0"  Style="{StaticResource ConnectedShowHideStreamsToolbarButtonStyle}" Grid.Column="4" Value="{Binding AreAllStreamsVisibleForRecording, Mode=TwoWay}" />
+            <TextBlock AutomationProperties.AutomationId="RecordHeader" Margin="10,0,0,0" Text="{Binding TargetRecordableStreamsTitle}" ToolTip="{Binding TargetRecordableStreamsToolTip}" VerticalAlignment="Center" />
+        </StackPanel>
+        <ListBox AutomationProperties.AutomationId="RecordStreams" Grid.Row="10" ItemsSource="{Binding TargetRecordableStreams}" ItemTemplate="{StaticResource RecordableStreamDataTemplate}" ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="1">
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.IsVisibleForTargetRecording}" Value="True" />
+                                <Condition Binding="{Binding UserState.IsObscureStream}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.KStudioService.AreAllStreamsVisibleForRecording}" Value="True" />
+                                <Condition Binding="{Binding UserState.IsObscureStream}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.KStudioService.Settings.AdvancedModeObscureStreams}" Value="True" />
+                                <Condition Binding="{Binding UserState.IsVisibleForTargetRecording}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.KStudioService.Settings.AdvancedModeObscureStreams}" Value="True" />
+                                <Condition Binding="{Binding UserState.KStudioService.AreAllStreamsVisibleForRecording}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+    </Grid>
+</UserControl>

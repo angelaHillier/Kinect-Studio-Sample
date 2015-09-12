@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{985AC7BA-FBDA-42C5-985A-D1955F7D476B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StandardKinectStudioPlugin</RootNamespace>
+    <AssemblyName>StandardKinectStudioPlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="KinectManaged">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KinectManaged.dll</HintPath>
+    </Reference>
+    <Reference Include="KinectViz">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KinectViz.dll</HintPath>
+    </Reference>
+    <Reference Include="KSRenderCore">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KSRenderCore.dll</HintPath>
+    </Reference>
+    <Reference Include="KSSManaged">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KSSManaged.dll</HintPath>
+    </Reference>
+    <Reference Include="KStudioBridge">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\KStudioBridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Kinect.Tools, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Redist\KinectTools\x64\Microsoft.Kinect.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="RawIRCodecManaged">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\RawIRCodecManaged.dll</HintPath>
+    </Reference>
+    <Reference Include="RawIR_K4W">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\RawIR_K4W.dll</HintPath>
+    </Reference>
+    <Reference Include="RenderControlLibrary">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft SDKs\Kinect\v2.0_1409\Tools\KinectStudio\RenderControlLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessoryPlugin.cs" />
+    <Compile Include="AccessoryPlugin3DViewSettings.cs" />
+    <Compile Include="AudioPlugin.cs" />
+    <Compile Include="AudioPlugin2DViewSettings.cs" />
+    <Compile Include="AudioPlugin3DViewSettings.cs" />
+    <Compile Include="AudioPluginViewSettings.cs" />
+    <Compile Include="AudioTrack.cs" />
+    <Compile Include="BodyIndexPlugin.cs" />
+    <Compile Include="BodyIndexPlugin2DViewSettings.cs" />
+    <Compile Include="BodyIndexPlugin3DViewSettings.cs" />
+    <Compile Include="BodyIndexPluginViewSettings.cs" />
+    <Compile Include="BodyPlugin.cs" />
+    <Compile Include="BodyPlugin2DViewSettings.cs" />
+    <Compile Include="BodyPlugin3DViewSettings.cs" />
+    <Compile Include="BodyPluginViewSettings.cs" />
+    <Compile Include="ColorPlugin.cs" />
+    <Compile Include="ColorPlugin2DViewSettings.cs" />
+    <Compile Include="ColorPlugin3DViewSettings.cs" />
+    <Compile Include="ColorPluginViewSettings.cs" />
+    <Compile Include="DepthPlugin.cs" />
+    <Compile Include="DepthPlugin2DViewSettings.cs" />
+    <Compile Include="DepthPlugin3DViewSettings.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IrPlugin.cs" />
+    <Compile Include="IrPlugin2DViewSettings.cs" />
+    <Compile Include="IrPlugin3DViewSettings.cs" />
+    <Compile Include="IrPluginViewSettings.cs" />
+    <Compile Include="MetadataArrayViewerDialog.xaml.cs">
+      <DependentUpon>MetadataArrayViewerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="RawIrPlugin.cs" />
+    <Compile Include="RawIrPlugin2DViewSettings.cs" />
+    <Compile Include="RawIrPlugin3DViewSettings.cs" />
+    <Compile Include="Resources.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Resources.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TestPlugins.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MetadataArrayViewerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KinectStudioPlugin\KinectStudioPlugin.csproj">
+      <Project>{a9f33a61-6051-4619-b859-9747c34d7b93}</Project>
+      <Name>KinectStudioPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KinectStudioUtility\KinectStudioUtility.csproj">
+      <Project>{b3f7d9a1-48a5-4581-a45d-d9fc96b2e1d2}</Project>
+      <Name>KinectStudioUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Xbox.Tools.Shared\Microsoft.Xbox.Tools.Shared.csproj">
+      <Project>{afad4ccc-a149-4d5f-a61d-bf084614cbdd}</Project>
+      <Name>Microsoft.Xbox.Tools.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_Copyright" xml:space="preserve">
+    <value>© 2015 Microsoft Corporation.  All rights reserved.</value>
+  </data>
+  <data name="About_License" xml:space="preserve">
+    <value>This program is licensed.</value>
+  </data>
+  <data name="About_LicenseDetails" xml:space="preserve">
+    <value>This code and information is provided "as is" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability and/or fitness for a particular purpose.</value>
+  </data>
+  <data name="About_VersionFormat" xml:space="preserve">
+    <value>Version ({0})</value>
+    <comment>{0} = version</comment>
+  </data>
+  <data name="AddMetadata_Key_Prompt" xml:space="preserve">
+    <value>Key:</value>
+  </data>
+  <data name="AddMetadata_Title" xml:space="preserve">
+    <value>Add Metadata</value>
+  </data>
+  <data name="AddMetadata_ValueType_Prompt" xml:space="preserve">
+    <value>Value type:</value>
+  </data>
+  <data name="AddTimelinePausePoint_Title" xml:space="preserve">
+    <value>Add New Pause Point</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Kinect Studio (Sample)</value>
+  </data>
+  <data name="Arg_Error_InvalidFileName" xml:space="preserve">
+    <value>Invalid file name "{0}" specified.</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="Arg_Error_InvalidTarget" xml:space="preserve">
+    <value>Invalid target "{0}" specified.</value>
+    <comment>{0} = target</comment>
+  </data>
+  <data name="Arg_Error_NoTarget" xml:space="preserve">
+    <value>No default target and no target specified for "{0}".</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="BackgroundRequest_Canceled_Format" xml:space="preserve">
+    <value>{0} canceled, result = {1}</value>
+    <comment>{0} = process, {1} = result</comment>
+  </data>
+  <data name="BackgroundRequest_Failed_Format" xml:space="preserve">
+    <value>Failed in {0}</value>
+    <comment>{0} = process</comment>
+  </data>
+  <data name="BackgroundRequest_Failed_Format2" xml:space="preserve">
+    <value>{0} failed, result = {1}</value>
+    <comment>{0} = process, {1} = result</comment>
+  </data>
+  <data name="BackgroundRequest_InitializeFailed" xml:space="preserve">
+    <value>Failed to initialize Background Process Manager.</value>
+  </data>
+  <data name="BackgroundRequest_Succeeded_Format" xml:space="preserve">
+    <value>{0} completed, result = {1}</value>
+    <comment>{0} = process, {1} = result</comment>
+  </data>
+  <data name="BackgroundRequest_Waiting_Format" xml:space="preserve">
+    <value>Waiting for {0}...</value>
+    <comment>{0} = process</comment>
+  </data>
+  <data name="BackgroundRequest_Wait_Format" xml:space="preserve">
+    <value>Please wait for {0} to finish...</value>
+    <comment>{0} = process</comment>
+  </data>
+  <data name="BrowseNotOnCurrentTargetMessage_Text" xml:space="preserve">
+    <value>Do you want to connect to target "{0}"?</value>
+    <comment>{0} = target alias</comment>
+  </data>
+  <data name="BrowseNotOnCurrentTargetMessage_Title" xml:space="preserve">
+    <value>Browse Not on Connected Target</value>
+  </data>
+  <data name="BufferInUse_Label" xml:space="preserve">
+    <value>Buffer:</value>
+  </data>
+  <data name="BufferInUse_Percentage_Format" xml:space="preserve">
+    <value>Recording Buffer Use: {0}%</value>
+    <comment>{0} = number</comment>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>_Cancel</value>
+  </data>
+  <data name="Button_Ok" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="ConfirmPausePointRemoveAll_Text" xml:space="preserve">
+    <value>Do you want to delete all pause points?</value>
+  </data>
+  <data name="ConnectionState_Connected" xml:space="preserve">
+    <value>Connected to target:</value>
+  </data>
+  <data name="ConnectionState_Connected_SingleBox" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="ConnectionState_NotConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="ConnectionView_Title" xml:space="preserve">
+    <value>Connection</value>
+  </data>
+  <data name="Connect_Error_CantConnect_Format" xml:space="preserve">
+    <value>Cannot connect to target at "{0}".
+Check the connection access, and try again.</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="Connect_Error_CantConnect_SingleBox" xml:space="preserve">
+    <value>Cannot connect to the Kinect Studio Host Service.
+Check the service status, and try again.</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="CopyFile_Canceled_Format" xml:space="preserve">
+    <value>Canceled while copying file {0} to {1}</value>
+    <comment>{0} = source file, {1} = destination file</comment>
+  </data>
+  <data name="CopyFile_Error_Format" xml:space="preserve">
+    <value>Error while copying file {0} to {1} with error code {2}</value>
+    <comment>{0} = source file, {1} = destination file, {2} = error code</comment>
+  </data>
+  <data name="CopyFile_Log_Format" xml:space="preserve">
+    <value>Copying file {0} to {1}</value>
+    <comment>{0} = source file, {1} = destination file</comment>
+  </data>
+  <data name="CopyFile_Success_Format" xml:space="preserve">
+    <value>Copied file {0} to {1}</value>
+    <comment>{0} = source file, {1} = destination file</comment>
+  </data>
+  <data name="EditBufferSize_Prompt" xml:space="preserve">
+    <value>Size (MB)</value>
+  </data>
+  <data name="EditBufferSize_Title" xml:space="preserve">
+    <value>Edit Recording Buffer Size</value>
+  </data>
+  <data name="EditLayouts_Button_ToolTip" xml:space="preserve">
+    <value>Edit Layouts</value>
+  </data>
+  <data name="EditString_Error_MaxLength" xml:space="preserve">
+    <value>maximum length is {0} characters</value>
+    <comment>{0} = length</comment>
+  </data>
+  <data name="EditTimelinePausePoint_Title" xml:space="preserve">
+    <value>Edit Pause Point</value>
+  </data>
+  <data name="EditTimeMarker_Title" xml:space="preserve">
+    <value>Edit Marker</value>
+  </data>
+  <data name="EditTimeSpan_Error_OutOfRange" xml:space="preserve">
+    <value>time needs to be between {0} and {1} seconds</value>
+    <comment>{0} = min seconds, {1} = max seconds</comment>
+  </data>
+  <data name="EditTimeSpan_Prompt" xml:space="preserve">
+    <value>Time (hh:mm:ss.sssssss)</value>
+  </data>
+  <data name="EditUInt32_Error_OutOfRange" xml:space="preserve">
+    <value>value needs to be between {0} and {1}</value>
+    <comment>{0} = min value, {1} = max value</comment>
+  </data>
+  <data name="EditUInt32_Prompt" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="EditValue_Error_ValueMissing" xml:space="preserve">
+    <value>value needs to be supplied</value>
+  </data>
+  <data name="ErrorNoMetadataView_Text" xml:space="preserve">
+    <value>You do not have any metadata views in your layout; please go to File-&gt;View and add one if you wish to see metadata.</value>
+  </data>
+  <data name="ErrorNoMetadataView_Title" xml:space="preserve">
+    <value>No Metadata Views</value>
+  </data>
+  <data name="ExportFiles_BrowseDestinationFolder_Button" xml:space="preserve">
+    <value>Select local destination _folder...</value>
+  </data>
+  <data name="ExportFiles_BrowseDestinationFolder_Prompt" xml:space="preserve">
+    <value>Select local destination folder</value>
+  </data>
+  <data name="ExportFiles_BrowseSourceFile_Button" xml:space="preserve">
+    <value>_Browse for Target file...</value>
+  </data>
+  <data name="ExportFiles_DestinationFolder_Prompt" xml:space="preserve">
+    <value>Path to local destination folder</value>
+  </data>
+  <data name="ExportFiles_RemoveSourceFile_Prompt" xml:space="preserve">
+    <value>Remove file from list to import</value>
+  </data>
+  <data name="ExportFiles_SourceFiles_Prompt" xml:space="preserve">
+    <value>Files to import from Target</value>
+  </data>
+  <data name="ExportFiles_Start_Button" xml:space="preserve">
+    <value>_Start import</value>
+  </data>
+  <data name="ExportFiles_Title" xml:space="preserve">
+    <value>Import Files from Target</value>
+  </data>
+  <data name="ExportFile_FileIsOpenForEdit_Error" xml:space="preserve">
+    <value>This file cannot be currently exported because it is opened for edit. Please close the file and re-open it with the "read only" box checked.</value>
+  </data>
+  <data name="FileMenu_About_MenuItem" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="FileMenu_About_Shortcut" xml:space="preserve">
+    <value>B:File</value>
+  </data>
+  <data name="FileMenu_Browse_Button" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="FileMenu_Close_MenuItem" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="FileMenu_Close_Shortcut" xml:space="preserve">
+    <value>C:File</value>
+  </data>
+  <data name="FileMenu_Exit_MenuItem" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="FileMenu_Exit_Shortcut" xml:space="preserve">
+    <value>X:File</value>
+  </data>
+  <data name="FileMenu_OpenReadOnly_MenuItem" xml:space="preserve">
+    <value>Open (Read-only)</value>
+  </data>
+  <data name="FileMenu_OpenReadOnly_Shortcut" xml:space="preserve">
+    <value>O:File</value>
+  </data>
+  <data name="FileMenu_OpenWritable_MenuItem" xml:space="preserve">
+    <value>Open for Edit</value>
+  </data>
+  <data name="FileMenu_OpenWritable_Shortcut" xml:space="preserve">
+    <value>E:File</value>
+  </data>
+  <data name="FileMenu_SelectDevKit_MenuItem" xml:space="preserve">
+    <value>Select Target</value>
+  </data>
+  <data name="FileMenu_SelectDevKit_Shortcut" xml:space="preserve">
+    <value>K:File</value>
+  </data>
+  <data name="FileMenu_Settings_MenuItem" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="FileMenu_Settings_Shortcut" xml:space="preserve">
+    <value>E:File</value>
+  </data>
+  <data name="FileMenu_TargetConnect_MenuItem" xml:space="preserve">
+    <value>Connect to Target</value>
+  </data>
+  <data name="FileMenu_TargetConnect_Shortcut" xml:space="preserve">
+    <value>K:File</value>
+  </data>
+  <data name="FileMenu_TargetConnect_SingleBox_MenuItem" xml:space="preserve">
+    <value>Connect to Service</value>
+  </data>
+  <data name="FileMenu_TargetDisconnect_MenuItem" xml:space="preserve">
+    <value>Disconnect from Target</value>
+  </data>
+  <data name="FileMenu_TargetDisconnect_Shortcut" xml:space="preserve">
+    <value>K:File</value>
+  </data>
+  <data name="FileMenu_TargetDisconnect_SingleBox_MenuItem" xml:space="preserve">
+    <value>Disconnect from Service</value>
+  </data>
+  <data name="FileMenu_TargetExportMulti_MenuItem" xml:space="preserve">
+    <value>Import Files from Target</value>
+  </data>
+  <data name="FileMenu_TargetExport_MenuItem" xml:space="preserve">
+    <value>Import File from Target</value>
+  </data>
+  <data name="FileMenu_TargetExport_Shortcut" xml:space="preserve">
+    <value>I:File</value>
+  </data>
+  <data name="FileMenu_TargetImportMulti_MenuItem" xml:space="preserve">
+    <value>Export Files to Target</value>
+  </data>
+  <data name="FileMenu_TargetImport_MenuItem" xml:space="preserve">
+    <value>Export File to Target</value>
+  </data>
+  <data name="FileMenu_TargetImport_Shortcut" xml:space="preserve">
+    <value>E:File</value>
+  </data>
+  <data name="FileMenu_Theme_MenuItem" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="FileMenu_Theme_Shortcut" xml:space="preserve">
+    <value>T:File</value>
+  </data>
+  <data name="FileMenu_View_MenuItem" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="FileMenu_View_Shortcut" xml:space="preserve">
+    <value>V:File</value>
+  </data>
+  <data name="FileMetadata_Button_ToolTip" xml:space="preserve">
+    <value>File metadata</value>
+  </data>
+  <data name="FileNotOnCurrentTargetMessage_Text" xml:space="preserve">
+    <value>Do you want to connect to target "{0}"?</value>
+    <comment>{0} = target alias</comment>
+  </data>
+  <data name="FileNotOnCurrentTargetMessage_Title" xml:space="preserve">
+    <value>File Not on Connected Target</value>
+  </data>
+  <data name="FileOpenSave_Confirm_Overwrite_Format" xml:space="preserve">
+    <value>{0} already exists.
+Do you want to replace it?</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="FileOpenSave_Date_Header" xml:space="preserve">
+    <value>Date modified</value>
+  </data>
+  <data name="FileOpenSave_Drive_Format" xml:space="preserve">
+    <value>DRIVE ({0})</value>
+    <comment>{0} = drive letter</comment>
+  </data>
+  <data name="FileOpenSave_Error_InvalidFileName_Format" xml:space="preserve">
+    <value>{0}
+The file name is not valid.</value>
+    <comment>{0}  = filename</comment>
+  </data>
+  <data name="FileOpenSave_FileSpec_AllFiles" xml:space="preserve">
+    <value>All Files ({0})</value>
+    <comment>{0} = filespec (*.*)</comment>
+  </data>
+  <data name="FileOpenSave_FileSpec_AllOptions" xml:space="preserve">
+    <value>Event files (*.xef)|*.xef|Raw files (*.xrf)|*.xrf|All files (*.*)|*.*</value>
+  </data>
+  <data name="FileOpenSave_FileSpec_XefFiles" xml:space="preserve">
+    <value>Event Files ({0})</value>
+    <comment>{0} = filespec (*.xef)</comment>
+  </data>
+  <data name="FileOpenSave_FileSpec_XrfFiles" xml:space="preserve">
+    <value>Raw Files ({0})</value>
+    <comment>{0} = filespec (*.xrf)</comment>
+  </data>
+  <data name="FileOpenSave_GoUpDir_Format" xml:space="preserve">
+    <value>Up to "{0}" (Alt +UpArrow)</value>
+    <comment>{0} = directory name</comment>
+  </data>
+  <data name="FileOpenSave_GoUp_ToolTip" xml:space="preserve">
+    <value>Up one level (Alt +Up Arrow)</value>
+  </data>
+  <data name="FileOpenSave_GoUp_ToolTip_Format" xml:space="preserve">
+    <value>Up to "{0}" (Alt +Up Arrow)</value>
+    <comment>{0} = directory name</comment>
+  </data>
+  <data name="FileOpenSave_Name_Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FileOpenSave_OpenFolder_Button" xml:space="preserve">
+    <value>_Open</value>
+  </data>
+  <data name="FileOpenSave_Refresh_ToolTip_Format" xml:space="preserve">
+    <value>Refresh "{0}" (F5)</value>
+    <comment>{0} = directory name</comment>
+  </data>
+  <data name="FileOpenSave_Root" xml:space="preserve">
+    <value>ROOT</value>
+  </data>
+  <data name="FileOpenSave_SelectFolder_Button" xml:space="preserve">
+    <value>_Select current folder</value>
+  </data>
+  <data name="FileOpenSave_Size_Format" xml:space="preserve">
+    <value>{0:#,0} KB</value>
+    <comment>{0} = kilobytes</comment>
+  </data>
+  <data name="FileOpenSave_Size_Header" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="FileOpen_Error_CantCreate" xml:space="preserve">
+    <value>Cannot create a file.
+Check that you have access to the Recording File Path (under Settings), and try again.</value>
+  </data>
+  <data name="FileOpen_Error_CantCreate_Format" xml:space="preserve">
+    <value>Cannot create file "{0}".
+Check that you have access to the Recording File Path (under Settings), and try again.</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="FileOpen_Error_CantOpenForEdit_Format" xml:space="preserve">
+    <value>Cannot open file "{0}" for edit; trying to open as read only.</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="FileOpen_Error_CantOpen_Format" xml:space="preserve">
+    <value>Cannot open file "{0}".
+Check the file name and access, and try again.</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="FileOpen_Ok_Button" xml:space="preserve">
+    <value>_Open</value>
+  </data>
+  <data name="FileOpen_ReadOnly_CheckBox" xml:space="preserve">
+    <value>As read only</value>
+  </data>
+  <data name="FileSave_FileSpec_XefOptions" xml:space="preserve">
+    <value>Event files (*.xef)|*.xef|All files (*.*)|*.*</value>
+  </data>
+  <data name="FileSave_FileSpec_XrfOptions" xml:space="preserve">
+    <value>Raw files (*.xrf)|*.xrf|All files (*.*)|*.*</value>
+  </data>
+  <data name="FileSave_Ok_Button" xml:space="preserve">
+    <value>_Save</value>
+  </data>
+  <data name="Image2DPropertyView_Title" xml:space="preserve">
+    <value>2D Properties</value>
+  </data>
+  <data name="ImportExportFiles_Info_Text" xml:space="preserve">
+    <value>All files to be transferred must not be opened for write in this tool or any other tool or title.</value>
+  </data>
+  <data name="ImportExportFiles_Log_Prompt" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="ImportFiles_BrowseDestinationFolder_Button" xml:space="preserve">
+    <value>Select Target destination _folder...</value>
+  </data>
+  <data name="ImportFiles_BrowseDestinationFolder_Prompt" xml:space="preserve">
+    <value>Select Target destination folder</value>
+  </data>
+  <data name="ImportFiles_BrowseSourceFile_Button" xml:space="preserve">
+    <value>_Browse for local file...</value>
+  </data>
+  <data name="ImportFiles_DestinationFolder_Prompt" xml:space="preserve">
+    <value>Path to Target destination folder</value>
+  </data>
+  <data name="ImportFiles_RemoveSourceFile_Prompt" xml:space="preserve">
+    <value>Remove file from list to export</value>
+  </data>
+  <data name="ImportFiles_SourceFiles_Prompt" xml:space="preserve">
+    <value>Files to export to Target</value>
+  </data>
+  <data name="ImportFiles_Start_Button" xml:space="preserve">
+    <value>_Start export</value>
+  </data>
+  <data name="ImportFiles_Title" xml:space="preserve">
+    <value>Export Files to Target</value>
+  </data>
+  <data name="ImportFile_FileIsOpenForEdit_Error" xml:space="preserve">
+    <value>This file cannot be currently imported because it is opened for edit. Please close the file and re-open it with the "read only" box checked.</value>
+  </data>
+  <data name="InOutPointsMenu_SetInOutPoints_MenuItem" xml:space="preserve">
+    <value>_Set in/out points to selection range</value>
+  </data>
+  <data name="InOutPointsMenu_SetInPoint_MenuItem" xml:space="preserve">
+    <value>Set _in point</value>
+  </data>
+  <data name="InOutPointsMenu_SetOutPoint_MenuItem" xml:space="preserve">
+    <value>Set _out point</value>
+  </data>
+  <data name="LayoutView_Name_Format" xml:space="preserve">
+    <value>{0}: {1}</value>
+    <comment>{0} = layout name, {1} = view name</comment>
+  </data>
+  <data name="LocalDevelopmentComputer_Label" xml:space="preserve">
+    <value>Open for Inspection</value>
+  </data>
+  <data name="LocalDevelopmentComputer_Shortcut" xml:space="preserve">
+    <value>C:File|Open</value>
+  </data>
+  <data name="LoopMenu_SetLoopCount_MenuItem" xml:space="preserve">
+    <value>Set loop _count...</value>
+  </data>
+  <data name="LoopMenu_SetLoopCurrentIteration_MenuItem" xml:space="preserve">
+    <value>Set current loop _iteration...</value>
+  </data>
+  <data name="MarkerMetadata_TitleFormat" xml:space="preserve">
+    <value>Marker: {0}</value>
+    <comment>{0} = marker name</comment>
+  </data>
+  <data name="MetadataKey_Error_Blank" xml:space="preserve">
+    <value>key cannot be blank</value>
+  </data>
+  <data name="MetadataKey_Error_Duplicate" xml:space="preserve">
+    <value>key already present in metadata</value>
+  </data>
+  <data name="MetadataTitle_Separator" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="MetadataValueType_Boolean" xml:space="preserve">
+    <value>Boolean</value>
+  </data>
+  <data name="MetadataValueType_BooleanArray" xml:space="preserve">
+    <value>Boolean array</value>
+  </data>
+  <data name="MetadataValueType_Byte" xml:space="preserve">
+    <value>Byte (8-bit unsigned integer)</value>
+  </data>
+  <data name="MetadataValueType_ByteArray" xml:space="preserve">
+    <value>Byte (8-bit unsigned integer) array</value>
+  </data>
+  <data name="MetadataValueType_Char" xml:space="preserve">
+    <value>Char (16-bit character)</value>
+  </data>
+  <data name="MetadataValueType_CharArray" xml:space="preserve">
+    <value>Char (16-bit character) array</value>
+  </data>
+  <data name="MetadataValueType_DateTime" xml:space="preserve">
+    <value>DateTime (UTC FileTime)</value>
+  </data>
+  <data name="MetadataValueType_DateTimeArray" xml:space="preserve">
+    <value>DateTime array</value>
+  </data>
+  <data name="MetadataValueType_Double" xml:space="preserve">
+    <value>Double (16-bit floating point)</value>
+  </data>
+  <data name="MetadataValueType_DoubleArray" xml:space="preserve">
+    <value>Double (16-bit floating point) array</value>
+  </data>
+  <data name="MetadataValueType_Guid" xml:space="preserve">
+    <value>Guid (Globally Unique Identifier)</value>
+  </data>
+  <data name="MetadataValueType_GuidArray" xml:space="preserve">
+    <value>Guid array</value>
+  </data>
+  <data name="MetadataValueType_Int16" xml:space="preserve">
+    <value>Short (16-bit signed integer)</value>
+  </data>
+  <data name="MetadataValueType_Int16Array" xml:space="preserve">
+    <value>Short (16-bit signed integer) array</value>
+  </data>
+  <data name="MetadataValueType_Int32" xml:space="preserve">
+    <value>Int (32-bit signed integer)</value>
+  </data>
+  <data name="MetadataValueType_Int32Array" xml:space="preserve">
+    <value>Int (32-bit signed integer) array</value>
+  </data>
+  <data name="MetadataValueType_Int64" xml:space="preserve">
+    <value>Long (64-bit signed integer)</value>
+  </data>
+  <data name="MetadataValueType_Int64Array" xml:space="preserve">
+    <value>Long (64-bit signed integer) array</value>
+  </data>
+  <data name="MetadataValueType_KStudioMetadataValueBuffer" xml:space="preserve">
+    <value>Buffer (blob data)</value>
+  </data>
+  <data name="MetadataValueType_Point" xml:space="preserve">
+    <value>Point (Point)</value>
+  </data>
+  <data name="MetadataValueType_PointArray" xml:space="preserve">
+    <value>Point array</value>
+  </data>
+  <data name="MetadataValueType_Rect" xml:space="preserve">
+    <value>Rectangle (Double, Double, Double, Double)</value>
+  </data>
+  <data name="MetadataValueType_RectArray" xml:space="preserve">
+    <value>Rectangle array</value>
+  </data>
+  <data name="MetadataValueType_Single" xml:space="preserve">
+    <value>Single (8-bit floating point)</value>
+  </data>
+  <data name="MetadataValueType_SingleArray" xml:space="preserve">
+    <value>Single (8-bit floating point) array</value>
+  </data>
+  <data name="MetadataValueType_Size" xml:space="preserve">
+    <value>Size (Double, Double)</value>
+  </data>
+  <data name="MetadataValueType_SizeArray" xml:space="preserve">
+    <value>Size array</value>
+  </data>
+  <data name="MetadataValueType_String" xml:space="preserve">
+    <value>Text (String)</value>
+  </data>
+  <data name="MetadataValueType_StringArray" xml:space="preserve">
+    <value>Text (String) array</value>
+  </data>
+  <data name="MetadataValueType_TimeSpan" xml:space="preserve">
+    <value>TimeSpan (Longlong Ticks)</value>
+  </data>
+  <data name="MetadataValueType_TimeSpanArray" xml:space="preserve">
+    <value>TimeSpan array</value>
+  </data>
+  <data name="MetadataValueType_UInt16" xml:space="preserve">
+    <value>UShort (16-bit unsigned integer)</value>
+  </data>
+  <data name="MetadataValueType_UInt16Array" xml:space="preserve">
+    <value>UShort (16-bit unsigned integer) array</value>
+  </data>
+  <data name="MetadataValueType_UInt32" xml:space="preserve">
+    <value>UInt (32-bit unsigned integer)</value>
+  </data>
+  <data name="MetadataValueType_UInt32Array" xml:space="preserve">
+    <value>UInt (32-bit unsigned integer) array</value>
+  </data>
+  <data name="MetadataValueType_UInt64" xml:space="preserve">
+    <value>ULong 64-bit unsigned integer)</value>
+  </data>
+  <data name="MetadataValueType_UInt64Array" xml:space="preserve">
+    <value>ULong (64-bit unsigned integer) array</value>
+  </data>
+  <data name="MetadataView_Title" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  <data name="MetadataView_Title_Format" xml:space="preserve">
+    <value>Metadata {0}</value>
+  </data>
+  <data name="Metadata_Add_Button_ToolTip" xml:space="preserve">
+    <value>Add new metadata</value>
+  </data>
+  <data name="Metadata_DefaultNewKey" xml:space="preserve">
+    <value>New Key</value>
+  </data>
+  <data name="Metadata_DefaultNewKey_Format" xml:space="preserve">
+    <value>New Key ({0})</value>
+  </data>
+  <data name="Metadata_Delete_Button_ToolTip" xml:space="preserve">
+    <value>Delete metadata</value>
+  </data>
+  <data name="Metadata_Key_Header" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="Metadata_NotSelected" xml:space="preserve">
+    <value>&lt;None selected&gt;</value>
+  </data>
+  <data name="Metadata_Personal_Title" xml:space="preserve">
+    <value>Personally Identifiable Information</value>
+  </data>
+  <data name="Metadata_Public_Title" xml:space="preserve">
+    <value>Public information</value>
+  </data>
+  <data name="Metadata_Value_Header" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="MonitorImage2DView_Title" xml:space="preserve">
+    <value>Monitor 2D View</value>
+  </data>
+  <data name="MonitorImage3DView_Title" xml:space="preserve">
+    <value>Monitor 3D View</value>
+  </data>
+  <data name="MonitorState_Default" xml:space="preserve">
+    <value>Not monitoring</value>
+  </data>
+  <data name="MonitorState_Monitoring" xml:space="preserve">
+    <value>Monitoring</value>
+  </data>
+  <data name="MonitorState_NotConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="MonitorView_Header_Format" xml:space="preserve">
+    <value>{0} Streams: ({1} visible, {2} hidden)</value>
+    <comment>{0} = total count, {1} = count of visible, {2} = count of hidden</comment>
+  </data>
+  <data name="MonitorView_TimeLabel" xml:space="preserve">
+    <value>Time:</value>
+  </data>
+  <data name="MonitorView_Time_Format" xml:space="preserve">
+    <value>Time: {0}</value>
+    <comment>{0} = time</comment>
+  </data>
+  <data name="MonitorView_Title" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="MonitorView_ToolTip_Format" xml:space="preserve">
+    <value>{0} hidden advanced (see Settings to turn on Advanced mode)</value>
+    <comment>{0} = count of hidden advanced</comment>
+  </data>
+  <data name="Monitor_Error_CantMonitor" xml:space="preserve">
+    <value>Cannot monitor.
+Check the connection access, and try again.</value>
+  </data>
+  <data name="NewWindow_Button_ToolTip" xml:space="preserve">
+    <value>New Window</value>
+  </data>
+  <data name="PausePointMenu_AddTimelinePausePoint_MenuItem" xml:space="preserve">
+    <value>_Add new pause point...</value>
+  </data>
+  <data name="PausePointMenu_DeleteAll_MenuItem" xml:space="preserve">
+    <value>D_elete all pause points</value>
+  </data>
+  <data name="PausePointMenu_DisableAll_MenuItem" xml:space="preserve">
+    <value>_Disable all pause points</value>
+  </data>
+  <data name="PausePointMenu_EnableAll_MenuItem" xml:space="preserve">
+    <value>Enab_le all pause points</value>
+  </data>
+  <data name="PlaybackImage2DView_Title" xml:space="preserve">
+    <value>Playback 2D View</value>
+  </data>
+  <data name="PlaybackImage3DView_Title" xml:space="preserve">
+    <value>Playback 3D View</value>
+  </data>
+  <data name="PlaybackMenu_InOutPoints_Menu" xml:space="preserve">
+    <value>_In/out points</value>
+  </data>
+  <data name="PlaybackMenu_Loop_Menu" xml:space="preserve">
+    <value>_Looping</value>
+  </data>
+  <data name="PlaybackMenu_PausePoints_Menu" xml:space="preserve">
+    <value>_Pause points</value>
+  </data>
+  <data name="PlaybackMetadata_Title" xml:space="preserve">
+    <value>Playback metadata</value>
+  </data>
+  <data name="PlaybackState_Default" xml:space="preserve">
+    <value>Not playing</value>
+  </data>
+  <data name="PlaybackState_NotConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="PlaybackState_Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="PlaybackState_Playing" xml:space="preserve">
+    <value>Playing</value>
+  </data>
+  <data name="PlaybackView_ExpandStreams_CheckBox" xml:space="preserve">
+    <value>_Expand stream info</value>
+  </data>
+  <data name="PlaybackView_Header_Format" xml:space="preserve">
+    <value>{0} Streams: 
+({1} visible, {2} hidden)</value>
+    <comment>{0} = total count, {1} = count of visible, {2} = count of hidden</comment>
+  </data>
+  <data name="PlaybackView_LiveStream_ToolTip" xml:space="preserve">
+    <value>Target stream</value>
+  </data>
+  <data name="PlaybackView_No_Selection" xml:space="preserve">
+    <value>&lt;no selection&gt;</value>
+  </data>
+  <data name="PlaybackView_ReadOnlyFile" xml:space="preserve">
+    <value>[Read-Only]</value>
+  </data>
+  <data name="PlaybackView_TimeLabel" xml:space="preserve">
+    <value>Current Time:</value>
+  </data>
+  <data name="PlaybackView_Title" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="PlaybackView_ToolTip_Format" xml:space="preserve">
+    <value>{0} hidden advanced (see Settings to turn on Advanced mode)</value>
+    <comment>{0} = count of hidden advanced</comment>
+  </data>
+  <data name="RecordingMetadata_Title" xml:space="preserve">
+    <value>Recording metadata</value>
+  </data>
+  <data name="RecordingState_Default" xml:space="preserve">
+    <value>Not recording</value>
+  </data>
+  <data name="RecordingState_Done" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="RecordingState_NotConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="RecordingState_Recording" xml:space="preserve">
+    <value>Recording</value>
+  </data>
+  <data name="RecordView_Header_Format" xml:space="preserve">
+    <value>{0} Streams: ({1} visible, {2} hidden)</value>
+    <comment>{0} = total count, {1} = count of visible, {2} = count of hidden</comment>
+  </data>
+  <data name="RecordView_Size_Format" xml:space="preserve">
+    <value>Size: {0} bytes</value>
+    <comment>{0} = size</comment>
+  </data>
+  <data name="RecordView_Time_Format" xml:space="preserve">
+    <value>Time: {0}</value>
+    <comment>{0} = time</comment>
+  </data>
+  <data name="RecordView_Title" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="RecordView_ToolTip_Format" xml:space="preserve">
+    <value>{0} hidden advanced (see Settings to turn on Advanced mode)</value>
+    <comment>{0} = count of hidden advanced</comment>
+  </data>
+  <data name="SetLoopCount_Title" xml:space="preserve">
+    <value>Set Loop Count</value>
+  </data>
+  <data name="SetLoopCurrentIteration_Title" xml:space="preserve">
+    <value>Set Loop Current Iteration</value>
+  </data>
+  <data name="SetTimelineInPoint_Title" xml:space="preserve">
+    <value>Set In Point</value>
+  </data>
+  <data name="SetTimelineOutPoint_Title" xml:space="preserve">
+    <value>Set Out Point</value>
+  </data>
+  <data name="Settings_AdvancedModeObscureStreams_Button" xml:space="preserve">
+    <value>Advanced stream display</value>
+  </data>
+  <data name="Settings_Advanced_Group" xml:space="preserve">
+    <value>Advanced Settings</value>
+  </data>
+  <data name="Settings_AutoConnect_Button" xml:space="preserve">
+    <value>Automatically connect on startup</value>
+  </data>
+  <data name="Settings_AutoMonitorOnTargetPlayback_Button" xml:space="preserve">
+    <value>Automatically start monitoring when playing back</value>
+  </data>
+  <data name="Settings_AutoMonitor_Button" xml:space="preserve">
+    <value>Automatically start monitoring when connected</value>
+  </data>
+  <data name="Settings_AutoPlayback_Button" xml:space="preserve">
+    <value>Automatically open for playback after recording is done</value>
+  </data>
+  <data name="Settings_AutoStopMonitorOnRecord_Button" xml:space="preserve">
+    <value>Automatically stop monitoring when recording</value>
+  </data>
+  <data name="Settings_BufferSize_Explanation" xml:space="preserve">
+    <value>The recording buffer is a memory cache. When disk I/O is fast, the buffer absorbs performance variation, and a small buffer may suffice. When disk I/O is limited, the buffer holds data as the I/O attempts to keep up with the incoming data. Once the buffer fills, incoming data is discarded. By extending the size of the buffer you can extend the available recording time before data is discarded. Doing so reduces the available memory for other running applications which may impact their performance.</value>
+  </data>
+  <data name="Settings_BufferSize_Format" xml:space="preserve">
+    <value>Recording Buffer Size: {0:#,0} MB</value>
+    <comment>{0} = number</comment>
+  </data>
+  <data name="Settings_Default_BufferSize_Button" xml:space="preserve">
+    <value>Set _default buffer size</value>
+  </data>
+  <data name="Settings_Edit_BufferSize_Button" xml:space="preserve">
+    <value>_Edit buffer size</value>
+  </data>
+  <data name="Settings_MetadataOverrides_Button" xml:space="preserve">
+    <value>Edit plugin metadata overrides</value>
+  </data>
+  <data name="Settings_PhysicalMemory_Format" xml:space="preserve">
+    <value>Machine Physical Memory Size: {0:#,0.0} MB</value>
+    <comment>{0} = number</comment>
+  </data>
+  <data name="Settings_RecordingBuffering_Group" xml:space="preserve">
+    <value>Recording Buffering</value>
+  </data>
+  <data name="Settings_RecordingFilePath_Group" xml:space="preserve">
+    <value>Recording File Path</value>
+  </data>
+  <data name="Settings_Standard_Group" xml:space="preserve">
+    <value>Standard Settings</value>
+  </data>
+  <data name="SingleBoxReadOnlyDevelopmentComputer_Label" xml:space="preserve">
+    <value>Open for Read-only</value>
+  </data>
+  <data name="SingleBoxReadOnlyDevelopmentComputer_Shortcut" xml:space="preserve">
+    <value>C:File|Open</value>
+  </data>
+  <data name="SingleBoxWritableDevelopmentComputer_Label" xml:space="preserve">
+    <value>Open for Edit</value>
+  </data>
+  <data name="SingleBoxWritableDevelopmentComputer_Shortcut" xml:space="preserve">
+    <value>C:File|Open</value>
+  </data>
+  <data name="SpinControl_Down_Button_ToolTip" xml:space="preserve">
+    <value>Decrease value</value>
+  </data>
+  <data name="SpinControl_Up_Button_ToolTip" xml:space="preserve">
+    <value>Increase value</value>
+  </data>
+  <data name="StreamMetadata_Button_ToolTip" xml:space="preserve">
+    <value>Stream metadata</value>
+  </data>
+  <data name="StreamRequirement_All_Format" xml:space="preserve">
+    <value>Requires one of:
+{0}</value>
+    <comment>{0} = stream list</comment>
+  </data>
+  <data name="StreamRequirement_None_Format" xml:space="preserve">
+    <value>Cannot be used with any of:
+{0}</value>
+    <comment>{0} = stream list</comment>
+  </data>
+  <data name="StreamRequirement_Or_Format" xml:space="preserve">
+    <value>Must have at least one of:
+{0}</value>
+    <comment>{0} = stream list</comment>
+  </data>
+  <data name="StreamRequirement_Unavailable_Identifier_Format" xml:space="preserve">
+    <value>  - Unavailable stream identifier {0}:{1}</value>
+    <comment>{0} = stream data id, {1} = stream semantic id</comment>
+  </data>
+  <data name="StreamRequirement_Unavailable_Name_Format" xml:space="preserve">
+    <value>  - {0}</value>
+    <comment>{0} = stream name</comment>
+  </data>
+  <data name="StreamRequirement_Unavailable_Type_Format" xml:space="preserve">
+    <value>  - Unavailable stream with data type id {0}</value>
+    <comment>{0} = stream data id</comment>
+  </data>
+  <data name="StreamRequirement_Xor_Format" xml:space="preserve">
+    <value>Must have at exactly one of:
+{0}</value>
+    <comment>{0} = stream list</comment>
+  </data>
+  <data name="StreamSelect_Checked_ToolTip" xml:space="preserve">
+    <value>Stream selected</value>
+  </data>
+  <data name="StreamSelect_Unchecked_ToolTip" xml:space="preserve">
+    <value>Stream not selected</value>
+  </data>
+  <data name="Stream_Hide_Button_ToolTip" xml:space="preserve">
+    <value>Click to hide this stream from the list of streams</value>
+  </data>
+  <data name="Stream_Show_Button_ToolTip" xml:space="preserve">
+    <value>Click to show this stream in the list of streams</value>
+  </data>
+  <data name="TargetAlias_Unknown" xml:space="preserve">
+    <value>Unknown {0}</value>
+  </data>
+  <data name="TargetDevice_Label" xml:space="preserve">
+    <value>Open for playback</value>
+  </data>
+  <data name="TargetDevice_Label_Format" xml:space="preserve">
+    <value>Open for playback on "{0}"</value>
+    <comment>{0} = target alias</comment>
+  </data>
+  <data name="TargetOpenFile_Title" xml:space="preserve">
+    <value>File Open from Target</value>
+  </data>
+  <data name="TargetSaveFile_Title" xml:space="preserve">
+    <value>File Save to Target</value>
+  </data>
+  <data name="TimelineEvent_EventName_Format" xml:space="preserve">
+    <value>Event Index: {0}</value>
+    <comment>{0} = event index</comment>
+  </data>
+  <data name="TimelineEvent_EventName_WithFrameFormat" xml:space="preserve">
+    <value>Event Index: {0}
+Frame: {1}</value>
+    <comment>{0} = event index, {1} = frame</comment>
+  </data>
+  <data name="TimelineEvent_EventToolTip_Format" xml:space="preserve">
+    <value>{2}
+Start: {0:g}
+Duration: {1:g}</value>
+    <comment>{0} = start time, {1} = duration, {2} = name</comment>
+  </data>
+  <data name="TimelineInPoint_ToolTip_Format" xml:space="preserve">
+    <value>In at {0:g}</value>
+    <comment>{0} = timespan</comment>
+  </data>
+  <data name="TimelineMarker_AddPausePoint_MenuItem" xml:space="preserve">
+    <value>Add _pause point</value>
+  </data>
+  <data name="TimelineMarker_Add_MenuItem" xml:space="preserve">
+    <value>_Add marker</value>
+  </data>
+  <data name="TimelineMarker_Add_Title" xml:space="preserve">
+    <value>Add Marker</value>
+  </data>
+  <data name="TimelineMarker_CouplePausePoint_MenuItem" xml:space="preserve">
+    <value>_Create coupled pause point</value>
+  </data>
+  <data name="TimelineMarker_EditName_MenuItem" xml:space="preserve">
+    <value>Edit _name</value>
+  </data>
+  <data name="TimelineMarker_EditTime_MenuItem" xml:space="preserve">
+    <value>Edit _time</value>
+  </data>
+  <data name="TimelineMarker_Metadata_MenuItem" xml:space="preserve">
+    <value>_Metadata</value>
+  </data>
+  <data name="TimelineMarker_Name_Prompt" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TimelineMarker_NewName" xml:space="preserve">
+    <value>New marker</value>
+  </data>
+  <data name="TimelineMarker_NewName_Format" xml:space="preserve">
+    <value>New marker {0}</value>
+    <comment>{0} = number</comment>
+  </data>
+  <data name="TimelineMarker_Remove_MenuItem" xml:space="preserve">
+    <value>D_elete marker</value>
+  </data>
+  <data name="TimelineMarker_SetInPoint_MenuItem" xml:space="preserve">
+    <value>Set _in point</value>
+  </data>
+  <data name="TimelineMarker_SetOutPoint_MenuItem" xml:space="preserve">
+    <value>Set _out point</value>
+  </data>
+  <data name="TimelineMarker_ToolTip_Format" xml:space="preserve">
+    <value>Marker: {1}
+at {0:g}</value>
+    <comment>{0} = timespan, {1} = name</comment>
+  </data>
+  <data name="TimelineOutPoint_ToolTip_Format" xml:space="preserve">
+    <value>Out at {0:g}</value>
+    <comment>{0} = timespan</comment>
+  </data>
+  <data name="TimelinePausePoint_Add_MenuItem" xml:space="preserve">
+    <value>_Add pause point</value>
+  </data>
+  <data name="TimelinePausePoint_Decouple_MenuItem" xml:space="preserve">
+    <value>_Decouple from marker</value>
+  </data>
+  <data name="TimelinePausePoint_Disable_MenuItem" xml:space="preserve">
+    <value>_Disable pause point</value>
+  </data>
+  <data name="TimelinePausePoint_Enable_MenuItem" xml:space="preserve">
+    <value>Enab_le pause point</value>
+  </data>
+  <data name="TimelinePausePoint_Remove_MenuItem" xml:space="preserve">
+    <value>D_elete pause point</value>
+  </data>
+  <data name="TimelinePausePoint_ToolTip_Format" xml:space="preserve">
+    <value>Pause at {0:g}</value>
+    <comment>{0} = timespan</comment>
+  </data>
+  <data name="TimelineTimePoint_Edit_MenuItem" xml:space="preserve">
+    <value>Edit _time</value>
+  </data>
+  <data name="Toolbar_CollapseAllStreams_Button_ToolTip" xml:space="preserve">
+    <value>Hide expanded info for streams</value>
+  </data>
+  <data name="Toolbar_ExpandAllStreams_Button_ToolTip" xml:space="preserve">
+    <value>Show expanded info for streams</value>
+  </data>
+  <data name="Toolbar_HideHiddenStreams_Button_ToolTip" xml:space="preserve">
+    <value>Hide ‘hidden’ streams</value>
+  </data>
+  <data name="Toolbar_Monitor_Start_Button_ToolTip" xml:space="preserve">
+    <value>Start monitoring</value>
+  </data>
+  <data name="Toolbar_Monitor_Stop_Button_ToolTip" xml:space="preserve">
+    <value>Stop monitoring</value>
+  </data>
+  <data name="Toolbar_Playback_Close_Button_ToolTip" xml:space="preserve">
+    <value>Close file</value>
+  </data>
+  <data name="Toolbar_Playback_DisableAllPausePoints_Button_ToolTip" xml:space="preserve">
+    <value>Disable all pause points</value>
+  </data>
+  <data name="Toolbar_Playback_EnableAllPausePoints_Button_ToolTip" xml:space="preserve">
+    <value>Enable all pause points</value>
+  </data>
+  <data name="Toolbar_Playback_LoopCount_Prompt" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="Toolbar_Playback_LoopIteration_Prompt" xml:space="preserve">
+    <value>Iteration</value>
+  </data>
+  <data name="Toolbar_Playback_Loop_Prompt" xml:space="preserve">
+    <value>Loop:</value>
+  </data>
+  <data name="Toolbar_Playback_Open_Button_ToolTip" xml:space="preserve">
+    <value>Open file</value>
+  </data>
+  <data name="Toolbar_Playback_Pause_Button_ToolTip" xml:space="preserve">
+    <value>Pause file</value>
+  </data>
+  <data name="Toolbar_Playback_Play_Button_ToolTip" xml:space="preserve">
+    <value>Play file</value>
+  </data>
+  <data name="Toolbar_Playback_RemoveAllPausePoints_Button_ToolTip" xml:space="preserve">
+    <value>Remove all pause points</value>
+  </data>
+  <data name="Toolbar_Playback_Step_Button_ToolTip" xml:space="preserve">
+    <value>Step file</value>
+  </data>
+  <data name="Toolbar_Playback_Stop_Button_ToolTip" xml:space="preserve">
+    <value>Stop file</value>
+  </data>
+  <data name="Toolbar_Record_Close_Button_ToolTip" xml:space="preserve">
+    <value>Close recorded file</value>
+  </data>
+  <data name="Toolbar_Record_Start_Button_ToolTip" xml:space="preserve">
+    <value>Start recording file</value>
+  </data>
+  <data name="Toolbar_Record_Stop_Button_ToolTip" xml:space="preserve">
+    <value>Stop recording file</value>
+  </data>
+  <data name="Toolbar_ShowHiddenStreams_Button_ToolTip" xml:space="preserve">
+    <value>Show ‘hidden’ streams</value>
+  </data>
+  <data name="Toolbar_TargetConnect_Button_SingleBox_ToolTip" xml:space="preserve">
+    <value>Connect to service</value>
+  </data>
+  <data name="Toolbar_TargetConnect_Button_ToolTip" xml:space="preserve">
+    <value>Connect to target</value>
+  </data>
+  <data name="Toolbar_TargetDisconnect_Button_SingleBox_ToolTip" xml:space="preserve">
+    <value>Disconnect from service</value>
+  </data>
+  <data name="Toolbar_TargetDisconnect_Button_ToolTip" xml:space="preserve">
+    <value>Disconnect from target</value>
+  </data>
+  <data name="Toolbar_UnselectAllStreams_Button_ToolTip" xml:space="preserve">
+    <value>Unselect all streams</value>
+  </data>
+  <data name="UnknownLayout" xml:space="preserve">
+    <value>&lt;Unknown&gt;</value>
+  </data>
+  <data name="UnknownViewTitle" xml:space="preserve">
+    <value>&lt;Unnamed&gt;</value>
+  </data>
+  <data name="UnselectMetadata_Button_ToolTip" xml:space="preserve">
+    <value>Remove metadata from view</value>
+  </data>
+  <data name="ViewMonitor_File" xml:space="preserve">
+    <value>FILE</value>
+  </data>
+  <data name="ViewMonitor_Live" xml:space="preserve">
+    <value>LIVE</value>
+  </data>
+  <data name="ViewMonitor_None" xml:space="preserve">
+    <value>NONE</value>
+  </data>
+  <data name="ViewPlayback_File" xml:space="preserve">
+    <value>FILE</value>
+  </data>
+  <data name="ViewPlayback_Live" xml:space="preserve">
+    <value>FILE</value>
+  </data>
+  <data name="ViewPlayback_None" xml:space="preserve">
+    <value>NONE</value>
+  </data>
+  <data name="WindowTitle_NoFile" xml:space="preserve">
+    <value>Kinect Studio (Sample)</value>
+  </data>
+  <data name="WindowTitle_ReadOnlyFileFormat" xml:space="preserve">
+    <value>{0} [Read-Only] - Kinect Studio (Sample)</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="WindowTitle_WritableFileFormat" xml:space="preserve">
+    <value>{0} - Kinect Studio (Sample)</value>
+    <comment>{0} = file name</comment>
+  </data>
+</root>

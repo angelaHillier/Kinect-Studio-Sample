@@ -1,0 +1,88 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<Window x:Class="KinectStudioApp.TargetFolderBrowserDialog"
+             AutomationProperties.AutomationId="TargetOpenSaveFileDialog" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:l="clr-namespace:KinectStudioApp"
+             xmlns:u="clr-namespace:KinectStudioUtility;assembly=KinectStudioUtility"
+             xmlns:mkt="clr-namespace:Microsoft.Kinect.Tools;assembly=Microsoft.Kinect.Tools"
+             mc:Ignorable="d" Width="400" Height="300" MinWidth="250" MinHeight="250"
+             WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <Image x:Key="RefreshImage" Source="\Images\Refresh.png" />
+        <Image x:Key="GoUpImage" Source="\Images\GoUp.png" />
+        <RoutedUICommand x:Key="RefreshCommand" />
+        <RoutedUICommand x:Key="GoUpCommand" />
+        <RoutedUICommand x:Key="OkCommand" />
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource RefreshCommand}" Executed="Refresh_Executed" />
+        <CommandBinding Command="{StaticResource GoUpCommand}" Executed="GoUp_Executed" CanExecute="GoUp_CanExecute" />
+        <CommandBinding Command="{StaticResource OkCommand}" Executed="Ok_Executed" CanExecute="Ok_CanExecute" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{StaticResource RefreshCommand}" />
+        <KeyBinding Modifiers="Alt" Key="Up" Command="{StaticResource GoUpCommand}" />
+    </Window.InputBindings>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button AutomationProperties.AutomationId="GoUp" Content="{StaticResource GoUpImage}" Command="{StaticResource GoUpCommand}" ToolTipService.ShowOnDisabled="True">
+                <Button.ToolTip>
+                    <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                        <Binding Source="{x:Static l:Strings.FileOpenSave_GoUp_ToolTip_Format}" />
+                        <Binding Path="ParentDirectory" />
+                        <Binding Source="{x:Static l:Strings.FileOpenSave_GoUp_ToolTip}" />
+                    </MultiBinding>
+                </Button.ToolTip>
+            </Button>
+
+            <TextBlock AutomationProperties.AutomationId="CurrentPath" Text="{Binding CurrentPath}" HorizontalAlignment="Stretch" Grid.Column="2" />
+            <Button AutomationProperties.AutomationId="Refresh" Content="{StaticResource RefreshImage}" Grid.Column="4" Command="{StaticResource RefreshCommand}">
+                <Button.ToolTip>
+                    <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                        <Binding Source="{x:Static l:Strings.FileOpenSave_Refresh_ToolTip_Format}" />
+                        <Binding Path="CurrentDirectory" />
+                    </MultiBinding>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+
+        <ListBox AutomationProperties.AutomationId="FolderList" ItemsSource="{Binding Items, NotifyOnTargetUpdated=True}" SelectedItem="{Binding SelectedItem}" Grid.Row="2" MouseDoubleClick="ListView_MouseDoubleClick" TargetUpdated="ListView_TargetUpdated" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="4">
+            <Button AutomationProperties.AutomationId="OK" IsDefault="True" Command="{StaticResource OkCommand}" Content="{x:Static l:Strings.FileOpenSave_SelectFolder_Button}" />
+            <Button AutomationProperties.AutomationId="Cancel" Content="{x:Static l:Strings.Button_Cancel}" IsCancel="True" Margin="10,0,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AFAD4CCC-A149-4D5F-A61D-BF084614CBDD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Xbox.Tools.Shared</RootNamespace>
+    <AssemblyName>Microsoft.Xbox.Tools.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="UIAutomationProvider" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivatableTabControl.cs" />
+    <Compile Include="ActivatableTabItem.cs" />
+    <Compile Include="BaseTheme.cs" />
+    <Compile Include="BladePanel.cs" />
+    <Compile Include="BladePage.cs" />
+    <Compile Include="BladeControl.cs" />
+    <Compile Include="ConfigButton.cs" />
+    <Compile Include="DocumentFactoryAttribute.cs" />
+    <Compile Include="DocumentIdentity.cs" />
+    <Compile Include="EventDataBar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventLane.cs" />
+    <Compile Include="FileTabControl.cs" />
+    <Compile Include="FileTabDefinition.cs" />
+    <Compile Include="FolderBrowser.cs" />
+    <Compile Include="GraphDataProvider.cs" />
+    <Compile Include="GraphGrid.cs" />
+    <Compile Include="EventColor.cs" />
+    <Compile Include="HitTextBlock.cs" />
+    <Compile Include="IActiveDocumentTracker.cs" />
+    <Compile Include="IDocumentFactory.cs" />
+    <Compile Include="IEventLaneDataSource.cs" />
+    <Compile Include="IgnoreSessionStateFieldAttribute.cs" />
+    <Compile Include="IViewBindingService.cs" />
+    <Compile Include="LayoutControl.cs" />
+    <Compile Include="LayoutDefinition.cs" />
+    <Compile Include="LayoutInstance.cs" />
+    <Compile Include="LayoutTabControl.cs" />
+    <Compile Include="LayoutTabPanel.cs" />
+    <Compile Include="OpenTabControl.cs" />
+    <Compile Include="QATItemsControl.cs" />
+    <Compile Include="RangedSlider.cs" />
+    <Compile Include="RecentDocumentService.cs" />
+    <Compile Include="ServiceBase.cs" />
+    <Compile Include="ServiceContainer.cs" />
+    <Compile Include="Shortcut.cs" />
+    <Compile Include="SlotContent.cs" />
+    <Compile Include="SwimlanePanel.cs" />
+    <Compile Include="Text\BufferedTextFormatProvider.cs" />
+    <Compile Include="Text\TextFormatInfo.cs" />
+    <Compile Include="Text\HighlightRange.cs" />
+    <Compile Include="Text\TextFormatter.cs" />
+    <Compile Include="Text\TextFormatProvider.cs" />
+    <Compile Include="Text\EndMarker.cs" />
+    <Compile Include="Text\TextBuffer.cs" />
+    <Compile Include="Text\TextChange.cs" />
+    <Compile Include="Text\TextCoordinate.cs" />
+    <Compile Include="Text\TextCoordinateSpan.cs" />
+    <Compile Include="Text\TextData.cs" />
+    <Compile Include="Text\TextDataChangedEventArgs.cs" />
+    <Compile Include="Text\TextEditor.cs" />
+    <Compile Include="Text\TextEditorAutomationPeer.cs" />
+    <Compile Include="Text\TextLine.cs" />
+    <Compile Include="Text\TextLocation.cs" />
+    <Compile Include="Text\TextPencil.cs" />
+    <Compile Include="Text\TextRange.cs" />
+    <Compile Include="Text\TrackingTextRange.cs" />
+    <Compile Include="Text\ITextUndoObserver.cs" />
+    <Compile Include="Text\TextUndoUnit.cs" />
+    <Compile Include="Theme.cs" />
+    <Compile Include="ThemeBindingExtension.cs" />
+    <Compile Include="ThemeEditorView.cs" />
+    <Compile Include="ThemePersistence.cs" />
+    <Compile Include="Timeline.cs" />
+    <Compile Include="TimelineSelectionVisual.cs" />
+    <Compile Include="ToolsUIApplication.cs" />
+    <Compile Include="ToolsUIWindow.cs" />
+    <Compile Include="TreeGrid.cs" />
+    <Compile Include="TreeGridCell.cs" />
+    <Compile Include="TreeGridColumn.cs" />
+    <Compile Include="TreeGridHeaderCell.cs" />
+    <Compile Include="TreeGridNode.cs" />
+    <Compile Include="TreeGridNodeReference.cs" />
+    <Compile Include="TreeGridRow.cs" />
+    <Compile Include="TreeGridRowPanel.cs" />
+    <Compile Include="ViewDockSpot.cs" />
+    <Compile Include="ViewDragGhostWindow.cs" />
+    <Compile Include="ViewDropTargetWindow.cs" />
+    <Compile Include="ViewLayoutEditor.cs" />
+    <Compile Include="ViewListBox.cs" />
+    <Compile Include="ViewManager.cs" />
+    <Compile Include="View.cs" />
+    <Compile Include="IInternalDocumentManager.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="FloatingWindow.cs" />
+    <Compile Include="DocumentManager.cs" />
+    <Compile Include="RootServiceProvider.cs" />
+    <Compile Include="SharedConverters.cs" />
+    <Compile Include="DialogBase.cs" />
+    <Compile Include="DataBar.cs" />
+    <Compile Include="BackgroundRequest.cs" />
+    <Compile Include="BackgroundRequestProcessor.cs" />
+    <Compile Include="ErrorStatus.cs" />
+    <Compile Include="GraphDataBar.cs" />
+    <Compile Include="GraphDataSideBar.cs" />
+    <Compile Include="HResult.cs" />
+    <Compile Include="IEventDataSource.cs" />
+    <Compile Include="IGraphDataSource.cs" />
+    <Compile Include="IReportProgress.cs" />
+    <Compile Include="IUserNotificationService.cs" />
+    <Compile Include="CoreServicesFactory.cs" />
+    <Compile Include="SimpleNotificationService.cs" />
+    <Compile Include="SessionStateService.cs" />
+    <Compile Include="LoggingService.cs" />
+    <Compile Include="OutputView.cs" />
+    <Compile Include="ServiceFactoryAttribute.cs" />
+    <Compile Include="ILoggingService.cs" />
+    <Compile Include="IServiceFactory.cs" />
+    <Compile Include="ISessionStateService.cs" />
+    <Compile Include="IViewCreationCommand.cs" />
+    <Compile Include="ExtensionManager.cs" />
+    <Compile Include="IViewFactory.cs" />
+    <Compile Include="Slot.cs" />
+    <Compile Include="SlotChangedEventArgs.cs" />
+    <Compile Include="SlotPanel.cs" />
+    <Compile Include="SlotSizer.cs" />
+    <Compile Include="SplitTabsControl.cs" />
+    <Compile Include="StringResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TabDockSpot.cs" />
+    <Compile Include="TabDropTargetWindow.cs" />
+    <Compile Include="TabItemDragManager.cs" />
+    <Compile Include="TabNode.cs" />
+    <Compile Include="TimeAxis.cs" />
+    <Compile Include="TreeGridIndentConverter.cs" />
+    <Compile Include="TreeGridView.xaml.cs">
+      <DependentUpon>TreeGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TreeGridViewItem.cs" />
+    <Compile Include="TreeGridViewItemInfo.cs" />
+    <Compile Include="ViewFactoryAttribute.cs" />
+    <Compile Include="StatusDialog.xaml.cs">
+      <DependentUpon>StatusDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSite.cs" />
+    <Compile Include="ViewSource.cs" />
+    <Compile Include="ViewTabControl.cs" />
+    <Compile Include="WorkingBar.cs" />
+    <Compile Include="WpfUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="SharedResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TreeGridStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TreeGridView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StatusDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StringResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\error.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SessionState>
+  <State Key="Themes">
+    <Themes Active="Default Theme">
+      <Theme Name="Default Theme" Type="Microsoft.Xbox.Tools.Shared.BaseTheme, Microsoft.Xbox.Tools.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Property Name="BladePageHoverBackgroundColor" Value="=LightGray" />
+        <Property Name="BladePageHoverForegroundColor" Value="=Black" />
+        <Property Name="ButtonPadding" Value="12,2,12,2" />
+        <Property Name="CheckBoxContentMargin" Value="4,0,2,0" />
+        <Property Name="ComboBoxDropdownBackgroundColor" Value="=White" />
+        <Property Name="ComboBoxItemHighlightedBackgroundColor" Value="=XboxGreenLight" />
+        <Property Name="ComboBoxItemHighlightedForegroundColor" Value="=Black" />
+        <Property Name="ComboBoxItemMargin" Value="2,2,2,2" />
+        <Property Name="ComboBoxItemSelectedBackgroundColor" Value="=XboxGreen" />
+        <Property Name="ComboBoxItemSelectedForegroundColor" Value="=White" />
+        <Property Name="ControlBackgroundColor" Value="=White" />
+        <Property Name="ControlBorderColor" Value="=Gray" />
+        <Property Name="ControlBorderThickness" Value="1,1,1,1" />
+        <Property Name="ControlDisabledBackgroundColor" Value="=White" />
+        <Property Name="ControlDisabledBorderColor" Value="=LighterGray" />
+        <Property Name="ControlDisabledForegroundColor" Value="=Gray" />
+        <Property Name="ControlFocusedBackgroundColor" Value="=White" />
+        <Property Name="ControlFocusedBorderColor" Value="=XboxGreen" />
+        <Property Name="ControlFocusedForegroundColor" Value="=Black" />
+        <Property Name="ControlFocusedHoverBackgroundColor" Value="=XboxGreenLight" />
+        <Property Name="ControlFocusedHoverBorderColor" Value="=Black" />
+        <Property Name="ControlFocusedHoverForegroundColor" Value="=Black" />
+        <Property Name="ControlForegroundColor" Value="=Black" />
+        <Property Name="ControlHoverBackgroundColor" Value="=LightGray" />
+        <Property Name="ControlHoverBorderColor" Value="=Black" />
+        <Property Name="ControlHoverForegroundColor" Value="=Black" />
+        <Property Name="ControlPressedBackgroundColor" Value="=XboxGreen" />
+        <Property Name="ControlPressedBorderColor" Value="=White" />
+        <Property Name="ControlPressedForegroundColor" Value="=White" />
+        <Property Name="DarkFocusVisualColor" Value="=Black" />
+        <Property Name="LightFocusVisualColor" Value="=White" />
+        <Property Name="DocumentAffinityFade" Value="0.6" />
+        <Property Name="DocumentAffinityLineThickness" Value="3" />
+        <Property Name="DocumentAffinityMargin" Value="20,7,4,0" />
+        <Property Name="EventLaneBarHeight" Value="12" />
+        <Property Name="EventLaneFocusedBackgroundColor" Value="=White" />
+        <Property Name="EventLaneFocusedForegroundColor" Value="=Black" />
+        <Property Name="EventLaneFocusedSelectionBackgroundColor" Value="=White" />
+        <Property Name="EventLaneFocusedSelectionForegroundColor" Value="=Black" />
+        <Property Name="EventLaneLabelFontFamily" Value="SmallCaption" />
+        <Property Name="EventLaneLabelFontSize" Value="10" />
+        <Property Name="EventLaneLabelFontWeight" Value="Normal" />
+        <Property Name="EventLaneLabelFontStyle" Value="Normal" />
+        <Property Name="EventLaneSelectionBackgroundColor" Value="=White" />
+        <Property Name="EventLaneSelectionForegroundColor" Value="=Black" />
+        <Property Name="DefaultFontFamily" Value="Segoe UI" />
+        <Property Name="DefaultFontSize" Value="12" />
+        <Property Name="DefaultFontWeight" Value="Normal" />
+        <Property Name="DefaultFontStyle" Value="Normal" />
+        <Property Name="Heading1FontFamily" Value="Segoe UI" />
+        <Property Name="Heading1FontSize" Value="21" />
+        <Property Name="Heading1FontWeight" Value="Normal" />
+        <Property Name="Heading1FontStyle" Value="Normal" />
+        <Property Name="Heading1ForegroundColor" Value="=XboxGreen" />
+        <Property Name="Heading2FontFamily" Value="Segoe UI" />
+        <Property Name="Heading2FontSize" Value="16" />
+        <Property Name="Heading2FontWeight" Value="Normal" />
+        <Property Name="Heading2FontStyle" Value="Normal" />
+        <Property Name="Heading2ForegroundColor" Value="=Black" />
+        <Property Name="GroupBoxContentPadding" Value="12,8,12,8" />
+        <Property Name="GroupBoxHeaderBackgroundColor" Value="=LighterGray" />
+        <Property Name="GroupBoxHeaderForegroundColor" Value="=XboxGreenDark" />
+        <Property Name="GroupBoxHeaderFontFamily" Value="Segoe UI" />
+        <Property Name="GroupBoxHeaderFontSize" Value="11" />
+        <Property Name="GroupBoxHeaderFontWeight" Value="Bold" />
+        <Property Name="GroupBoxHeaderFontStyle" Value="Normal" />
+        <Property Name="GroupBoxHeaderPadding" Value="8,2,8,2" />
+        <Property Name="CloseFileButtonForegroundColor" Value="=White" />
+        <Property Name="CloseFileButtonHoverForegroundColor" Value="=XboxGreenLight" />
+        <Property Name="FileButtonBackgroundColor" Value="=XboxGreen" />
+        <Property Name="FileButtonForegroundColor" Value="=White" />
+        <Property Name="FileButtonHoverBackgroundColor" Value="=XboxGreenMedium" />
+        <Property Name="FileButtonHoverForegroundColor" Value="=White" />
+        <Property Name="FileTabHeaderFontFamily" Value="Segoe UI" />
+        <Property Name="FileTabHeaderFontSize" Value="38" />
+        <Property Name="FileTabHeaderFontWeight" Value="Light" />
+        <Property Name="FileTabHeaderFontStyle" Value="Normal" />
+        <Property Name="FileTabItemBackgroundColor" Value="=XboxGreen" />
+        <Property Name="FileTabItemDisabledBackgroundColor" Value="=XboxGreen" />
+        <Property Name="FileTabItemDisabledForegroundColor" Value="=XboxGreenLight" />
+        <Property Name="FileTabItemForegroundColor" Value="=White" />
+        <Property Name="FileTabItemHoverBackgroundColor" Value="=XboxGreenDark" />
+        <Property Name="FileTabItemHoverForegroundColor" Value="=White" />
+        <Property Name="FileTabItemSelectedBackgroundColor" Value="=XboxGreenMedium" />
+        <Property Name="FileTabItemSelectedForegroundColor" Value="=White" />
+        <Property Name="LayoutTabControlBackgroundColor" Value="=LighterGray" />
+        <Property Name="LayoutTabItemBackgroundColor" Value="=LightGray" />
+        <Property Name="LayoutTabItemBorderColor" Value="=Gray" />
+        <Property Name="LayoutTabItemForegroundColor" Value="=Black" />
+        <Property Name="LayoutTabItemHoverBackgroundColor" Value="=Transparent" />
+        <Property Name="LayoutTabItemHoverForegroundColor" Value="=XboxGreen" />
+        <Property Name="LayoutTabItemSelectedBackgroundColor" Value="=LighterGray" />
+        <Property Name="LayoutTabItemSelectedForegroundColor" Value="=XboxGreen" />
+        <Property Name="OpenTabBorderColor" Value="=Gray" />
+        <Property Name="OpenTabItemBackgroundColor" Value="=Transparent" />
+        <Property Name="OpenTabItemForegroundColor" Value="=Black" />
+        <Property Name="OpenTabItemHoverBackgroundColor" Value="=XboxGreenLight" />
+        <Property Name="OpenTabItemHoverForegroundColor" Value="=Black" />
+        <Property Name="OpenTabItemSelectedBackgroundColor" Value="=XboxGreen" />
+        <Property Name="OpenTabItemSelectedForegroundColor" Value="=White" />
+        <Property Name="ListBoxItemFocusedSelectedBackgroundColor" Value="=XboxGreenLight" />
+        <Property Name="ListBoxItemFocusedSelectedForegroundColor" Value="=Black" />
+        <Property Name="ListBoxItemMargin" Value="2,2,2,2" />
+        <Property Name="ListBoxItemSelectedBackgroundColor" Value="=LightGray" />
+        <Property Name="ListBoxItemSelectedForegroundColor" Value="=Black" />
+        <Property Name="WindowBackgroundColor" Value="=LightGray" />
+        <Property Name="WindowTitleForegroundColor" Value="=Black" />
+        <Property Name="WindowTitleInactiveForegroundColor" Value="=Gray" />
+        <Property Name="WindowTitleFontFamily" Value="Segoe UI" />
+        <Property Name="WindowTitleFontSize" Value="12" />
+        <Property Name="WindowTitleFontWeight" Value="Normal" />
+        <Property Name="WindowTitleFontStyle" Value="Normal" />
+        <Property Name="ScrollBarThumbColor" Value="=LightGray" />
+        <Property Name="ScrollBarThumbHoverColor" Value="=Gray" />
+        <Property Name="ScrollBarThumbPressedColor" Value="=Black" />
+        <Property Name="TabControlActiveBackgroundColor" Value="=White" />
+        <Property Name="TabControlActiveBorderColor" Value="=XboxGreen" />
+        <Property Name="TabControlBackgroundColor" Value="=White" />
+        <Property Name="TabControlBorderColor" Value="=White" />
+        <Property Name="TabControlBorderThickness" Value="2,2,2,2" />
+        <Property Name="TabItemActiveBackgroundColor" Value="=White" />
+        <Property Name="TabItemActiveBorderColor" Value="=Transparent" />
+        <Property Name="TabItemActiveForegroundColor" Value="=Black" />
+        <Property Name="TabItemActiveSelectedBackgroundColor" Value="=White" />
+        <Property Name="TabItemActiveSelectedBorderColor" Value="=XboxGreen" />
+        <Property Name="TabItemActiveSelectedForegroundColor" Value="=XboxGreen" />
+        <Property Name="TabItemBackgroundColor" Value="=White" />
+        <Property Name="TabItemBorderColor" Value="=Transparent" />
+        <Property Name="TabItemBorderPadding" Value="12,2,12,2" />
+        <Property Name="TabItemBorderMargin" Value="2,2,2,2" />
+        <Property Name="TabItemBorderThickness" Value="1,1,1,1" />
+        <Property Name="TabItemForegroundColor" Value="=Gray" />
+        <Property Name="TabItemFontFamily" Value="Segoe UI" />
+        <Property Name="TabItemFontSize" Value="14" />
+        <Property Name="TabItemFontWeight" Value="Normal" />
+        <Property Name="TabItemFontStyle" Value="Normal" />
+        <Property Name="TabItemHeaderMargin" Value="4,0,10,0" />
+        <Property Name="TabItemHoverBackgroundColor" Value="=White" />
+        <Property Name="TabItemHoverBorderColor" Value="=Gray" />
+        <Property Name="TabItemHoverForegroundColor" Value="=XboxGreen" />
+        <Property Name="TabItemSelectedBackgroundColor" Value="=White" />
+        <Property Name="TabItemSelectedBorderColor" Value="=LightGray" />
+        <Property Name="TabItemSelectedForegroundColor" Value="=XboxGreen" />
+        <Property Name="TabItemSelectedFontFamily" Value="Segoe UI" />
+        <Property Name="TabItemSelectedFontSize" Value="14" />
+        <Property Name="TabItemSelectedFontWeight" Value="Normal" />
+        <Property Name="TabItemSelectedFontStyle" Value="Normal" />
+        <Property Name="TabPanelActiveBackgroundColor" Value="=White" />
+        <Property Name="TabPanelBackgroundColor" Value="=White" />
+        <Property Name="TabPanelBorderColor" Value="=LightGray" />
+        <Property Name="TabPanelBorderThickness" Value="0,0,0,1" />
+        <Property Name="TabPanelMargin" Value="12,12,12,12" />
+        <Property Name="TextBoxContentMargin" Value="2,2,2,2" />
+        <Property Name="TextBoxBorderThickness" Value="1,1,1,1" />
+        <Property Name="TextBoxSelectionColor" Value="=XboxGreen" />
+        <Property Name="TextBoxSelectionOpacity" Value="0.3" />
+        <Property Name="TextEditorFocusedSelectionBorderColor" Value="=XboxGreen" />
+        <Property Name="TextEditorFocusedSelectionColor" Value="#23107C1A" />
+        <Property Name="TextEditorSelectionBorderThickness" Value="1" />
+        <Property Name="TextEditorSelectionBorderColor" Value="=Gray" />
+        <Property Name="TextEditorSelectionColor" Value="#3DB7B7B7" />
+        <Property Name="TimelineSelectionBorderColor" Value="=White" />
+        <Property Name="TimelineSelectionColor" Value="=TimelineSelection" />
+        <Property Name="TimelineMousePointColor" Value="#80000000" />
+        <Property Name="TimelineFontFamily" Value="SmallCaption" />
+        <Property Name="TimelineFontSize" Value="10" />
+        <Property Name="TimelineFontWeight" Value="Normal" />
+        <Property Name="TimelineFontStyle" Value="Normal" />
+        <Property Name="ToggleButtonCheckedBackgroundColor" Value="=Gray" />
+        <Property Name="ToggleButtonCheckedBorderColor" Value="=White" />
+        <Property Name="ToggleButtonCheckedForegroundColor" Value="=White" />
+        <Property Name="ToggleButtonDisabledCheckedBackgroundColor" Value="=LighterGray" />
+        <Property Name="ToggleButtonDisabledCheckedBorderColor" Value="=LightGray" />
+        <Property Name="ToggleButtonDisabledCheckedForegroundColor" Value="=Gray" />
+        <Property Name="ToggleButtonFocusedCheckedBackgroundColor" Value="=XboxGreen" />
+        <Property Name="ToggleButtonFocusedCheckedBorderColor" Value="=White" />
+        <Property Name="ToggleButtonFocusedCheckedForegroundColor" Value="=White" />
+        <Property Name="ToggleButtonHoverCheckedBackgroundColor" Value="=XboxGreenDark" />
+        <Property Name="ToggleButtonHoverCheckedBorderColor" Value="=White" />
+        <Property Name="ToggleButtonHoverCheckedForegroundColor" Value="=White" />
+        <Property Name="TreeGridBackgroundColor" Value="=White" />
+        <Property Name="TreeGridCurrentRowBorderColor" Value="=MediumGray" />
+        <Property Name="TreeGridFocusedCurrentRowBorderColor" Value="=XboxGreen" />
+        <Property Name="TreeGridFocusedSelectedBackgroundColor" Value="=XboxGreenLight" />
+        <Property Name="TreeGridFocusedSelectedForegroundColor" Value="=Black" />
+        <Property Name="TreeGridForegroundColor" Value="=Black" />
+        <Property Name="TreeGridHeaderBackgroundColor" Value="=LightGray" />
+        <Property Name="TreeGridHeaderFocusedBackgroundColor" Value="=LightGray" />
+        <Property Name="TreeGridHeaderFocusedForegroundColor" Value="=Black" />
+        <Property Name="TreeGridHeaderFocusedHoverBackgroundColor" Value="=Gray" />
+        <Property Name="TreeGridHeaderFocusedHoverForegroundColor" Value="=White" />
+        <Property Name="TreeGridHeaderFontFamily" Value="Segoe UI" />
+        <Property Name="TreeGridHeaderFontSize" Value="12" />
+        <Property Name="TreeGridHeaderFontWeight" Value="Bold" />
+        <Property Name="TreeGridHeaderFontStyle" Value="Normal" />
+        <Property Name="TreeGridHeaderForegroundColor" Value="=Black" />
+        <Property Name="TreeGridHeaderHoverBackgroundColor" Value="=Gray" />
+        <Property Name="TreeGridHeaderHoverForegroundColor" Value="=White" />
+        <Property Name="TreeGridHeaderPressedBackgroundColor" Value="=XboxGreen" />
+        <Property Name="TreeGridHeaderPressedForegroundColor" Value="=White" />
+        <Property Name="TreeGridLinesColor" Value="=LightGray" />
+        <Property Name="TreeGridSelectedBackgroundColor" Value="=LightGray" />
+        <Property Name="TreeGridSelectedForegroundColor" Value="=Black" />
+        <Property Name="TreeViewItemFocusedSelectedBackgroundColor" Value="=XboxGreenLight" />
+        <Property Name="TreeViewItemFocusedSelectedForegroundColor" Value="=Black" />
+        <Property Name="TreeViewItemMargin" Value="6,2,6,2" />
+        <Property Name="TreeViewItemSelectedBackgroundColor" Value="=LightGray" />
+        <Property Name="TreeViewItemSelectedForegroundColor" Value="=Black" />
+        <Property Name="ViewBackgroundColor" Value="=White" />
+        <Property Name="ViewBorderColor" Value="=LightGray" />
+        <Property Name="ViewBorderThickness" Value="1,1,1,1" />
+        <Property Name="ViewMargin" Value="12,12,12,12" />
+        <Property Name="ViewSpacing" Value="12" />
+        <Property Name="ViewGroupHeaderFontFamily" Value="Segoe UI" />
+        <Property Name="ViewGroupHeaderFontSize" Value="13" />
+        <Property Name="ViewGroupHeaderFontWeight" Value="Bold" />
+        <Property Name="ViewGroupHeaderFontStyle" Value="Normal" />
+        <Property Name="AccentBackgroundColor" Value="=XboxGreen" />
+        <Property Name="AccentForegroundColor" Value="=White" />
+        <Property Name="TitleBarButtonBackgroundColor" Value="=LightGray" />
+        <Property Name="TitleBarButtonForegroundColor" Value="=Black" />
+        <Property Name="TitleBarButtonHoverBackgroundColor" Value="=LighterGray" />
+        <Property Name="TitleBarButtonHoverForegroundColor" Value="=Black" />
+        <Property Name="TitleBarButtonPressedBackgroundColor" Value="=XboxGreen" />
+        <Property Name="TitleBarButtonPressedForegroundColor" Value="=White" />
+        <Property Name="ThemeName" Value="Default Theme" />
+        <Palette>
+          <PaletteColor Name="Black" Color="#FF000000" />
+          <PaletteColor Name="White" Color="#FFFFFFFF" />
+          <PaletteColor Name="Gray" Color="#FF808080" />
+          <PaletteColor Name="MediumGray" Color="#FFB8B8B8" />
+          <PaletteColor Name="LightGray" Color="#FFD9D9D9" />
+          <PaletteColor Name="LighterGray" Color="#FFE5E5E5" />
+          <PaletteColor Name="XboxGreen" Color="#FF107C0F" />
+          <PaletteColor Name="XboxGreenLight" Color="#FFC4EEB3" />
+          <PaletteColor Name="XboxGreenMedium" Color="#FF3FAC30" />
+          <PaletteColor Name="XboxGreenDark" Color="#FF10660F" />
+          <PaletteColor Name="Transparent" Color="#00FFFFFF" />
+          <PaletteColor Name="TimelineSelection" Color="#86C4EEB3" />
+        </Palette>
+      </Theme>
+    </Themes>
+  </State>
+  <State Key="RecentDocuments">
+    <RecentDocuments />
+  </State>
+  <State Key="RecordedStreams">
+    <lastRecordedStreams>
+      <stream dataTypeId="a0c45179-5168-4875-a75c-f8f1760f637c" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="8f78ca9c-c1c0-4673-8e51-36484f7e7492" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="0a3914d6-3b16-11e1-aac3-001e4fd58c0f" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="0a3914d7-3b16-11e1-aac3-001e4fd58c0f" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="f5280e6e-229c-49ec-a8d2-b06f7ad64311" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="0a3914e9-3b16-11e1-aac3-001e4fd58c0f" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+    </lastRecordedStreams>
+  </State>
+  <State Key="MonitoredStreams">
+    <lastMonitoredStreams>
+      <stream dataTypeId="1c32b14a-1275-496f-b435-f6f22d451885" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="37f1135c-9139-444d-b40d-827fe4c65710" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="682d8a1c-c301-4b73-b34d-a96654953d22" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="85d9415b-41c9-47f4-8dd5-88c3047bae6b" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="bd2018dc-cc6b-4543-ac31-84d4007b1624" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="0286c131-84fc-4119-905e-8d9bef444275" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="eb8f4b9b-48b4-4869-bac9-b4a4a51d893d" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+    </lastMonitoredStreams>
+  </State>
+  <State Key="HiddenRecordableStreams">
+    <lastHiddenRecordableStreams>
+      <stream dataTypeId="8f78ca9c-c1c0-4673-8e51-36484f7e7492" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="70b325ba-5819-4c8b-8037-2ece5cbb7467" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="7e06d98e-d271-4a1f-9bfd-6648a700db75" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="f5280e6e-229c-49ec-a8d2-b06f7ad64311" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+    </lastHiddenRecordableStreams>
+  </State>
+  <State Key="HiddenMonitorableStreams">
+    <lastHiddenMonitorableStreams>
+      <stream dataTypeId="682d8a1c-c301-4b73-b34d-a96654953d22" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+    </lastHiddenMonitorableStreams>
+  </State>
+  <State Key="HiddenPlaybackableStreams">
+    <lastHiddenPlaybackableStreams>
+      <stream dataTypeId="8f78ca9c-c1c0-4673-8e51-36484f7e7492" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+      <stream dataTypeId="f5280e6e-229c-49ec-a8d2-b06f7ad64311" semanticId="d41013d2-47cb-4957-bb5f-8bb4f71a9d73" />
+    </lastHiddenPlaybackableStreams>
+  </State>
+  <State Key="PluginStates">
+    <plugins metadataEnabled="False" metadataOrder="2147483647">
+      <plugin id="d1ec6fb2-b19d-4285-9b69-dc921febf69f">
+        <state />
+      </plugin>
+      <plugin id="f0fc9a84-5be9-4598-8cd8-bbdd472d5fbd">
+        <state audible="true" audibleTrack="Output" />
+      </plugin>
+      <plugin id="7887714d-5331-406a-a290-9d2981214603">
+        <state />
+      </plugin>
+      <plugin id="85a371bc-7bb2-4534-865d-b7026754e876">
+        <state />
+      </plugin>
+      <plugin id="640d29b1-663a-4913-9eba-bec2b8aa81ea">
+        <state />
+      </plugin>
+      <plugin id="4fc932f6-77a4-4a22-be1f-93424d8ebb1a">
+        <state />
+      </plugin>
+      <plugin id="5ef876c2-cec2-4b2d-88a8-1de8e6df4e63">
+        <state />
+      </plugin>
+      <plugin id="edb90d43-b874-40c2-9ad1-73e767b1f7d2">
+        <state />
+      </plugin>
+      <plugin id="34bfd727-13c1-4a42-b31b-105da65c22e1" metadataEnabled="False" metadataOrder="2147483647">
+        <state />
+      </plugin>
+    </plugins>
+  </State>
+  <State Key="KStudioServiceSettings">
+    <KStudioServiceSettings AutoTargetConnectOnStartup="false" AutoMonitorOnTargetConnect="true" AutoMonitorOnTargetPlayback="true" AutoStopMonitorOnRecord="false" AutoPlaybackOnRecordStop="true" AdvancedModeObscureStreams="false" RecordingBufferSizeMB="1024" TargetFilePath="" />
+  </State>
+  <State Key="MostRecentlyUsed-LocalComputer">
+    <MostRecentlyUsed-LocalComputer LastBrowsePath="" LastBrowseSpec="*.xef">
+      <SaveItems>
+      </SaveItems>
+    </MostRecentlyUsed-LocalComputer>
+  </State>
+  <State Key="MostRecentlyUsed-Target-QQBIAEkATABMAEkARQBSAFcASQBOADgARABFAFYA">
+    <MostRecentlyUsed-Target-QQBIAEkATABMAEkARQBSAFcASQBOADgARABFAFYA Left="0" Top="0" Width="0" Height="0" NameWidth="0" DateWidth="0" SizeWidth="0">
+      <SaveItems />
+    </MostRecentlyUsed-Target-QQBIAEkATABMAEkARQBSAFcASQBOADgARABFAFYA>
+  </State>
+</SessionState>

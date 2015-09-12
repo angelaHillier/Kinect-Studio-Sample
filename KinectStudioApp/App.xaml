@@ -1,0 +1,1439 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<s:ToolsUIApplication x:Class="KinectStudioApp.App"
+                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                           xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                           xmlns:p="clr-namespace:KinectStudioPlugin;assembly=KinectStudioPlugin"
+                           xmlns:u="clr-namespace:KinectStudioUtility;assembly=KinectStudioUtility"
+                           xmlns:s="clr-namespace:Microsoft.Xbox.Tools.Shared;assembly=Microsoft.Xbox.Tools.Shared"
+                           xmlns:l="clr-namespace:KinectStudioApp">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Microsoft.Xbox.Tools.Shared;component/StyleMain.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--<RoutedUICommand x:Key="SelectDevKitCommand" />-->
+            <RoutedUICommand x:Key="EditLayoutsCommand" />
+            <RoutedUICommand x:Key="OpenRecentReadOnlyLocalFileCommand" />
+            <RoutedUICommand x:Key="OpenRecentWritableLocalFileCommand" />
+            <RoutedUICommand x:Key="OpenRecentTargetFileCommand" />
+            <RoutedUICommand x:Key="BrowseLocalFileCommand" />
+            <RoutedUICommand x:Key="BrowseTargetFileCommand" />
+            <RoutedUICommand x:Key="BrowseTargetFilePathCommand" />
+            <RoutedUICommand x:Key="TargetConnectCommand" />
+            <RoutedUICommand x:Key="TargetDisconnectCommand" />
+            <RoutedUICommand x:Key="TargetToggleCommand" />
+            <RoutedUICommand x:Key="MetadataCommand" />
+            <RoutedUICommand x:Key="DeleteMetadataCommand" />
+            <RoutedUICommand x:Key="AddMetadataCommand" />
+            <RoutedUICommand x:Key="SelectMetadataViewCommand" />
+            <RoutedUICommand x:Key="RecordStartCommand" />
+            <RoutedUICommand x:Key="RecordStopCommand" />
+            <RoutedUICommand x:Key="RecordCloseCommand" />
+            <RoutedUICommand x:Key="RecordToggleCommand" />
+            <RoutedUICommand x:Key="RecordUnselectAllCommand" />
+            <RoutedUICommand x:Key="PlaybackOpenCommand" />
+            <RoutedUICommand x:Key="PlaybackCloseCommand" />
+            <RoutedUICommand x:Key="PlaybackPlayCommand" />
+            <RoutedUICommand x:Key="PlaybackPauseCommand" />
+            <RoutedUICommand x:Key="PlaybackStopCommand" />
+            <RoutedUICommand x:Key="PlaybackStepCommand" />
+            <RoutedUICommand x:Key="PlaybackToggleCommand" />
+            <RoutedUICommand x:Key="PlaybackUnselectAllCommand" />
+            <RoutedUICommand x:Key="PlaybackEnableAllPausePointsCommand" />
+            <RoutedUICommand x:Key="PlaybackDisableAllPausePointsCommand" />
+            <RoutedUICommand x:Key="PlaybackRemoveAllPausePointsCommand" />
+            <RoutedUICommand x:Key="MonitorStartCommand" />
+            <RoutedUICommand x:Key="MonitorStopCommand" />
+            <RoutedUICommand x:Key="MonitorUnselectAllCommand" />
+            <RoutedUICommand x:Key="EditPluginMetadataSettingsCommand" />
+            <RoutedUICommand x:Key="SetInOutPointsByTimelineRangeCommand" />
+            <RoutedUICommand x:Key="EditBufferSizeCommand" />
+            <RoutedUICommand x:Key="SetDefaultBufferSizeCommand" />
+
+            <u:FileNameStripperConverter x:Key="FileNameStripperConverter" />
+            <u:PixTimeToTimeSpanTicksConverter x:Key="PixTimeToTimeSpanTicksConverter" />
+            <u:ArrayConverter x:Key="ArrayConverter" />
+            <u:EnumToStringConverter x:Key="EnumToStringConverter" ResourceManager="{x:Static l:Strings.ResourceManager}" />
+            <u:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <u:PercentageConverter x:Key="PercentageConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+            <Style x:Key="DisabledButtonImageStyle" TargetType="Image">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=Button}}" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ToolBarSeparatorStyle" TargetType="ContentControl">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Rectangle Stroke="LightGray" StrokeThickness="2" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="IsEnabled" Value="False" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Setter Property="Height" Value="32" />
+            </Style>
+
+            <Style x:Key="SmallToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Width" Value="24" />
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+            </Style>
+
+            <Style x:Key="ToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Width" Value="32" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+            </Style>
+
+            <Style x:Key="ToggleToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Button.Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ConnectedToggleToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="Visibility" Value="Visible" />
+                <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsTargetConnected}" Value="True" />
+                            <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="NotConnectedElementVisibilityStyle" TargetType="FrameworkElement">
+                <Setter Property="Visibility" Value="Visible" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsTargetConnected}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ConnectedElementVisibilityStyle" TargetType="TextBlock">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsTargetConnected}" Value="True">
+                        <Setter Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ConnnectStatusToolbarDisplayStyle" TargetType="ContentControl">
+                <Setter Property="IsEnabled" Value="False" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsKinectForXbox, Source={x:Static Application.Current}}" Value="True">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock AutomationProperties.AutomationId="NotConnectedStatus" Style="{StaticResource NotConnectedElementVisibilityStyle}" Text="{x:Static l:Strings.ConnectionState_NotConnected}" />
+                                        <TextBlock AutomationProperties.AutomationId="ConnectedStatus" Style="{StaticResource ConnectedElementVisibilityStyle}" Text="{x:Static l:Strings.ConnectionState_Connected}" />
+                                        <TextBlock AutomationProperties.AutomationId="ConnectedTarget" Style="{StaticResource ConnectedElementVisibilityStyle}" Text="{Binding TargetAlias}" ToolTip="{Binding TargetAddress}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsKinectForWindows, Source={x:Static Application.Current}}" Value="True">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock AutomationProperties.AutomationId="NotConnectedStatus" Style="{StaticResource NotConnectedElementVisibilityStyle}" Text="{x:Static l:Strings.ConnectionState_NotConnected}" />
+                                        <TextBlock AutomationProperties.AutomationId="ConnectedStatus" Style="{StaticResource ConnectedElementVisibilityStyle}" Text="{x:Static l:Strings.ConnectionState_Connected_SingleBox}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ConnectToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Connect.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Command" Value="{StaticResource TargetConnectCommand}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsKinectForXbox, Source={x:Static Application.Current}}" Value="True">
+                        <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_TargetConnect_Button_ToolTip}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsKinectForWindows, Source={x:Static Application.Current}}" Value="True">
+                        <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_TargetConnect_Button_SingleBox_ToolTip}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DisconnectToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToggleToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Disconnect.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Command" Value="{StaticResource TargetDisconnectCommand}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsKinectForXbox, Source={x:Static Application.Current}}" Value="True">
+                        <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_TargetDisconnect_Button_ToolTip}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsKinectForWindows, Source={x:Static Application.Current}}" Value="True">
+                        <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_TargetDisconnect_Button_SingleBox_ToolTip}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="RecordStartToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\RecordDisabled.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Command" Value="{StaticResource RecordStartCommand}" />
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Record_Start_Button_ToolTip}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <Image Source="Images\Record.png" />
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="RecordStopToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToggleToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\StopRecord.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Record_Stop_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource RecordStopCommand}" />
+            </Style>
+
+            <Style x:Key="RecordCloseToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToggleToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Placeholder.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Record_Close_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource RecordCloseCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackOpenToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Placeholder.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_Open_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackOpenCommand}" />
+                <Setter Property="Visibility" Value="Visible" />
+            </Style>
+
+            <Style x:Key="PlaybackCloseToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToggleToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Placeholder.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_Close_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackCloseCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackPlayToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Play.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_Play_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackPlayCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackPauseToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToggleToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Pause.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_Pause_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackPauseCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackStopToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\StopPlay.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_Stop_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackStopCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackStepToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Step.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_Step_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackStepCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackDisableAllPausePointsToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\DisablePausePoints.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_DisableAllPausePoints_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackDisableAllPausePointsCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackEnableAllPausePointsToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\EnablePausePoints.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_EnableAllPausePoints_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackEnableAllPausePointsCommand}" />
+            </Style>
+
+            <Style x:Key="PlaybackRemoveAllPausePointsToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\RemovePausePoints.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Playback_RemoveAllPausePoints_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource PlaybackRemoveAllPausePointsCommand}" />
+            </Style>
+
+            <Style x:Key="MonitorStartToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Monitor.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Monitor_Start_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource MonitorStartCommand}" />
+                <Setter Property="Visibility" Value="Visible" />
+            </Style>
+
+            <Style x:Key="MonitorStopToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToggleToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\StopMonitor.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_Monitor_Stop_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource MonitorStopCommand}" />
+            </Style>
+
+            <Style x:Key="ShowHideStreamsToolbarButtonStyle" TargetType="u:BooleanButton" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Width" Value="24" />
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+                <Setter Property="TrueContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\HideHiddenStreams.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FalseContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\ShowHiddenStreams.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TrueToolTip" Value="{x:Static l:Strings.Toolbar_HideHiddenStreams_Button_ToolTip}" />
+                <Setter Property="FalseToolTip" Value="{x:Static l:Strings.Toolbar_ShowHiddenStreams_Button_ToolTip}" />
+                <Setter Property="IsEnabled" Value="False" />
+            </Style>
+
+            <Style x:Key="PlaybackExpandAllToolbarButtonStyle" TargetType="u:BooleanButton" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Width" Value="24" />
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+                <Setter Property="FalseContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\ExpandAllStreams.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TrueContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\CollapseAllStreams.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FalseToolTip" Value="{x:Static l:Strings.Toolbar_ExpandAllStreams_Button_ToolTip}" />
+                <Setter Property="TrueToolTip" Value="{x:Static l:Strings.Toolbar_CollapseAllStreams_Button_ToolTip}" />
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding HasPlaybackFile}" Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ConnectedShowHideStreamsToolbarButtonStyle" TargetType="u:BooleanButton" BasedOn="{StaticResource ShowHideStreamsToolbarButtonStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsTargetConnected}" Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="PlaybackShowHideStreamsToolbarButtonStyle" TargetType="u:BooleanButton" BasedOn="{StaticResource ShowHideStreamsToolbarButtonStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding HasPlaybackFile}" Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="UnselectAllToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource SmallToolbarButtonStyle}">
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Toolbar_UnselectAllStreams_Button_ToolTip}" />
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\UnselectAllStreams.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ConnectedUnselectAllToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource UnselectAllToolbarButtonStyle}">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsTargetConnected}" Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="PlaybackUnselectAllToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource UnselectAllToolbarButtonStyle}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding HasPlaybackFile}" Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="UnselectMetadataToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\UnselectMetadata.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.UnselectMetadata_Button_ToolTip}" />
+            </Style>
+
+            <Style x:Key="FileMetadataToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Metadata.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.FileMetadata_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource SelectMetadataViewCommand}" />
+                <EventSetter Event="ContextMenuOpening" Handler="MetadataButton_ContextMenuOpening" />
+            </Style>
+
+            <Style x:Key="StreamMetadataButtonStyle" TargetType="Button" BasedOn="{StaticResource SmallToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\Metadata.png" Height="16" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.StreamMetadata_Button_ToolTip}" />
+                <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+                <Setter Property="Command" Value="{StaticResource SelectMetadataViewCommand}" />
+                <EventSetter Event="ContextMenuOpening" Handler="MetadataButton_ContextMenuOpening" />
+            </Style>
+
+            <Style x:Key="MetadataViewSelectorMenuItemStyle" TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                <Setter Property="Header" Value="{Binding FullTitle}" />
+                <Setter Property="Command" Value="{StaticResource MetadataCommand}" />
+                <Setter Property="CommandParameter">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                            <Binding Path="DataContext" RelativeSource="{RelativeSource Self}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding }" Value="{x:Null}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Separator />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteMetadataButtonStyle" TargetType="Button" BasedOn="{StaticResource SmallToolbarButtonStyle}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\DeleteMetadata.png" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="{x:Static l:Strings.Metadata_Delete_Button_ToolTip}" />
+                <Setter Property="Command" Value="{StaticResource DeleteMetadataCommand}" />
+                <Setter Property="CommandParameter">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding Path="ItemsSource" RelativeSource="{RelativeSource AncestorType=ListView}" />
+                            <Binding Path="Key" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ShowHideStreamButtonStyle" TargetType="u:BooleanButton" BasedOn="{StaticResource SmallToolbarButtonStyle}">
+                <Setter Property="TrueContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\HideStream.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FalseContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\ShowStream.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TrueToolTip" Value="{x:Static l:Strings.Stream_Hide_Button_ToolTip}" />
+                <Setter Property="FalseToolTip" Value="{x:Static l:Strings.Stream_Show_Button_ToolTip}" />
+            </Style>
+
+            <Style x:Key="SelectStreamButtonStyle" TargetType="u:BooleanButton" BasedOn="{StaticResource SmallToolbarButtonStyle}">
+                <Setter Property="TrueContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\CheckboxChecked.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FalseContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Image Source="Images\CheckboxUnchecked.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TrueToolTip" Value="{x:Static l:Strings.StreamSelect_Checked_ToolTip}" />
+                <Setter Property="FalseToolTip" Value="{x:Static l:Strings.StreamSelect_Unchecked_ToolTip}" />
+            </Style>
+
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+
+            <Style TargetType="ListBoxItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+
+            <Style TargetType="GridViewColumnHeader">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+
+            <Style x:Key="DeleteMetadataHeaderStyle" TargetType="GridViewColumnHeader">
+                <Setter Property="Width" Value="32" />
+                <Setter Property="IsHitTestVisible" Value="False"/>
+            </Style>
+
+            <Style TargetType="u:EventLane2">
+                <Setter Property="BarHeight" Value="15" />
+                <Setter Property="LabelFontSize" Value="0" />
+                <Setter Property="BottomMargin" Value="0" />
+                <Setter Property="LabelMargin" Value="0" />
+                <Setter Property="SelectionFanHeight" Value="0" />
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding UserState.IsVisibleForPlayback}" Value="True" />
+                            <Condition Binding="{Binding UserState.IsObscureStream}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Button.Visibility" Value="Visible" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding UserState.KStudioService.AreAllStreamsVisibleForPlayback}" Value="True" />
+                            <Condition Binding="{Binding UserState.IsObscureStream}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Button.Visibility" Value="Visible" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding UserState.KStudioService.Settings.AdvancedModeObscureStreams}" Value="True" />
+                            <Condition Binding="{Binding UserState.IsVisibleForPlayback}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Button.Visibility" Value="Visible" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding UserState.KStudioService.Settings.AdvancedModeObscureStreams}" Value="True" />
+                            <Condition Binding="{Binding UserState.KStudioService.AreAllStreamsVisibleForPlayback}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Button.Visibility" Value="Visible" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <DataTemplate x:Key="DeleteMetadataCellTemplate">
+                <Button AutomationProperties.AutomationId="MetadataDelete" Style="{StaticResource DeleteMetadataButtonStyle}" IsTabStop="False" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="TargetPlaybackFileStreamDataTemplate">
+                <Grid Margin="0,2,10,2" AutomationProperties.AutomationId="{Binding UserState.Identifier}" Background="Transparent" MinWidth="150">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.ContextMenu>
+                        <ContextMenu Visibility="Collapsed" />
+                    </Grid.ContextMenu>
+                    <StackPanel Orientation="Horizontal">
+                        <u:BooleanButton AutomationProperties.AutomationId="StreamIsSelected" Value="{Binding UserState.SelectedLivePlaybackStream.UserState.IsSelectedForTargetPlayback, FallbackValue=False, Mode=TwoWay}" Margin="0,0,5,0">
+                            <u:BooleanButton.Style>
+                                <Style TargetType="u:BooleanButton" BasedOn="{StaticResource SelectStreamButtonStyle}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding KStudioService.HasPlayback, RelativeSource={RelativeSource AncestorType=l:PlaybackableStreamsViewContent}}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding UserState.SelectedLivePlaybackStream, FallbackValue={x:Null}}" Value="{x:Null}">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </u:BooleanButton.Style>
+                        </u:BooleanButton>
+                        <u:BooleanButton AutomationProperties.AutomationId="StreamToggleVisible" Style="{StaticResource ShowHideStreamButtonStyle}" Value="{Binding UserState.IsVisibleForPlayback, Mode=TwoWay}" />
+                    </StackPanel>
+                    <TextBlock AutomationProperties.AutomationId="StreamName" Grid.Column="2" Name="StreamName" Text="{Binding UserState.ShortName}" ToolTip="{Binding UserState.RequirementsForTargetPlaybackToolTip}" ToolTipService.ShowDuration="10000"  VerticalAlignment="Center" />
+                    <StackPanel Grid.Row="1" Grid.Column="2" Visibility="{Binding IsSidebarExpanded, RelativeSource={RelativeSource AncestorType=l:PlaybackableStreamsViewContent}, Converter={StaticResource BooleanToVisibilityConverter}}" Height="80">
+                        <Button AutomationProperties.AutomationId="StreamMetadata" CommandParameter="{Binding UserState.Metadata}" Style="{StaticResource StreamMetadataButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                        <ComboBox AutomationProperties.AutomationId="StreamMappings" ItemsSource="{Binding UserState.LivePlaybackStreams}" Tag="UserState.SelectedLivePlaybackStream" Margin="0,2,0,0" ToolTip="{x:Static l:Strings.PlaybackView_LiveStream_ToolTip}" ToolTipService.ShowOnDisabled="True" Width="{Binding ActualWidth,ElementName=StreamName}">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <EventSetter Event="Loaded" Handler="NullableComboBox_Loaded" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding UserState.LivePlaybackStreams.Count, FallbackValue=0}" Value="0">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding KStudioService.HasPlayback, RelativeSource={RelativeSource AncestorType=l:PlaybackableStreamsViewContent}}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock AutomationProperties.AutomationId="{Binding UserState.Identifier}" Text="{Binding UserState.ShortName}" ToolTip="{Binding UserState.LongName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="{Binding UserState.SelectedNode.Name, FallbackValue={x:Static l:Strings.PlaybackView_No_Selection}}" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LocalPlaybackFileStreamDataTemplate">
+                <Grid Margin="0,2,10,2" AutomationProperties.AutomationId="{Binding UserState.Identifier}" Background="Transparent" MinWidth="150">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.ContextMenu>
+                        <ContextMenu Visibility="Collapsed" />
+                    </Grid.ContextMenu>
+                    <u:BooleanButton AutomationProperties.AutomationId="StreamToggleVisible" Style="{StaticResource ShowHideStreamButtonStyle}" Value="{Binding UserState.IsVisibleForPlayback, Mode=TwoWay}" />
+                    <TextBlock AutomationProperties.AutomationId="StreamName" Grid.Column="2" Name="StreamName" Text="{Binding UserState.ShortName}" ToolTip="{Binding UserState.LongName}" VerticalAlignment="Center" />
+                    <StackPanel Grid.Row="1" Grid.Column="2" Visibility="{Binding IsSidebarExpanded, RelativeSource={RelativeSource AncestorType=l:PlaybackableStreamsViewContent}, Converter={StaticResource BooleanToVisibilityConverter}}" Height="60">
+                        <Button AutomationProperties.AutomationId="StreamMetadata" CommandParameter="{Binding UserState.Metadata}" Style="{StaticResource StreamMetadataButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding UserState.SelectedNode.Name, FallbackValue={x:Static l:Strings.PlaybackView_No_Selection}}" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
+            <l:SidebarTemplateSelector x:Key="PlaybackSidebarTemplateSelector" LocalPlayback="{StaticResource LocalPlaybackFileStreamDataTemplate}" TargetPlayback="{StaticResource TargetPlaybackFileStreamDataTemplate}" />
+
+            <DataTemplate x:Key="RecordableStreamDataTemplate">
+                <StackPanel Orientation="Horizontal" AutomationProperties.AutomationId="{Binding UserState.Identifier}">
+                    <u:BooleanButton AutomationProperties.AutomationId="StreamIsSelected" Value="{Binding UserState.IsSelectedForTargetRecording, FallbackValue=False, Mode=TwoWay}" Margin="0,0,5,0">
+                        <u:BooleanButton.Style>
+                            <Style TargetType="u:BooleanButton" BasedOn="{StaticResource SelectStreamButtonStyle}">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UserState.Metadata}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="{Binding UserState.IsEnabledForTargetRecording}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </u:BooleanButton.Style>
+                    </u:BooleanButton>
+                    <u:BooleanButton AutomationProperties.AutomationId="StreamIsSelected" Style="{StaticResource ShowHideStreamButtonStyle}" Value="{Binding UserState.IsVisibleForTargetRecording, Mode=TwoWay}" />
+                    <!--
+                    <Button AutomationProperties.AutomationId="StreamMetadata" CommandParameter="{Binding UserState.Metadata}" Margin="10,0,0,0" Style="{StaticResource StreamMetadataButtonStyle}" />
+                    -->
+                    <TextBlock AutomationProperties.AutomationId="StreamName" Margin="10,0,0,0" Text="{Binding UserState.ShortName}" ToolTip="{Binding UserState.RequirementsForTargetRecordingToolTip}" ToolTipService.ShowDuration="10000" VerticalAlignment="Center" />
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MonitorableStreamDataTemplate">
+                <StackPanel Orientation="Horizontal" AutomationProperties.AutomationId="{Binding UserState.Identifier}">
+                    <u:BooleanButton AutomationProperties.AutomationId="StreamIsSelected" Value="{Binding UserState.IsSelectedForTargetMonitor, FallbackValue=False, Mode=TwoWay}" Margin="0,0,5,0">
+                        <u:BooleanButton.Style>
+                            <Style TargetType="u:BooleanButton" BasedOn="{StaticResource SelectStreamButtonStyle}">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding KStudioService.HasMonitor, RelativeSource={RelativeSource AncestorType=l:TargetMonitorableStreamsViewContent}}" Value="False">
+                                        <Setter Property="IsEnabled" Value="{Binding UserState.IsEnabledForTargetMonitor}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </u:BooleanButton.Style>
+                    </u:BooleanButton>
+                    <u:BooleanButton AutomationProperties.AutomationId="StreamIsSelected" Style="{StaticResource ShowHideStreamButtonStyle}" Value="{Binding UserState.IsVisibleForTargetMonitor, Mode=TwoWay}" />
+                    <TextBlock AutomationProperties.AutomationId="StreamName" Margin="10,0,0,0" Text="{Binding UserState.ShortName}" ToolTip="{Binding UserState.RequirementsForTargetMonitorToolTip}" ToolTipService.ShowDuration="10000" VerticalAlignment="Center" />
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RecentReadOnlyLocalItemTemplate">
+                <Button AutomationProperties.AutomationId="OpenLocalFile" BorderThickness="0" Content="{Binding}" Command="{StaticResource OpenRecentReadOnlyLocalFileCommand}" s:ShortcutManager.HorizontalAlignment="Left" s:ShortcutManager.VerticalAlignment="Top" s:ShortcutManager.Offset="5,5" CommandParameter="{Binding}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <Grid Margin="15,6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock AutomationProperties.AutomationId="ShortFileName" Grid.Row="0" Grid.Column="1" Text="{Binding Converter={StaticResource FileNameStripperConverter}}" FontSize="16" />
+                                <TextBlock AutomationProperties.AutomationId="FileName" Grid.Row="1" Grid.Column="1" Text="{Binding}" FontSize="10" />
+                                <Image AutomationProperties.AutomationId="FileImage" Grid.Column="0" Grid.RowSpan="2" Source="\Images\File.ico" Width="32" Height="32" Margin="14,4" />
+                            </Grid>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{s:ThemeBinding WindowBackgroundBrush}">
+                                <ContentControl x:Name="presenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                HorizontalAlignment="Left" VerticalAlignment="Center" IsTabStop="False" Focusable="False"
+                                Foreground="{s:ThemeBinding ControlForegroundBrush}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RecentWritableLocalItemTemplate">
+                <Button AutomationProperties.AutomationId="OpenLocalFile" BorderThickness="0" Content="{Binding}" Command="{StaticResource OpenRecentWritableLocalFileCommand}" s:ShortcutManager.HorizontalAlignment="Left" s:ShortcutManager.VerticalAlignment="Top" s:ShortcutManager.Offset="5,5" CommandParameter="{Binding}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <Grid Margin="15,6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock AutomationProperties.AutomationId="ShortFileName" Grid.Row="0" Grid.Column="1" Text="{Binding Converter={StaticResource FileNameStripperConverter}}" FontSize="16" />
+                                <TextBlock AutomationProperties.AutomationId="FileName" Grid.Row="1" Grid.Column="1" Text="{Binding}" FontSize="10" />
+                                <Image AutomationProperties.AutomationId="FileImage" Grid.Column="0" Grid.RowSpan="2" Source="\Images\File.ico" Width="32" Height="32" Margin="14,4" />
+                            </Grid>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{s:ThemeBinding WindowBackgroundBrush}">
+                                <ContentControl x:Name="presenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                HorizontalAlignment="Left" VerticalAlignment="Center" IsTabStop="False" Focusable="False"
+                                Foreground="{s:ThemeBinding ControlForegroundBrush}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RecentTargetItemTemplate">
+                <Button AutomationProperties.AutomationId="OpenTargetFile" BorderThickness="0" Content="{Binding}" Command="{StaticResource OpenRecentTargetFileCommand}" s:ShortcutManager.HorizontalAlignment="Left" s:ShortcutManager.VerticalAlignment="Top" s:ShortcutManager.Offset="5,5">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ArrayConverter}">
+                            <Binding Path="Tag" RelativeSource="{RelativeSource AncestorType=ListBox}" />
+                            <Binding Path="Content" RelativeSource="{RelativeSource Self}" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <Grid Margin="15,6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock AutomationProperties.AutomationId="ShortFileName" Grid.Row="0" Grid.Column="1" Text="{Binding Converter={StaticResource FileNameStripperConverter}}" FontSize="16" />
+                                <TextBlock AutomationProperties.AutomationId="FileName" Grid.Row="1" Grid.Column="1" Text="{Binding}" FontSize="10" />
+                                <Image AutomationProperties.AutomationId="FileImage" Grid.Column="0" Grid.RowSpan="2" Source="\Images\File.ico" Width="32" Height="32" Margin="14,4" />
+                            </Grid>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{s:ThemeBinding WindowBackgroundBrush}">
+                                <ContentControl x:Name="presenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                HorizontalAlignment="Left" VerticalAlignment="Center" IsTabStop="False" Focusable="False"
+                                Foreground="{s:ThemeBinding ControlForegroundBrush}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.FileTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                    <Setter TargetName="presenter" Property="Foreground" Value="{Binding Theme.FileTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DataTemplate>
+
+
+            <GroupStyle x:Key="GroupStyle">
+                <GroupStyle.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock AutomationProperties.AutomationId="Header" Text="{Binding Name}" Foreground="{s:ThemeBinding Heading2ForegroundBrush}"
+               FontSize="{s:ThemeBinding Heading2FontSize}" FontFamily="{s:ThemeBinding Heading2FontFamily}"
+               FontStyle="{s:ThemeBinding Heading2FontStyle}" FontWeight="{s:ThemeBinding Heading2FontWeight}" Margin="3,18,3,6" />
+                    </DataTemplate>
+                </GroupStyle.HeaderTemplate>
+            </GroupStyle>
+
+            <Style x:Key="GroupListBoxStyleBase" TargetType="ListBox">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="MinWidth" Value="400" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="SnapsToDevicePixels" Value="true" />
+                            <Setter Property="OverridesDefaultStyle" Value="true" />
+                            <Setter Property="Focusable" Value="False" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="RecentGroupListBoxStyle" TargetType="ListBox" BasedOn="{StaticResource GroupListBoxStyleBase}">
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="SnapsToDevicePixels" Value="true" />
+                            <Setter Property="OverridesDefaultStyle" Value="true" />
+                            <Setter Property="Focusable" Value="False" />
+                            <Setter Property="AutomationProperties.AutomationId" Value="{Binding Content, RelativeSource={RelativeSource Self}, StringFormat=Recent:{0}}" />
+                            <Setter Property="AutomationProperties.Name" Value="{Binding Content, RelativeSource={RelativeSource Self}}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ComputerGroupListBoxStyle" TargetType="ListBox" BasedOn="{StaticResource GroupListBoxStyleBase}">
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="SnapsToDevicePixels" Value="true" />
+                            <Setter Property="OverridesDefaultStyle" Value="true" />
+                            <Setter Property="Focusable" Value="False" />
+                            <Setter Property="AutomationProperties.AutomationId" Value="{Binding Content.DirectoryInfo.FullName, RelativeSource={RelativeSource Self}, StringFormat=Folder:{0}}" />
+                            <Setter Property="AutomationProperties.Name" Value="{Binding Content.DirectoryInfo.Name, RelativeSource={RelativeSource Self}}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+            <DataTemplate x:Key="LocalComputerIconTemplate">
+                <Grid DockPanel.Dock="Left" Width="32" Height="32">
+                    <Path Width="28" Height="28" Stroke="#6597BB" StrokeThickness="2" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 6,6 L 27,6 L 27,21 L 6,21 z" />
+                    <Path Width="28" Height="28" Stroke="#6597BB" StrokeThickness="1" Fill="#6597BB" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 10.5,27.5 L 11.5,26.5 L 15.5,26.5 L 15.5,23.5 L 17.5,23.5 L 17.5,26.5 L 21.5,26.5 L 22.5,27.5 z" />
+                    <Path Width="28" Height="28" Stroke="#303030" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 13.5,4.5 L 13.5,0.5 L 0.5,0.5 L 0.5,27.5 L 8.5,27.5" />
+                    <Path Width="28" Height="28" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 13.5,4.5 L 13.5,0.5 L 0.5,0.5 L 0.5,27.5 L 8.5,27.5 L 11.5,24.5 L 12.5,24.5 L 12.5,23.5 L 3.5,23.5 L 3.5,4.5 z" />
+                    <Path Width="28" Height="28" Stroke="#303030" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 13.5,4.5 L 13.5,0.5 L 0.5,0.5 L 0.5,27.5 L 8.5,27.5  M 4,3.5 L 10,3.5  M 1.5,6.5 L 3.5,6.5  M 1.5,10.5 L 3.5,10.5  M 1.5,14.5 L 3.5,14.5  M 2.5,23.5 L 2.5,25.5 L 3.5,25.5 L 3.5,23.5 L 2.5,25.5" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="TargetComputerIconTemplate">
+                <Grid DockPanel.Dock="Left" Width="32" Height="32">
+                    <Path Width="28" Height="28" Stroke="Red" StrokeThickness="2" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 6,6 L 27,6 L 27,21 L 6,21 z" />
+                    <Path Width="28" Height="28" Stroke="Red" StrokeThickness="1" Fill="#6597BB" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 10.5,27.5 L 11.5,26.5 L 15.5,26.5 L 15.5,23.5 L 17.5,23.5 L 17.5,26.5 L 21.5,26.5 L 22.5,27.5 z" />
+                    <Path Width="28" Height="28" Stroke="Pink" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 13.5,4.5 L 13.5,0.5 L 0.5,0.5 L 0.5,27.5 L 8.5,27.5" />
+                    <Path Width="28" Height="28" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 13.5,4.5 L 13.5,0.5 L 0.5,0.5 L 0.5,27.5 L 8.5,27.5 L 11.5,24.5 L 12.5,24.5 L 12.5,23.5 L 3.5,23.5 L 3.5,4.5 z" />
+                    <Path Width="28" Height="28" Stroke="Pink" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"
+                Data="M 13.5,4.5 L 13.5,0.5 L 0.5,0.5 L 0.5,27.5 L 8.5,27.5  M 4,3.5 L 10,3.5  M 1.5,6.5 L 3.5,6.5  M 1.5,10.5 L 3.5,10.5  M 1.5,14.5 L 3.5,14.5  M 2.5,23.5 L 2.5,25.5 L 3.5,25.5 L 3.5,23.5 L 2.5,25.5" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="OpenSingleBoxReadOnlyTemplate">
+                <ScrollViewer AutomationProperties.AutomationId="OpenLocalReadOnly" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <ListBox AutomationProperties.AutomationId="Files" DataContext="{Binding Content}" ItemsSource="{Binding Item2}" Tag="{Binding Item1}"
+                 ItemTemplate="{StaticResource RecentReadOnlyLocalItemTemplate}"
+                 Style="{StaticResource RecentGroupListBoxStyle}" />
+                        <Button AutomationProperties.AutomationId="File" DockPanel.Dock="Bottom" HorizontalAlignment="Left" Margin="30,12" Command="{StaticResource BrowseLocalFileCommand}" CommandParameter="True" 
+                    s:ShortcutManager.Shortcut="B:File|Open">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border"
+                          BorderThickness="{s:ThemeBinding ControlBorderThickness}"
+                          Padding="{s:ThemeBinding ButtonPadding}"
+                          Background="Transparent"
+                          BorderBrush="{s:ThemeBinding ControlBorderBrush}" >
+                                        <StackPanel Margin="8">
+                                            <Image Source="\Images\folder.ico" HorizontalAlignment="Center" Width="32" Height="32" />
+                                            <TextBlock x:Name="text" Text="{x:Static l:Strings.FileMenu_Browse_Button}" Margin="0,2" HorizontalAlignment="Center" Foreground="{s:ThemeBinding OpenTabItemForegroundBrush}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </DataTemplate>
+
+            <DataTemplate x:Key="OpenSingleBoxWritableTemplate">
+                <ScrollViewer AutomationProperties.AutomationId="OpenLocalWritable" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <ListBox AutomationProperties.AutomationId="Files" DataContext="{Binding Content}" ItemsSource="{Binding Item2}" Tag="{Binding Item1}"
+                 ItemTemplate="{StaticResource RecentWritableLocalItemTemplate}"
+                 Style="{StaticResource RecentGroupListBoxStyle}" />
+                        <Button AutomationProperties.AutomationId="File" DockPanel.Dock="Bottom" HorizontalAlignment="Left" Margin="30,12" Command="{StaticResource BrowseLocalFileCommand}" CommandParameter="False"
+                    s:ShortcutManager.Shortcut="B:File|Open">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border"
+                          BorderThickness="{s:ThemeBinding ControlBorderThickness}"
+                          Padding="{s:ThemeBinding ButtonPadding}"
+                          Background="Transparent"
+                          BorderBrush="{s:ThemeBinding ControlBorderBrush}" >
+                                        <StackPanel Margin="8">
+                                            <Image Source="\Images\folder.ico" HorizontalAlignment="Center" Width="32" Height="32" />
+                                            <TextBlock x:Name="text" Text="{x:Static l:Strings.FileMenu_Browse_Button}" Margin="0,2" HorizontalAlignment="Center" Foreground="{s:ThemeBinding OpenTabItemForegroundBrush}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </DataTemplate>
+
+            <DataTemplate x:Key="OpenLocalTemplate">
+                <ScrollViewer AutomationProperties.AutomationId="OpenLocal" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <ListBox AutomationProperties.AutomationId="Files" DataContext="{TemplateBinding Content}" ItemsSource="{Binding Item2}" Tag="{Binding Item1}"
+                 ItemTemplate="{StaticResource RecentReadOnlyLocalItemTemplate}"
+                 Style="{StaticResource RecentGroupListBoxStyle}" />
+                        <Button AutomationProperties.AutomationId="File" DockPanel.Dock="Bottom" HorizontalAlignment="Left" Margin="30,12" Command="{StaticResource BrowseLocalFileCommand}" 
+                    s:ShortcutManager.Shortcut="B:File|Open|Computer">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border"
+                          BorderThickness="{s:ThemeBinding ControlBorderThickness}"
+                          Padding="{s:ThemeBinding ButtonPadding}"
+                          Background="Transparent"
+                          BorderBrush="{s:ThemeBinding ControlBorderBrush}" >
+                                        <StackPanel Margin="8">
+                                            <Image Source="\Images\folder.ico" HorizontalAlignment="Center" Width="32" Height="32" />
+                                            <TextBlock x:Name="text" Text="{x:Static l:Strings.FileMenu_Browse_Button}" Margin="0,2" HorizontalAlignment="Center" Foreground="{s:ThemeBinding OpenTabItemForegroundBrush}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </DataTemplate>
+
+            <DataTemplate x:Key="OpenTargetTemplate">
+                <ScrollViewer AutomationProperties.AutomationId="OpenTarget" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <ListBox AutomationProperties.AutomationId="Files" DataContext="{TemplateBinding Content}" ItemsSource="{Binding Item2}" Tag="{Binding Item1}"
+                 ItemTemplate="{StaticResource RecentTargetItemTemplate}"
+                 Style="{StaticResource RecentGroupListBoxStyle}" />
+                        <Button AutomationProperties.AutomationId="File" DockPanel.Dock="Bottom" HorizontalAlignment="Left" Margin="30,12" Command="{StaticResource BrowseTargetFileCommand}" 
+                                DataContext="{TemplateBinding Content}" CommandParameter="{Binding Item1}"
+                    s:ShortcutManager.Shortcut="B:File|Open|Computer">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border"
+                          BorderThickness="{s:ThemeBinding ControlBorderThickness}"
+                          Padding="{s:ThemeBinding ButtonPadding}"
+                          Background="Transparent"
+                          BorderBrush="{s:ThemeBinding ControlBorderBrush}" >
+                                        <StackPanel Margin="8">
+                                            <Image Source="\Images\folder.ico" HorizontalAlignment="Center" Width="32" Height="32" />
+                                            <TextBlock x:Name="text" Text="{x:Static l:Strings.FileMenu_Browse_Button}" Margin="0,2" HorizontalAlignment="Center" Foreground="{s:ThemeBinding OpenTabItemForegroundBrush}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                            <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SingleBoxOpenReadOnlyTemplate">
+                <ContentControl AutomationProperties.AutomationId="OpenReadOnly" Content="{Binding OpenReadOnlyFileTabItem, Source={x:Static Application.Current}}" ContentTemplate="{Binding OpenReadOnlyFileTabItem.ContentTemplate, Source={x:Static Application.Current}}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="SingleBoxOpenWritableTemplate">
+                <ContentControl AutomationProperties.AutomationId="OpenWritable" Content="{Binding OpenWritableFileTabItem, Source={x:Static Application.Current}}" ContentTemplate="{Binding OpenWritableFileTabItem.ContentTemplate, Source={x:Static Application.Current}}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="OpenTemplate">
+                <s:OpenTabControl AutomationProperties.AutomationId="OpenReadOnly" ItemsSource="{Binding OpenReadOnlyFileTabControls, Source={x:Static Application.Current}}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ViewLayoutEditorTemplate">
+                <s:ViewLayoutEditor AutomationProperties.AutomationId="ViewLayoutEditor" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="AboutTemplate">
+                <l:AboutBox Margin="0,10" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ThemeTemplate">
+                <s:ThemeEditorView />
+            </DataTemplate>
+
+            <DataTemplate x:Key="SettingsTemplate">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <StackPanel AutomationProperties.AutomationId="Settings" Margin="24,12" DataContext="{Binding KStudioService, RelativeSource={RelativeSource AncestorType=l:MainWindow}}">
+                        <GroupBox Header="{x:Static l:Strings.Settings_Standard_Group}" Margin="0,15">
+                            <StackPanel>
+                                <CheckBox AutomationProperties.AutomationId="AutoConnect" Content="{x:Static l:Strings.Settings_AutoConnect_Button}" IsChecked="{Binding Settings.AutoTargetConnectOnStartup}" />
+                                <CheckBox AutomationProperties.AutomationId="AutoMonitor" Content="{x:Static l:Strings.Settings_AutoMonitor_Button}" IsChecked="{Binding Settings.AutoMonitorOnTargetConnect}" Margin="0,10,0,0" />
+                                <CheckBox AutomationProperties.AutomationId="AutoMonitorOnPlayback" Content="{x:Static l:Strings.Settings_AutoMonitorOnTargetPlayback_Button}" IsChecked="{Binding Settings.AutoMonitorOnTargetPlayback}" Margin="0,10,0,0" />
+                                <CheckBox AutomationProperties.AutomationId="AutoStopMonitorOnRecord" Content="{x:Static l:Strings.Settings_AutoStopMonitorOnRecord_Button}" IsChecked="{Binding Settings.AutoStopMonitorOnRecord}" Margin="0,10,0,0" />
+                                <!--
+                                <CheckBox AutomationProperties.AutomationId="AutoPlayback" Content="{x:Static l:Strings.Settings_AutoPlayback_Button}" IsChecked="{Binding Settings.AutoPlaybackOnRecordStop}" Margin="0,10,0,0" />
+                                -->
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{x:Static l:Strings.Settings_RecordingFilePath_Group}" Visibility="{Binding IsKinectForWindows, Source={x:Static Application.Current}, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,15">
+                            <StackPanel>
+                                <TextBox Text="{Binding Settings.TargetFilePath}" IsReadOnly="True" />
+                                <Button Command="{StaticResource BrowseTargetFilePathCommand}" Margin="0,10,0,0" HorizontalAlignment="Left">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border"
+                                BorderThickness="{s:ThemeBinding ControlBorderThickness}"
+                                Padding="{s:ThemeBinding ButtonPadding}"
+                                Background="Transparent"
+                                BorderBrush="{s:ThemeBinding ControlBorderBrush}" >
+                                                <StackPanel Margin="8">
+                                                    <Image Source="\Images\folder.ico" HorizontalAlignment="Center" Width="32" Height="32" />
+                                                    <TextBlock x:Name="text" Text="{x:Static l:Strings.FileMenu_Browse_Button}" Margin="0,2" HorizontalAlignment="Center" Foreground="{s:ThemeBinding OpenTabItemForegroundBrush}" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemHoverBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                                    <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemHoverForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="{Binding Theme.OpenTabItemSelectedBackgroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                                    <Setter TargetName="text" Property="Foreground" Value="{Binding Theme.OpenTabItemSelectedForegroundBrush, Source={x:Static s:Theme.Instance}}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{x:Static l:Strings.Settings_RecordingBuffering_Group}" Visibility="{Binding IsKinectForWindows, Source={x:Static Application.Current}, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,15">
+                            <StackPanel HorizontalAlignment="Left">
+                                <TextBlock AutomationProperties.AutomationId="BufferSize" Text="{Binding Settings.RecordingBufferSizeMB, StringFormat={x:Static l:Strings.Settings_BufferSize_Format}}" Margin="0,10,0,0" />
+                                <TextBlock AutomationProperties.AutomationId="MemorySize" Text="{Binding PhysicalMemoryMB, Source={x:Static Application.Current}, StringFormat={x:Static l:Strings.Settings_PhysicalMemory_Format}}" Margin="0,10,0,0" />
+                                <TextBlock Text="{x:Static l:Strings.Settings_BufferSize_Explanation}" Margin="0,10,0,0" TextWrapping="Wrap" MaxWidth="450" />
+                                <Button AutomationProperties.AutomationId="BufferSizeEdit" Content="{x:Static l:Strings.Settings_Edit_BufferSize_Button}" Command="{StaticResource EditBufferSizeCommand}" Margin="0,10,0,0" HorizontalAlignment="Left" />
+                                <Button AutomationProperties.AutomationId="BufferSizeDefault" Content="{x:Static l:Strings.Settings_Default_BufferSize_Button}" Command="{StaticResource SetDefaultBufferSizeCommand}" Margin="0,10,0,0" HorizontalAlignment="Left" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{x:Static l:Strings.Settings_Advanced_Group}" Margin="0,15">
+                            <StackPanel>
+                                <CheckBox AutomationProperties.AutomationId="AdvancedModeObscureStreams" Content="{x:Static l:Strings.Settings_AdvancedModeObscureStreams_Button}" IsChecked="{Binding Settings.AdvancedModeObscureStreams}" Margin="0,10,0,0" />
+                                <Button AutomationProperties.AutomationId="EditMetadata" Command="{StaticResource EditPluginMetadataSettingsCommand}" Content="{x:Static l:Strings.Settings_MetadataOverrides_Button}" Margin="0,10,0,0" HorizontalAlignment="Left" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </DataTemplate>
+
+
+            <Style x:Key="ValueDialogTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Text">
+                    <Setter.Value>
+                        <Binding>
+                            <Binding.Path>Value</Binding.Path>
+                            <Binding.RelativeSource>
+                                <RelativeSource AncestorType="{x:Type l:EditValueDialog}" />
+                            </Binding.RelativeSource>
+                        </Binding>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="NumberValueDialogTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource ValueDialogTextBoxStyle}">
+                <Setter Property="TextAlignment" Value="Right" />
+            </Style>
+
+            <Style x:Key="TimeSpanValueDialogTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource ValueDialogTextBoxStyle}">
+                <Setter Property="Text">
+                    <Setter.Value>
+                        <Binding>
+                            <Binding.Path>Value</Binding.Path>
+                            <Binding.RelativeSource>
+                                <RelativeSource AncestorType="{x:Type l:EditValueDialog}" />
+                            </Binding.RelativeSource>
+                        </Binding>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="l:EditUInt32Dialog">
+                <Setter Property="Prompt" Value="{x:Static l:Strings.EditUInt32_Prompt}" />
+                <Setter Property="OutOfRangeErrorMessageFormat" Value="{x:Static l:Strings.EditUInt32_Error_OutOfRange}" />
+                <Setter Property="ValueTextBoxStyle" Value="{StaticResource NumberValueDialogTextBoxStyle}" />
+            </Style>
+            <Style TargetType="l:EditTimeSpanDialog">
+                <Setter Property="Prompt" Value="{x:Static l:Strings.EditTimeSpan_Prompt}" />
+                <Setter Property="OutOfRangeErrorMessageFormat" Value="{x:Static l:Strings.EditTimeSpan_Error_OutOfRange}" />
+                <Setter Property="ValueTextBoxStyle" Value="{StaticResource TimeSpanValueDialogTextBoxStyle}" />
+            </Style>
+            <Style TargetType="l:EditStringDialog">
+                <Setter Property="ValueTextBoxStyle" Value="{StaticResource ValueDialogTextBoxStyle}" />
+            </Style>
+
+            <Style x:Key="TimelineStyle" TargetType="{x:Type u:Timeline2}">
+                <Setter Property="ContextMenu">
+                    <Setter.Value>
+                        <!-- this context menu only shows up in the selected range -->
+                        <ContextMenu>
+                            <MenuItem AutomationProperties.AutomationId="SelectedRangeZoomToSelection"  Command="{x:Static s:Timeline.ZoomToSelectionCommand}" 
+                                      CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                            <Separator />
+                            <MenuItem AutomationProperties.AutomationId="SelectedRangeSetInOutPoints"
+                                      Header="{x:Static l:Strings.InOutPointsMenu_SetInOutPoints_MenuItem}"
+                                      Command="{StaticResource SetInOutPointsByTimelineRangeCommand}" 
+                                      CommandParameter="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                                      CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                        </ContextMenu>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type s:Timeline}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="5" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="{Binding Path=SideBarWidth, ElementName=PART_SwimlanePanel, Converter={StaticResource DoubleToLeftMarginConverter}}">
+                                    <Grid Margin="-6,0" ClipToBounds="True">
+                                        <l:TimelineOverlay MarkersSource="{Binding KStudioService.PlaybackFileMarkers, RelativeSource={RelativeSource AncestorType=l:PlaybackableStreamsViewContent}}"
+                                                           PausePointsSource="{Binding KStudioService.PlaybackPausePoints, RelativeSource={RelativeSource AncestorType=l:PlaybackableStreamsViewContent}}" 
+                                                           InOutPointsSource="{Binding KStudioService.PlaybackInOutPoints, RelativeSource={RelativeSource AncestorType=l:PlaybackableStreamsViewContent}}" Margin="6,0" 
+                                                       Minimum="{Binding TimeAxis.VisibleTimeStart, RelativeSource={RelativeSource AncestorType=u:Timeline2}, Converter={StaticResource PixTimeToTimeSpanTicksConverter}}"  
+                                                       Maximum="{Binding TimeAxis.VisibleTimeEnd, RelativeSource={RelativeSource AncestorType=u:Timeline2}, Converter={StaticResource PixTimeToTimeSpanTicksConverter}}" />
+                                    </Grid>
+                                </Grid>
+                                <s:SwimlanePanel Grid.Row="2" x:Name="PART_SwimlanePanel" Background="{TemplateBinding Background}" MinimumSideBarWidth="200" />
+                                <Grid Grid.Row="2" x:Name="PART_SelectionGrid" Margin="{Binding Path=SideBarWidth, ElementName=PART_SwimlanePanel, Converter={StaticResource DoubleToLeftMarginConverter}}">
+                                    <s:TimelineSelectionVisual
+                  x:Name="PART_SelectionVisual" VerticalAlignment="Stretch" HorizontalAlignment="Left" Opacity="0.5" Panel.ZIndex="1" Grid.Column="1"
+                  Stroke="{s:ThemeBinding TimelineSelectionBorderBrush}" StrokeThickness="1"
+                  Fill="{s:ThemeBinding TimelineSelectionBrush}"
+                  SnapsToDevicePixels="True"
+                  Visibility="Collapsed">
+                                        <s:TimelineSelectionVisual.RenderTransform>
+                                            <TranslateTransform x:Name="PART_SelectionVisualTransform" />
+                                        </s:TimelineSelectionVisual.RenderTransform>
+                                    </s:TimelineSelectionVisual>
+                                    <Border x:Name="PART_SelectionTip" BorderThickness="1" Visibility="Collapsed" Cursor="SizeNS" Grid.Column="1"
+                  BorderBrush="{s:ThemeBinding ControlForegroundBrush}"
+                  Background="{s:ThemeBinding WindowBackgroundBrush}"
+                  VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="2">
+                                        <TextBlock Margin="4" FontSize="10" Text="{Binding Path=SelectionTipText, RelativeSource={RelativeSource TemplatedParent}}"
+                   Foreground="{s:ThemeBinding ControlForegroundBrush}" />
+                                        <Border.RenderTransform>
+                                            <TranslateTransform x:Name="PART_SelectionTipTransform" />
+                                        </Border.RenderTransform>
+                                    </Border>
+                                </Grid>
+                                <ScrollBar Grid.Row="2" Grid.Column="1" Orientation="Vertical" Height="{Binding Path=TotalComputedHeight, ElementName=PART_SwimlanePanel}" VerticalAlignment="Top"
+                       ViewportSize="{Binding Path=VisibleHeight, ElementName=PART_SwimlanePanel}" Value="{Binding Path=ScrollOffset, ElementName=PART_SwimlanePanel, Mode=TwoWay}"
+                       Minimum="0" Maximum="{Binding Path=ScrollRange, ElementName=PART_SwimlanePanel}" SmallChange="5" LargeChange="{Binding Path=VisibleHeight, ElementName=PART_SwimlanePanel}"
+                       Visibility="{Binding Path=ScrollRange, ElementName=PART_SwimlanePanel, Converter={StaticResource ScrollRangeToVisibilityConverter}}" />
+                                <Button Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8,32" Opacity="0.5" Padding="4" Command="{x:Static s:Timeline.ToggleScrollingCommand}" Focusable="False"
+                AutomationProperties.AutomationId="SnapToRightButton" BorderThickness="0">
+                                    <Button.Visibility>
+                                        <MultiBinding Converter="{StaticResource TimelineStatesToVisibilityConverter}">
+                                            <Binding Path="IsLive" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="TimeAxis.IsAutoPanning" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        </MultiBinding>
+                                    </Button.Visibility>
+                                    <Image Source="Images\ScrollToRightEdge.png" Width="24" Height="24" />
+                                </Button>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <x:Array x:Type="s:FileTabDefinition" x:Key="WindowsFileTabs">
+                <s:FileTabDefinition Name="PART_OpenFile" Header="{x:Static l:Strings.FileMenu_OpenReadOnly_MenuItem}" ContentTemplate="{StaticResource SingleBoxOpenReadOnlyTemplate}" Shortcut="{x:Static l:Strings.FileMenu_OpenReadOnly_Shortcut}" SubMode="OpenReadOnly"/>
+                <s:FileTabDefinition Name="PART_OpenFileWritable" Header="{x:Static l:Strings.FileMenu_OpenWritable_MenuItem}" ContentTemplate="{StaticResource SingleBoxOpenWritableTemplate}" Shortcut="{x:Static l:Strings.FileMenu_OpenWritable_Shortcut}" SubMode="OpenWritable"/>
+                <s:FileTabDefinition Header="{x:Static l:Strings.FileMenu_Close_MenuItem}" Command="{x:Static s:ToolsUIWindow.CloseDocumentCommand}" Shortcut="{x:Static l:Strings.FileMenu_Close_Shortcut}" />
+                <s:FileTabDefinition IsSeparator="True" />
+                <s:FileTabDefinition Name="PART_ViewLayoutEditor" Header="{x:Static l:Strings.FileMenu_View_MenuItem}" ContentTemplate="{StaticResource ViewLayoutEditorTemplate}" Shortcut="{x:Static l:Strings.FileMenu_View_Shortcut}" SubMode="View" />
+                <s:FileTabDefinition Header="{x:Static l:Strings.FileMenu_Settings_MenuItem}" ContentTemplate="{StaticResource SettingsTemplate}" Shortcut="{x:Static l:Strings.FileMenu_Settings_Shortcut}" SubMode="Settings" />
+                <s:FileTabDefinition IsSeparator="True" />
+                <s:FileTabDefinition Header="{x:Static l:Strings.FileMenu_TargetConnect_SingleBox_MenuItem}" Command="{StaticResource TargetConnectCommand}" Shortcut="{x:Static l:Strings.FileMenu_TargetConnect_Shortcut}" />
+                <s:FileTabDefinition Header="{x:Static l:Strings.FileMenu_TargetDisconnect_SingleBox_MenuItem}" Command="{StaticResource TargetDisconnectCommand}" Shortcut="{x:Static l:Strings.FileMenu_TargetDisconnect_Shortcut}" />
+                <s:FileTabDefinition IsSeparator="True" />
+                <s:FileTabDefinition Header="{x:Static l:Strings.FileMenu_About_MenuItem}" ContentTemplate="{StaticResource AboutTemplate}" Shortcut="{x:Static l:Strings.FileMenu_About_Shortcut}" SubMode="About" />
+                <s:FileTabDefinition Header="{x:Static l:Strings.FileMenu_Exit_MenuItem}" Command="{x:Static s:ToolsUIWindow.ExitCommand}" Shortcut="{x:Static l:Strings.FileMenu_Exit_Shortcut}" />
+            </x:Array>
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</s:ToolsUIApplication>

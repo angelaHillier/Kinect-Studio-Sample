@@ -1,0 +1,101 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<UserControl x:Class="KinectStudioApp.TargetMonitorableStreamsViewContent" 
+             AutomationProperties.AutomationId="TargetMonitorableStreamsViewContent" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:u="clr-namespace:KinectStudioUtility;assembly=KinectStudioUtility" 
+             xmlns:l="clr-namespace:KinectStudioApp">
+    <Grid MinWidth="300" Margin="10" DataContext="{Binding KStudioService, RelativeSource={RelativeSource AncestorType=l:TargetMonitorableStreamsViewContent}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" MinHeight="25" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <Grid VerticalAlignment="Center">
+                <Button AutomationProperties.AutomationId="Connect" Style="{StaticResource ConnectToolbarButtonStyle}" />
+                <Button AutomationProperties.AutomationId="Disconnect" Style="{StaticResource DisconnectToolbarButtonStyle}" />
+            </Grid>
+            <ContentControl Margin="5,0,0,0" Style="{StaticResource ConnnectStatusToolbarDisplayStyle}" Content="{Binding}" />
+            <ContentControl Style="{StaticResource ToolBarSeparatorStyle}" Margin="5,0,0,0" />
+            <Grid Margin="5,0,0,0">
+                <Button AutomationProperties.AutomationId="MonitorStart" Style="{StaticResource MonitorStartToolbarButtonStyle}" />
+                <Button AutomationProperties.AutomationId="MonitorStop" Style="{StaticResource MonitorStopToolbarButtonStyle}" />
+            </Grid>
+        </StackPanel>
+        <!--
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock AutomationProperties.AutomationId="NotConnectedStatus" Style="{StaticResource NotConnectedElementVisibilityStyle}" Text="{x:Static l:Strings.MonitorState_NotConnected}" />
+            <TextBlock AutomationProperties.AutomationId="ConnectedStatus" Style="{StaticResource ConnectedElementVisibilityStyle}" Text="{Binding MonitorState, Converter={StaticResource EnumToStringConverter}, ConverterParameter=MonitorState_}" />
+        </StackPanel>
+        -->
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasMonitor}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <TextBlock AutomationProperties.AutomationId="MonitorTimeLabel" Text="{x:Static l:Strings.MonitorView_TimeLabel}" />
+            <TextBlock AutomationProperties.AutomationId="MonitorTime" Margin="10,0,0,0" Text="{Binding MonitorTime}" />
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Button AutomationProperties.AutomationId="MonitorUnselectAll" Style="{StaticResource ConnectedUnselectAllToolbarButtonStyle}" Command="{StaticResource MonitorUnselectAllCommand}" Margin="8,0,0,0" />
+            <u:BooleanButton AutomationProperties.AutomationId="MonitorShowHideStreams" Margin="5,0,0,0" Style="{StaticResource ConnectedShowHideStreamsToolbarButtonStyle}" Grid.Column="4" Value="{Binding AreAllStreamsVisibleForMonitor, Mode=TwoWay}" />
+            <TextBlock AutomationProperties.AutomationId="MonitorHeader" Margin="10,0,0,0" Text="{Binding TargetMonitorableStreamsTitle}" ToolTip="{Binding TargetMonitorableStreamsToolTip}" VerticalAlignment="Center" />
+        </StackPanel>
+        <ListBox AutomationProperties.AutomationId="MonitorStreams" Grid.Row="6" ItemsSource="{Binding TargetMonitorableStreams}" ItemTemplate="{StaticResource MonitorableStreamDataTemplate}" ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="1">
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.IsVisibleForTargetMonitor}" Value="True" />
+                                <Condition Binding="{Binding UserState.IsObscureStream}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.KStudioService.AreAllStreamsVisibleForMonitor}" Value="True" />
+                                <Condition Binding="{Binding UserState.IsObscureStream}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.KStudioService.Settings.AdvancedModeObscureStreams}" Value="True" />
+                                <Condition Binding="{Binding UserState.IsVisibleForTargetMonitor}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding UserState.KStudioService.Settings.AdvancedModeObscureStreams}" Value="True" />
+                                <Condition Binding="{Binding UserState.KStudioService.AreAllStreamsVisibleForMonitor}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+    </Grid>
+</UserControl>

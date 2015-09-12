@@ -1,0 +1,699 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:l="clr-namespace:KinectStudioPlugin"
+                    xmlns:u="clr-namespace:KinectStudioUtility;assembly=KinectStudioUtility">
+
+    <RoutedUICommand x:Key="KinectStudioPlugin.ShowSettingsCommand" />
+    <RoutedUICommand x:Key="KinectStudioPlugin.CameraViewCommand" />
+    <RoutedUICommand x:Key="KinectStudioPlugin.ZoomPercentageCommand" />
+    <RoutedUICommand x:Key="KinectStudioPlugin.ZoomInOutCommand" />
+    <RoutedUICommand x:Key="KinectStudioPlugin.ViewArrayMetadataCommand" />
+
+    <u:ComparisonConverter x:Key="KinectStudioPlugin.ComparisonConverter" />
+    <u:EnumConverter x:Key="KinectStudioPlugin.EnumConverter" />
+    <u:InverterConverter x:Key="KinectStudioPlugin.InverterConverter" />
+    <u:IsNullConverter x:Key="KinectStudioPlugin.IsNullConverter" />
+    <u:FormatConverter x:Key="KinectStudioPlugin.FormatConverter" />
+    <u:StringByteConverter x:Key="KinectStudioPlugin.StringByteConverter" />
+    <u:StringInt16Converter x:Key="KinectStudioPlugin.StringInt16Converter" />
+    <u:StringUInt16Converter x:Key="KinectStudioPlugin.StringUInt16Converter" />
+    <u:StringInt32Converter x:Key="KinectStudioPlugin.StringInt32Converter" />
+    <u:StringUInt32Converter x:Key="KinectStudioPlugin.StringUInt32Converter" />
+    <u:StringInt64Converter x:Key="KinectStudioPlugin.StringInt64Converter" />
+    <u:StringUInt64Converter x:Key="KinectStudioPlugin.StringUInt64Converter" />
+    <u:StringSingleConverter x:Key="KinectStudioPlugin.StringSingleConverter" />
+    <u:StringDoubleConverter x:Key="KinectStudioPlugin.StringDoubleConverter" />
+    <u:StringCharConverter x:Key="KinectStudioPlugin.StringCharConverter" />
+    <u:StringGuidConverter x:Key="KinectStudioPlugin.StringGuidConverter" />
+    <u:StringDateTimeConverter x:Key="KinectStudioPlugin.StringDateTimeConverter" />
+    <u:StringTimeSpanConverter x:Key="KinectStudioPlugin.StringTimeSpanConverter" />
+    <u:StringPointConverter x:Key="KinectStudioPlugin.StringPointConverter" />
+    <u:StringSizeConverter x:Key="KinectStudioPlugin.StringSizeConverter" />
+    <u:StringRectConverter x:Key="KinectStudioPlugin.StringRectConverter" />
+    <u:StringBufferConverter x:Key="KinectStudioPlugin.StringBufferConverter" />
+    <u:StringByteArrayConverter x:Key="KinectStudioPlugin.StringByteArrayConverter" />
+    <u:StringInt16ArrayConverter x:Key="KinectStudioPlugin.StringInt16ArrayConverter" />
+    <u:StringUInt16ArrayConverter x:Key="KinectStudioPlugin.StringUInt16ArrayConverter" />
+    <u:StringInt32ArrayConverter x:Key="KinectStudioPlugin.StringInt32ArrayConverter" />
+    <u:StringUInt32ArrayConverter x:Key="KinectStudioPlugin.StringUInt32ArrayConverter" />
+    <u:StringInt64ArrayConverter x:Key="KinectStudioPlugin.StringInt64ArrayConverter" />
+    <u:StringUInt64ArrayConverter x:Key="KinectStudioPlugin.StringUInt64ArrayConverter" />
+    <u:StringSingleArrayConverter x:Key="KinectStudioPlugin.StringSingleArrayConverter" />
+    <u:StringDoubleArrayConverter x:Key="KinectStudioPlugin.StringDoubleArrayConverter" />
+    <u:StringCharArrayConverter x:Key="KinectStudioPlugin.StringCharArrayConverter" />
+    <u:StringBooleanArrayConverter x:Key="KinectStudioPlugin.StringBooleanArrayConverter" />
+    <u:StringGuidArrayConverter x:Key="KinectStudioPlugin.StringGuidArrayConverter" />
+    <u:StringDateTimeArrayConverter x:Key="KinectStudioPlugin.StringDateTimeArrayConverter" />
+    <u:StringTimeSpanArrayConverter x:Key="KinectStudioPlugin.StringTimeSpanArrayConverter" />
+    <u:StringPointArrayConverter x:Key="KinectStudioPlugin.StringPointArrayConverter" />
+    <u:StringSizeArrayConverter x:Key="KinectStudioPlugin.StringSizeArrayConverter" />
+    <u:StringRectArrayConverter x:Key="KinectStudioPlugin.StringRectArrayConverter" />
+    <u:StringStringArrayConverter x:Key="KinectStudioPlugin.StringStringArrayConverter" />
+    <u:StringObjectArrayConverter x:Key="KinectStudioPlugin.StringObjectArrayConverter" />
+
+    <l:FileMetadataValueTemplateSelector x:Key="KinectStudioPlugin.ReadOnlyFileMetaTempSel" IsReadOnly="True" />
+    <l:FileMetadataValueTemplateSelector x:Key="KinectStudioPlugin.WritableFileMetaTempSel" IsReadOnly="False" />
+    <l:StreamMetadataValueTemplateSelector x:Key="KinectStudioPlugin.ReadOnlyStreamMetaTempSel" IsReadOnly="True" />
+    <l:StreamMetadataValueTemplateSelector x:Key="KinectStudioPlugin.WritableStreamMetaTempSel" IsReadOnly="False" />
+
+    <Style x:Key="KinectStudioPlugin.SmallToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+    </Style>
+
+    <DataTemplate x:Key="KinectStudioPlugin.ReadOnlyStringMetadataValueDataTemplate">
+        <TextBlock AutomationProperties.AutomationId="ReadOnlyString" Text="{Binding Value, Mode=OneTime}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.ReadOnlyNumberMetadataValueDataTemplate">
+        <TextBlock AutomationProperties.AutomationId="ReadOnlyNumber" Text="{Binding Value, Mode=OneTime}" TextAlignment="Right" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.ReadOnlyArrayMetadataValueDataTemplate">
+        <TextBlock AutomationProperties.AutomationId="ReadOnlyArray" Text="{Binding Value, Mode=OneTime, Converter={StaticResource KinectStudioPlugin.StringObjectArrayConverter}}" TextWrapping="WrapWithOverflow" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.ReadOnlyBooleanMetadataValueDataTemplate">
+        <CheckBox AutomationProperties.AutomationId="ReadOnlyBoolean" IsChecked="{Binding Value, Mode=OneTime}" IsEnabled="False" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.ReadOnlyBufferMetadataValueDataTemplate">
+        <TextBlock AutomationProperties.AutomationId="ReadOnlyBuffer" Text="{Binding Value, Converter={StaticResource KinectStudioPlugin.StringBufferConverter}}" FontFamily="Courier" TextWrapping="WrapWithOverflow" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableStringMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableString" Text="{Binding Value}" />
+    </DataTemplate>
+
+    <Style x:Key ="KinectStudioPlugin.WritableMetadataTextBoxStyle" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="BorderBrush" Value="Red"/>
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key ="KinectStudioPlugin.WritableMetadataArrayTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource KinectStudioPlugin.WritableMetadataTextBoxStyle}">
+        <Setter Property="ToolTip" Value="{x:Static l:Strings.Metadata_EditArray_ToolTip}" />
+    </Style>
+
+    <Style x:Key ="KinectStudioPlugin.WritableMetadataNumberTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource KinectStudioPlugin.WritableMetadataTextBoxStyle}">
+        <Setter Property="TextAlignment" Value="Right" />
+    </Style>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableByteMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableByte" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringByteConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringByteConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableInt16MetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableInt16" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringInt16Converter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringInt16Converter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableUInt16MetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableUInt16" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringUInt16Converter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringUInt16Converter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableInt32MetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableInt32" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringInt32Converter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringInt32Converter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableUInt32MetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableUInt32" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringUInt32Converter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringUInt32Converter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableInt64MetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableInt64" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringInt64Converter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringInt64Converter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableUInt64MetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableUInt64" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringUInt64Converter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringUInt64Converter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableSingleMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableSingle" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringSingleConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringSingleConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableDoubleMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableDouble" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringDoubleConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringDoubleConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableCharMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableChar" Style="{StaticResource KinectStudioPlugin.WritableMetadataTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringCharConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringCharConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableGuidMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableGuid" Style="{StaticResource KinectStudioPlugin.WritableMetadataTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringGuidConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringGuidConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableDateTimeMetadataValueDataTemplate">
+        <u:DateTimePicker AutomationProperties.AutomationId="WritableDateTimePicker" SelectedDateTime="{Binding Value}">
+            <u:DateTimePicker.Style>
+                <Style TargetType="u:DateTimePicker">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="u:DateTimePicker">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <DatePicker x:Name="PART_DatePicker" SelectedDateFormat="Short" SelectedDate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedDate}" />
+                                    <TextBox x:Name="PART_TextBox" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedDateTime}" Grid.Column="2" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </u:DateTimePicker.Style>
+        </u:DateTimePicker>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableTimeSpanMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableTimeSpan" Style="{StaticResource KinectStudioPlugin.WritableMetadataTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringTimeSpanConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringTimeSpanConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritablePointMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritablePoint" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringPointConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringPointConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableSizeMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableSize" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringSizeConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringSizeConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableRectMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableRect" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringRectConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringRectConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableBooleanMetadataValueDataTemplate">
+        <StackPanel Orientation="Horizontal">
+            <CheckBox AutomationProperties.AutomationId="WritableBoolean" IsChecked="{Binding Value}" />
+            <TextBlock AutomationProperties.AutomationId="WritableBooleanText" Text="{Binding Value}" Margin="10,0,0,0" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableBufferMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableBuffer" Text="{Binding Value, Converter={StaticResource KinectStudioPlugin.StringBufferConverter}}" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}" FontFamily="Courier" TextWrapping="WrapWithOverflow" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.InvalidMetadataValueDataTemplate">
+        <StackPanel>
+            <TextBlock AutomationProperties.AutomationId="InvalidPrompt" Text="{x:Static l:Strings.Metadata_InvalidData}" />
+            <TextBox AutomationProperties.AutomationId="Invalid" Text="{Binding Value, Converter={StaticResource KinectStudioPlugin.StringBufferConverter}}" Style="{StaticResource KinectStudioPlugin.WritableMetadataNumberTextBoxStyle}" FontFamily="Courier" IsReadOnly="True" TextWrapping="WrapWithOverflow" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableByteArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableByteArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringByteArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringByteArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableInt16ArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableInt16Array" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringInt16ArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringInt16ArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableUInt16ArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableUInt16Array" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringUInt16ArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringUInt16ArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableInt32ArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableInt32Array" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringInt32ArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringInt32ArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableUInt32ArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableUInt32Array" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringUInt32ArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringUInt32ArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableInt64ArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableInt64Array" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringInt64ArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringInt64ArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableUInt64ArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableUInt64Array" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringUInt64ArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringUInt64ArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableSingleArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableSingleArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringSingleArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringSingleArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableDoubleArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableDoubleArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringDoubleArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringDoubleArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableCharArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableCharArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringCharArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringCharArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableBooleanArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableBooleanArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringBooleanArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringBooleanArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableGuidArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableGuidArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringGuidArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringGuidArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableDateTimeArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableDateTimeArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringDateTimeArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringDateTimeArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableTimeSpanArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableTimeSpanArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringTimeSpanArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringTimeSpanArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritablePointArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritablePointArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringPointArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringPointArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableSizeArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableSizeArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringSizeArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringSizeArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableRectArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableRectArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringRectArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringRectArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="KinectStudioPlugin.WritableStringArrayMetadataValueDataTemplate">
+        <TextBox AutomationProperties.AutomationId="WritableStringArray" Style="{StaticResource KinectStudioPlugin.WritableMetadataArrayTextBoxStyle}" TextWrapping="WrapWithOverflow">
+            <TextBox.Text>
+                <Binding Path="Value" Converter="{StaticResource KinectStudioPlugin.StringStringArrayConverter}">
+                    <Binding.ValidationRules>
+                        <l:TypeValidationRule Converter="{StaticResource KinectStudioPlugin.StringStringArrayConverter}" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+    </DataTemplate>
+
+    <Style x:Key="KinectStudioPlugin.ZoomScrollViewerStyle" TargetType="ScrollViewer">
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=IsZoomToFit}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ZoomPercentageMenuItemStyle" TargetType="MenuItem">
+        <Setter Property="Command" Value="{StaticResource KinectStudioPlugin.ZoomPercentageCommand}" />
+        <Setter Property="CommandParameter" Value="{Binding Path=Tag, RelativeSource={x:Static RelativeSource.Self}}" />
+        <Setter Property="IsCheckable" Value="True" />
+        <Setter Property="IsChecked" Value="False" />
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=IsZoomToFit}" Value="False" />
+                    <Condition Value="True">
+                        <Condition.Binding>
+                            <MultiBinding Converter="{StaticResource KinectStudioPlugin.ComparisonConverter}" ConverterParameter="str==" Mode="OneWay">
+                                <Binding Path="Zoom" />
+                                <Binding Path="Tag" RelativeSource="{x:Static RelativeSource.Self}" />
+                            </MultiBinding>
+                        </Condition.Binding>
+                    </Condition>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="IsChecked" Value="True" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ZoomInOutMenuItemStyle" TargetType="MenuItem">
+        <Setter Property="Command" Value="{StaticResource KinectStudioPlugin.ZoomInOutCommand}" />
+        <Setter Property="CommandParameter" Value="{Binding Path=Tag, RelativeSource={x:Static RelativeSource.Self}}" />
+    </Style>
+
+    <Style x:Key="KinectStudioPlugin.CheckBoxGroupBoxStyle" TargetType="GroupBox">
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Margin" Value="10,5" />
+        <Setter Property="Padding" Value="5,0,5,5" />
+    </Style>
+
+    <Style x:Key="KinectStudioPlugin.Image2DVisualizationControlStyle" TargetType="l:Image2DVisualizationControl">
+        <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem AutomationProperties.AutomationId="Settings" Header="{x:Static l:Strings.ViewMenu_Settings_MenuItem}" Command="{StaticResource KinectStudioPlugin.ShowSettingsCommand}" />
+                    <Separator />
+                    <MenuItem AutomationProperties.AutomationId="ZoomIn" Header="{x:Static l:Strings.ViewMenu_ZoomIn_MenuItem}" Tag="+" InputGestureText="Ctrl +" Style="{StaticResource ZoomInOutMenuItemStyle}" />
+                    <MenuItem AutomationProperties.AutomationId="ZoomOut" Header="{x:Static l:Strings.ViewMenu_ZoomOut_MenuItem}" Tag="-" InputGestureText="Ctrl -" Style="{StaticResource ZoomInOutMenuItemStyle}" />
+                    <Separator />
+                    <MenuItem AutomationProperties.AutomationId="Zoom400" Header="{x:Static l:Strings.ViewMenu_Zoom400_MenuItem}" Tag="400" Style="{StaticResource ZoomPercentageMenuItemStyle}" />
+                    <MenuItem AutomationProperties.AutomationId="Zoom300" Header="{x:Static l:Strings.ViewMenu_Zoom300_MenuItem}" Tag="300" Style="{StaticResource ZoomPercentageMenuItemStyle}" />
+                    <MenuItem AutomationProperties.AutomationId="Zoom200" Header="{x:Static l:Strings.ViewMenu_Zoom200_MenuItem}" Tag="200" Style="{StaticResource ZoomPercentageMenuItemStyle}" />
+                    <MenuItem AutomationProperties.AutomationId="Zoom100" Header="{x:Static l:Strings.ViewMenu_Zoom100_MenuItem}" Tag="100" Style="{StaticResource ZoomPercentageMenuItemStyle}" />
+                    <MenuItem AutomationProperties.AutomationId="Zoom75" Header="{x:Static l:Strings.ViewMenu_Zoom75_MenuItem}" Tag="75" Style="{StaticResource ZoomPercentageMenuItemStyle}" />
+                    <MenuItem AutomationProperties.AutomationId="Zoom50" Header="{x:Static l:Strings.ViewMenu_Zoom50_MenuItem}" Tag="50" Style="{StaticResource ZoomPercentageMenuItemStyle}" />
+                    <Separator />
+                    <MenuItem AutomationProperties.AutomationId="ZoomToFit" Header="{x:Static l:Strings.ViewMenu_ZoomToFit_MenuItem}" IsCheckable="True" IsChecked="{Binding IsZoomToFit}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ScrollViewer x:Name="PART_ScrollViewer" Style="{StaticResource KinectStudioPlugin.ZoomScrollViewerStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Top">
+                        <Canvas x:Name="PART_ImageHost" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image x:Name="PART_Image" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid.RenderTransform>
+                                    <ScaleTransform x:Name="PART_ScaleTransform" ScaleX="1" ScaleY="1" />
+                                </Grid.RenderTransform>
+                                <Canvas x:Name="PART_ControlsHost" />
+                            </Grid>
+                        </Canvas>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="KinectStudioPlugin.Image3DVisualizationControlStyle" TargetType="l:Image3DVisualizationControl">
+        <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem AutomationProperties.AutomationId="Settings" Header="{x:Static l:Strings.ViewMenu_Settings_MenuItem}" Command="{StaticResource KinectStudioPlugin.ShowSettingsCommand}" />
+                    <Separator />
+                    <MenuItem AutomationProperties.AutomationId="DefaultView" Header="{x:Static l:Strings.ViewMenu_Rotate_Default_MenuItem}" Command="{StaticResource KinectStudioPlugin.CameraViewCommand}" CommandParameter="Default" />
+                    <MenuItem AutomationProperties.AutomationId="FrontView" Header="{x:Static l:Strings.ViewMenu_Rotate_Front_MenuItem}" Command="{StaticResource KinectStudioPlugin.CameraViewCommand}" CommandParameter="Front" />
+                    <MenuItem AutomationProperties.AutomationId="LeftView" Header="{x:Static l:Strings.ViewMenu_Rotate_Left_MenuItem}" Command="{StaticResource KinectStudioPlugin.CameraViewCommand}" CommandParameter="Left" />
+                    <MenuItem AutomationProperties.AutomationId="TopView" Header="{x:Static l:Strings.ViewMenu_Rotate_Top_MenuItem}" Command="{StaticResource KinectStudioPlugin.CameraViewCommand}" CommandParameter="Top" />
+                    <Separator />
+                    <MenuItem AutomationProperties.AutomationId="ZoomIn" Header="{x:Static l:Strings.ViewMenu_ZoomIn_MenuItem}" Tag="+" InputGestureText="Ctrl +" Style="{StaticResource ZoomInOutMenuItemStyle}" />
+                    <MenuItem AutomationProperties.AutomationId="ZoomOut" Header="{x:Static l:Strings.ViewMenu_ZoomOut_MenuItem}" Tag="-" InputGestureText="Ctrl -" Style="{StaticResource ZoomInOutMenuItemStyle}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="PART_ImageHost">
+                        <Grid>
+                            <Image x:Name="PART_Image" Stretch="Uniform" />
+                            <Grid x:Name="PART_ControlsHost" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="KinectStudioPlugin.WpfVisualizationControlStyle" TargetType="l:WpfVisualizationControl">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="#4D4D4D" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem AutomationProperties.AutomationId="Settings" Header="{x:Static l:Strings.ViewMenu_Settings_MenuItem}" Command="{StaticResource KinectStudioPlugin.ShowSettingsCommand}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid x:Name="PART_PanelStatic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        <Canvas x:Name="PART_PanelZoom" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

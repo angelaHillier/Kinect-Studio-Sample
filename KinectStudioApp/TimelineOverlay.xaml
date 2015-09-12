@@ -1,0 +1,342 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<UserControl x:Class="KinectStudioApp.TimelineOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:u="clr-namespace:KinectStudioUtility;assembly=KinectStudioUtility"
+             xmlns:l="clr-namespace:KinectStudioApp" Padding="0,1"
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <RoutedCommand x:Key="MarkerAddCommand" />
+        <RoutedCommand x:Key="MarkerEditNameCommand" />
+        <RoutedCommand x:Key="SetInPointCommand" />
+        <RoutedCommand x:Key="SetOutPointCommand" />
+        <RoutedCommand x:Key="PausePointAddCommand" />
+        <RoutedCommand x:Key="PausePointCoupleCommand" />
+        <RoutedCommand x:Key="PausePointToggleCommand" />
+        <RoutedCommand x:Key="PausePointDecoupleCommand" />
+        <RoutedCommand x:Key="TimePointRemoveCommand" />
+        <RoutedCommand x:Key="TimePointEditCommand" />
+
+        <Style x:Key="MarkerMetadataViewSelectorMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="AutomationProperties.AutomationId" Value="{Binding Title}" />
+            <Setter Property="Header" Value="{Binding Title}" />
+            <Setter Property="Command" Value="{StaticResource MetadataCommand}" />
+            <Setter Property="CommandParameter">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource ArrayConverter}">
+                        <Binding Path="DataContext.Metadata" RelativeSource="{RelativeSource AncestorType=Thumb}" />
+                        <Binding Path="DataContext" RelativeSource="{RelativeSource Self}" />
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RegularPausePointContextMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HasCoupledMarker}" Value="False">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MarkerPausePointContextMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HasCoupledMarker}" Value="True">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.Background>
+        <SolidColorBrush Color="Gray" Opacity="0.5" />
+    </UserControl.Background>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource MarkerAddCommand}" Executed="MarkerAdd_Executed" CanExecute="MarkerAdd_CanExecute"/>
+        <CommandBinding Command="{StaticResource MarkerEditNameCommand}" Executed="MarkerEditName_Executed" CanExecute="MarkerEditName_CanExecute"/>
+        <CommandBinding Command="{StaticResource SetInPointCommand}" Executed="SetInPoint_Executed" CanExecute="SetInOutPoint_CanExecute" />
+        <CommandBinding Command="{StaticResource SetOutPointCommand}" Executed="SetOutPoint_Executed" CanExecute="SetInOutPoint_CanExecute" />
+        <CommandBinding Command="{StaticResource PausePointAddCommand}" Executed="PausePointAdd_Executed" CanExecute="PausePointAdd_CanExecute"/>
+        <CommandBinding Command="{StaticResource PausePointCoupleCommand}" Executed="PausePointCouple_Executed" CanExecute="PausePointCouple_CanExecute"/>
+        <CommandBinding Command="{StaticResource PausePointToggleCommand}" Executed="PausePointToggle_Executed" />
+        <CommandBinding Command="{StaticResource PausePointDecoupleCommand}" Executed="PausePointDecouple_Executed" CanExecute="PausePointDecouple_CanExecute" />
+        <CommandBinding Command="{StaticResource TimePointRemoveCommand}" Executed="TimePointRemove_Executed" CanExecute="TimePointRemove_CanExecute" />
+        <CommandBinding Command="{StaticResource TimePointEditCommand}" Executed="TimePointEdit_Executed" CanExecute="TimePointEdit_CanExecute" />
+    </UserControl.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="12" />
+        </Grid.RowDefinitions>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem AutomationProperties.AutomationId="AddMarker" Header="{x:Static l:Strings.TimelineMarker_Add_MenuItem}" Command="{StaticResource MarkerAddCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                <Separator />
+                <MenuItem AutomationProperties.AutomationId="PausePointAdd" Header="{x:Static l:Strings.TimelinePausePoint_Add_MenuItem}" Command="{StaticResource PausePointAddCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                <Separator />
+                <MenuItem AutomationProperties.AutomationId="InPointSet" Header="{x:Static l:Strings.InOutPointsMenu_SetInPoint_MenuItem}" Command="{StaticResource SetInPointCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                <MenuItem AutomationProperties.AutomationId="OutPointSet" Header="{x:Static l:Strings.InOutPointsMenu_SetOutPoint_MenuItem}" Command="{StaticResource SetOutPointCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+            </ContextMenu>
+        </Grid.ContextMenu>
+        <ItemsControl AutomationProperties.AutomationId="InOutPoints" ItemsSource="{Binding Path=InOutPointsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" Background="Transparent">
+            <ItemsControl.Resources>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="u:RelativePanel.Position" Value="{Binding Path=RelativeTime.Ticks}" />
+                    <Setter Property="Panel.ZIndex" Value="0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsFloating}" Value="True">
+                            <Setter Property="Panel.ZIndex" Value="3563" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.Resources>
+            <!--
+            <ItemsControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem AutomationProperties.AutomationId="InPointSet" Header="{x:Static l:Strings.InOutPointsMenu_SetInPoint_MenuItem}" Command="{StaticResource SetInPointCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                    <MenuItem AutomationProperties.AutomationId="OutPointSet" Header="{x:Static l:Strings.InOutPointsMenu_SetOutPoint_MenuItem}" Command="{StaticResource SetOutPointCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                </ContextMenu>
+            </ItemsControl.ContextMenu>
+            -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <u:RelativePanel Minimum="{Binding Path=Minimum, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" Maximum="{Binding Path=Maximum, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <u:Thumb2 AutomationProperties.AutomationId="InOutPoint" Width="12" Height="12" DragStarted="Point_DragStarted" DragDelta="Point_DragDelta" DragCompleted="Point_DragCompleted">
+                        <u:Thumb2.Style>
+                            <Style TargetType="u:Thumb2">
+                                <Setter Property="Margin" Value="-18,0,0,0" />
+                                <Setter Property="ToolTip">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                                            <Binding Source="{x:Static l:Strings.TimelineOutPoint_ToolTip_Format}" />
+                                            <Binding Path="RelativeTime" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsInPoint}" Value="True">
+                                        <Setter Property="Margin" Value="-6,0,0,0" />
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                                                    <Binding Source="{x:Static l:Strings.TimelineInPoint_ToolTip_Format}" />
+                                                    <Binding Path="RelativeTime" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </u:Thumb2.Style>
+                        <u:Thumb2.Template>
+                            <ControlTemplate>
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <SolidColorBrush Color="Black" Opacity="0" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="BorderBrush" Value="DarkGray" />
+                                            <Setter Property="BorderThickness" Value="0,3,3,0" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsEnabled}" Value="True">
+                                                    <Setter Property="Border.BorderBrush" Value="Red" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsInPoint}" Value="True">
+                                                    <Setter Property="Border.BorderThickness" Value="3,3,0,0" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                            </ControlTemplate>
+                        </u:Thumb2.Template>
+                        <u:Thumb2.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem AutomationProperties.AutomationId="InOutPointEditTime" Header="{x:Static l:Strings.TimelineTimePoint_Edit_MenuItem}" Command="{StaticResource TimePointEditCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                            </ContextMenu>
+                        </u:Thumb2.ContextMenu>
+                    </u:Thumb2>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl AutomationProperties.AutomationId="PausePoints" x:Name="PausePointsItemsControl" Grid.Row="2" ItemsSource="{Binding Path=PausePointsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" Background="Transparent">
+            <ItemsControl.Resources>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="u:RelativePanel.Position" Value="{Binding Path=RelativeTime.Ticks}" />
+                    <Setter Property="Panel.ZIndex" Value="0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsFloating}" Value="True">
+                            <Setter Property="Panel.ZIndex" Value="3563" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.Resources>
+            <!--
+            <ItemsControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem AutomationProperties.AutomationId="PausePointAdd" Header="{x:Static l:Strings.TimelinePausePoint_Add_MenuItem}" Command="{StaticResource PausePointAddCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                </ContextMenu>
+            </ItemsControl.ContextMenu>
+            -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <u:RelativePanel Minimum="{Binding Path=Minimum, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" Maximum="{Binding Path=Maximum, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <u:Thumb2 AutomationProperties.AutomationId="PausePoint" Width="12" Height="12" Margin="-6,0,6,0" DragStarted="Point_DragStarted" DragDelta="Point_DragDelta" DragCompleted="Point_DragCompleted" Loaded="Point_Loaded">
+                        <u:Thumb2.ToolTip>
+                            <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                                <Binding Source="{x:Static l:Strings.TimelinePausePoint_ToolTip_Format}" />
+                                <Binding Path="RelativeTime" />
+                            </MultiBinding>
+                        </u:Thumb2.ToolTip>
+                        <u:Thumb2.Template>
+                            <ControlTemplate>
+                                <Ellipse StrokeThickness="1">
+                                    <Ellipse.Style>
+                                        <Style TargetType="Ellipse">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEnabled}" Value="False" />
+                                                        <Condition Binding="{Binding HasCoupledMarker}" Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Stroke" Value="Red" />
+                                                    <Setter Property="Fill" Value="White" />
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEnabled}" Value="True" />
+                                                        <Condition Binding="{Binding HasCoupledMarker}" Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Stroke" Value="White" />
+                                                    <Setter Property="Fill" Value="Red" />
+                                                </MultiDataTrigger>
+
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEnabled}" Value="False" />
+                                                        <Condition Binding="{Binding HasCoupledMarker}" Value="True" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Stroke" Value="Blue" />
+                                                    <Setter Property="Fill" Value="White" />
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IsEnabled}" Value="True" />
+                                                        <Condition Binding="{Binding HasCoupledMarker}" Value="True" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Stroke" Value="White" />
+                                                    <Setter Property="Fill" Value="Blue" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Ellipse.Style>
+                                </Ellipse>
+                            </ControlTemplate>
+                        </u:Thumb2.Template>
+                        <u:Thumb2.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem AutomationProperties.AutomationId="PausePointRemove" Style="{StaticResource RegularPausePointContextMenuItemStyle}" Header="{x:Static l:Strings.TimelinePausePoint_Remove_MenuItem}" Command="{StaticResource TimePointRemoveCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <MenuItem AutomationProperties.AutomationId="PausePointDecouple" Style="{StaticResource MarkerPausePointContextMenuItemStyle}" Header="{x:Static l:Strings.TimelinePausePoint_Decouple_MenuItem}" Command="{StaticResource PausePointDecoupleCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <MenuItem AutomationProperties.AutomationId="PausePointToggle" Command="{StaticResource PausePointToggleCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                                    <MenuItem.Style>
+                                        <Style TargetType="MenuItem">
+                                            <Setter Property="Header" Value="{x:Static l:Strings.TimelinePausePoint_Disable_MenuItem}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsEnabled}" Value="False">
+                                                    <Setter Property="MenuItem.Header" Value="{x:Static l:Strings.TimelinePausePoint_Enable_MenuItem}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
+                                <MenuItem AutomationProperties.AutomationId="PausePointEditTime" Style="{StaticResource RegularPausePointContextMenuItemStyle}" Header="{x:Static l:Strings.TimelineTimePoint_Edit_MenuItem}" Command="{StaticResource TimePointEditCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                            </ContextMenu>
+                        </u:Thumb2.ContextMenu>
+                    </u:Thumb2>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl AutomationProperties.AutomationId="Markers" x:Name="MarkersItemsControl" Grid.Row="4" ItemsSource="{Binding Path=MarkersSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" Background="Transparent">
+            <ItemsControl.Resources>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="u:RelativePanel.Position" Value="{Binding Path=RelativeTime.Ticks}" />
+                    <Setter Property="Panel.ZIndex" Value="0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsFloating}" Value="True">
+                            <Setter Property="Panel.ZIndex" Value="3563" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.Resources>
+            <!--
+            <ItemsControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem AutomationProperties.AutomationId="AddMarker" Header="{x:Static l:Strings.TimelineMarker_Add_MenuItem}" Command="{StaticResource MarkerAddCommand}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                </ContextMenu>
+            </ItemsControl.ContextMenu>
+            -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <u:RelativePanel Minimum="{Binding Path=Minimum, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" Maximum="{Binding Path=Maximum, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type l:TimelineOverlay}}}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <u:Thumb2 AutomationProperties.AutomationId="Marker" Width="12" Height="12" Margin="-6,0,6,0" DragStarted="Point_DragStarted" DragDelta="Point_DragDelta" DragCompleted="Point_DragCompleted" Loaded="Point_Loaded">
+                        <u:Thumb2.ToolTip>
+                            <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                                <Binding Source="{x:Static l:Strings.TimelineMarker_ToolTip_Format}" />
+                                <Binding Path="RelativeTime" />
+                                <Binding Path="Name" />
+                            </MultiBinding>
+                        </u:Thumb2.ToolTip>
+                        <u:Thumb2.Template>
+                            <ControlTemplate>
+                                <Rectangle StrokeThickness="1" Stroke="White" Fill="Blue" />
+                            </ControlTemplate>
+                        </u:Thumb2.Template>
+                        <u:Thumb2.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem AutomationProperties.AutomationId="MarkerEditTime" Header="{x:Static l:Strings.TimelineMarker_EditTime_MenuItem}" Command="{StaticResource TimePointEditCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <MenuItem AutomationProperties.AutomationId="MarkerEditName" Header="{x:Static l:Strings.TimelineMarker_EditName_MenuItem}" Command="{StaticResource MarkerEditNameCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <MenuItem AutomationProperties.AutomationId="MarkerMetadata" Header="{x:Static l:Strings.TimelineMarker_Metadata_MenuItem}" ItemContainerStyle="{StaticResource MarkerMetadataViewSelectorMenuItemStyle}" SubmenuOpened="MetadataMenuItemSubmenuOpened">
+                                    <Menu />
+                                </MenuItem>
+                                <Separator />
+                                <MenuItem AutomationProperties.AutomationId="MarkerRemove" Header="{x:Static l:Strings.TimelineMarker_Remove_MenuItem}" Command="{StaticResource TimePointRemoveCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <Separator />
+                                <MenuItem AutomationProperties.AutomationId="MarkerAddPausePoint" Header="{x:Static l:Strings.TimelineMarker_AddPausePoint_MenuItem}" Command="{StaticResource PausePointAddCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <MenuItem AutomationProperties.AutomationId="MarkerCouplePausePoint" Header="{x:Static l:Strings.TimelineMarker_CouplePausePoint_MenuItem}" Command="{StaticResource PausePointCoupleCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <Separator />
+                                <MenuItem AutomationProperties.AutomationId="MarkerSetInPoint" Header="{x:Static l:Strings.TimelineMarker_SetInPoint_MenuItem}" Command="{StaticResource SetInPointCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <MenuItem AutomationProperties.AutomationId="MarkerSetOutPoint" Header="{x:Static l:Strings.TimelineMarker_SetOutPoint_MenuItem}" Command="{StaticResource SetOutPointCommand}" CommandParameter="{Binding}" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                            </ContextMenu>
+                        </u:Thumb2.ContextMenu>
+                    </u:Thumb2>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

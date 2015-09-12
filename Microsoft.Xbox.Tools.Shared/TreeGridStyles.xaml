@@ -1,0 +1,195 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:shared="clr-namespace:Microsoft.Xbox.Tools.Shared">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="SharedResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <shared:BooleanToObjectConverter x:Key="FalseToHiddenConverter">
+        <shared:BooleanToObjectConverter.TrueValue>
+            <Visibility>Visible</Visibility>
+        </shared:BooleanToObjectConverter.TrueValue>
+        <shared:BooleanToObjectConverter.FalseValue>
+            <Visibility>Hidden</Visibility>
+        </shared:BooleanToObjectConverter.FalseValue>
+    </shared:BooleanToObjectConverter>
+
+    <shared:TreeIndentLevelToMarginConverter x:Key="LevelToMarginConverter" />
+    <shared:ItemCountToPluralizedTextConverter x:Key="ExpandTextConverter" SingularText="Expand Selected Row" PluralText="Expand Selected Rows" />
+    <shared:ItemCountToPluralizedTextConverter x:Key="ExpandFullyTextConverter" SingularText="Expand Selected Row and Children" PluralText="Expand Selected Rows and Children" />
+    <shared:ItemCountToPluralizedTextConverter x:Key="CollapseTextConverter" SingularText="Collapse Selected Row" PluralText="Collapse Selected Rows" />
+    <shared:ItemCountToPluralizedTextConverter x:Key="CollapseFullyTextConverter" SingularText="Collapse Selected Row" PluralText="Collapse Selected Rows and Children" />
+
+    <Style TargetType="{x:Type shared:TreeGridHeaderCell}">
+        <Setter Property="FontFamily" Value="{Binding Path=Theme.TreeGridHeaderFontFamily, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="FontSize" Value="{Binding Path=Theme.TreeGridHeaderFontSize, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="FontWeight" Value="{Binding Path=Theme.TreeGridHeaderFontWeight, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="FontStyle" Value="{Binding Path=Theme.TreeGridHeaderFontStyle, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type shared:TreeGridHeaderCell}">
+                    <Grid>
+                        <Border x:Name="border" Padding="8,2" BorderThickness="0,1,1,1" SnapsToDevicePixels="True"
+                    Background="{shared:ThemeBinding TreeGridHeaderFocusedBackgroundBrush}"
+                    BorderBrush="{shared:ThemeBinding TreeGridLinesBrush}" >
+                            <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        </Border>
+                        <Border x:Name="PART_ResizeThumb" HorizontalAlignment="Right" Width="4" Cursor="SizeWE" Background="Transparent" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsLeftmost" Value="True">
+                            <Setter TargetName="border" Property="BorderThickness" Value="1" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=OwnerRow.GridHasKeyboardFocus, RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{Binding Path=Theme.TreeGridHeaderBackgroundBrush, Source={x:Static shared:Theme.Instance}}" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type shared:TreeGridCell}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type shared:TreeGridCell}">
+                    <Border x:Name="border" Padding="8,1" Background="{TemplateBinding Background}" BorderThickness="0,0,1,1" 
+                  BorderBrush="{shared:ThemeBinding TreeGridLinesBrush}" SnapsToDevicePixels="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton x:Name="check" Style="{StaticResource ExpandCollapseToggleStyle}"
+                            Margin="{Binding Path=OwnerRow.ExpansionLevel, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource LevelToMarginConverter}}"
+                            Foreground="{TemplateBinding Foreground}"
+                            VerticalAlignment="Center" IsChecked="{Binding Path=OwnerRow.IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                            Visibility="{Binding Path=OwnerRow.IsExpandable, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FalseToHiddenConverter}}" />
+                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsLeftmost" Value="True">
+                            <Setter TargetName="border" Property="BorderThickness" Value="1,0,1,1" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=Column.DisplaysHierarchy, RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="check" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                            <Setter TargetName="check" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type shared:TreeGridRow}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type shared:TreeGridRow}">
+                    <Grid x:Name="mainGrid" Background="{TemplateBinding Background}">
+                        <shared:TreeGridRowPanel x:Name="PART_RowPanel" />
+                        <Border x:Name="border" BorderThickness="2" Margin="0,-1,0,0"
+                    BorderBrush="{shared:ThemeBinding TreeGridFocusedCurrentRowBorderBrush}"
+                    SnapsToDevicePixels="True" Visibility="Collapsed"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsCurrent" Value="True">
+                            <Setter TargetName="border" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="mainGrid" Property="Background" Value="{Binding Path=Theme.TreeGridFocusedSelectedBackgroundBrush, Source={x:Static shared:Theme.Instance}}" />
+                            <Setter Property="Foreground" Value="{Binding Path=Theme.TreeGridFocusedSelectedForegroundBrush, Source={x:Static shared:Theme.Instance}}" />
+                        </Trigger>
+                        <Trigger Property="GridHasKeyboardFocus" Value="False">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding Path=Theme.TreeGridCurrentRowBorderBrush, Source={x:Static shared:Theme.Instance}}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="GridHasKeyboardFocus" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="mainGrid" Property="Background" Value="{Binding Path=Theme.TreeGridSelectedBackgroundBrush, Source={x:Static shared:Theme.Instance}}" />
+                            <Setter Property="Foreground" Value="{Binding Path=Theme.TreeGridSelectedForegroundBrush, Source={x:Static shared:Theme.Instance}}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type shared:TreeGrid}">
+        <Setter Property="Foreground" Value="{Binding Path=Theme.TreeGridForegroundBrush, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="Background" Value="{Binding Path=Theme.TreeGridBackgroundBrush, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="SelectedForeground" Value="{Binding Path=Theme.TreeGridSelectedForegroundBrush, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="SelectedBackground" Value="{Binding Path=Theme.TreeGridSelectedBackgroundBrush, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="FocusedSelectedForeground" Value="{Binding Path=Theme.TreeGridFocusedSelectedForegroundBrush, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="FocusedSelectedBackground" Value="{Binding Path=Theme.TreeGridFocusedSelectedBackgroundBrush, Source={x:Static shared:Theme.Instance}}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Command="{x:Static shared:TreeGrid.ExpandCommand}" Header="{Binding Path=SelectedItemCount, Converter={StaticResource ExpandTextConverter}}" />
+                    <MenuItem Command="{x:Static shared:TreeGrid.ExpandFullyCommand}" Header="{Binding Path=SelectedItemCount, Converter={StaticResource ExpandFullyTextConverter}}" />
+                    <MenuItem Header="Expand All Rows and Children" Command="{x:Static shared:TreeGrid.ExpandAllCommand}" />
+                    <Separator />
+                    <MenuItem Command="{x:Static shared:TreeGrid.CollapseCommand}" Header="{Binding Path=SelectedItemCount, Converter={StaticResource CollapseTextConverter}}" />
+                    <MenuItem Command="{x:Static shared:TreeGrid.CollapseFullyCommand}" Header="{Binding Path=SelectedItemCount, Converter={StaticResource CollapseFullyTextConverter}}" />
+                    <MenuItem Header="Collapse All Rows and Children" Command="{x:Static shared:TreeGrid.CollapseAllCommand}" />
+                    <Separator />
+                    <MenuItem Header="Select All" Command="{x:Static shared:TreeGrid.SelectAllCommand}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type shared:TreeGrid}">
+                    <Grid ContextMenu="{TemplateBinding ContextMenu}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Canvas x:Name="PART_Canvas" Background="{TemplateBinding Background}" ClipToBounds="True" />
+                        <ScrollBar x:Name="PART_VerticalScrollBar" Orientation="Vertical" Grid.Column="1" VerticalAlignment="Stretch"
+                       Maximum="{Binding Path=VerticalScrollRange, RelativeSource={RelativeSource TemplatedParent}}"
+                       LargeChange="{Binding Path=PageSize, RelativeSource={RelativeSource TemplatedParent}}"
+                       SmallChange="1"
+                       ViewportSize="{Binding Path=PageSize, RelativeSource={RelativeSource TemplatedParent}}"
+                       Value="{Binding Path=TopItemIndex, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
+                        <ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Stretch"
+                       Maximum="{Binding Path=HorizontalScrollRange, RelativeSource={RelativeSource TemplatedParent}}"
+                       LargeChange="300"
+                       SmallChange="10"
+                       ViewportSize="{Binding Path=ActualWidth, ElementName=PART_Canvas}"
+                       Value="{Binding Path=HorizontalOffset, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=ItemCount, RelativeSource={RelativeSource Self}}" Value="1">
+                            <Setter TargetName="PART_VerticalScrollBar" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

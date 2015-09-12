@@ -1,0 +1,72 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:shared="clr-namespace:Microsoft.Xbox.Tools.Shared"
+    xmlns:text="clr-namespace:Microsoft.Xbox.Tools.Shared.Text">
+
+  <shared:ErrorSeverityToImageSourceConverter x:Key="ErrorSeverityToImageSourceConverter" ErrorSource="Resources/Error.png" WarningSource="Resources/Warning.png" InfoSource="{DynamicResource AppIcon}" />
+  <shared:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+
+  <shared:LuminanceConverter x:Key="Lum9" TargetLuminance="0.94" />
+  <shared:LuminanceConverter x:Key="Lum8" TargetLuminance="0.89" />
+  <shared:LuminanceConverter x:Key="Lum7" TargetLuminance="0.7" />
+  <shared:LuminanceConverter x:Key="Lum6" TargetLuminance="0.6" />
+  <shared:LuminanceConverter x:Key="Lum5" TargetLuminance="0.5" />
+  <shared:LuminanceConverter x:Key="Lum4" TargetLuminance="0.4" />
+  <shared:LuminanceConverter x:Key="Lum3" TargetLuminance="0.3" />
+  <shared:LuminanceConverter x:Key="Lum2" TargetLuminance="0.15" />
+  <shared:LuminanceConverter x:Key="Lum1" TargetLuminance="0.06" />
+
+  <SolidColorBrush x:Key="ActiveSelectedBorderBrush" Color="#3399FF" />
+  <SolidColorBrush x:Key="ActiveSelectedBackgroundBrush" Color="#C2E0FF" />
+  <SolidColorBrush x:Key="InactiveSelectedBorderBrush" Color="#999999" />
+  <SolidColorBrush x:Key="InactiveSelectedBackgroundBrush" Color="#E0E0E0" />
+  <SolidColorBrush x:Key="InactiveTabBorderBrush" Color="#A5ACB5" />
+  <SolidColorBrush x:Key="ActiveTabBorderBrush" Color="#252C35" />
+  <SolidColorBrush x:Key="ActiveTabBorderBackgroundBrush" Color="#C1C1C1" />
+  <SolidColorBrush x:Key="FocusedTabBorderBackgroundBrush" Color="#A6C0DD" />
+  <SolidColorBrush x:Key="MouseOverTabBackgroundBrush" Color="#E7E7E7" />
+  <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#E9EDF1" />
+
+  <!-- the expander style (for tree grid / tree view items) -->
+  <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+  <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="Width" Value="16"/>
+    <Setter Property="Height" Value="16"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Border Width="16" Height="16" Background="Transparent" Padding="5">
+            <Path x:Name="ExpandPath" Fill="{TemplateBinding Foreground}" Data="{StaticResource TreeArrow}">
+              <Path.RenderTransform>
+                <RotateTransform Angle="135" CenterX="3" CenterY="3"/>
+              </Path.RenderTransform>
+            </Path>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter Property="RenderTransform" TargetName="ExpandPath">
+                <Setter.Value>
+                  <RotateTransform Angle="180" CenterX="3" CenterY="3"/>
+                </Setter.Value>
+              </Setter>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+
+
+</ResourceDictionary>

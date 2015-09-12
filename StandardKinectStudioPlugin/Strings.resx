@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accessory_Plugin_Title" xml:space="preserve">
+    <value>Accessories</value>
+  </data>
+  <data name="Accessory_RenderFloorPlane_CheckBox" xml:space="preserve">
+    <value>_Floor plane (requires Body)</value>
+  </data>
+  <data name="Accessory_RenderFrustum_CheckBox" xml:space="preserve">
+    <value>_Frustum</value>
+  </data>
+  <data name="Accessory_RenderOrientationCube_CheckBox" xml:space="preserve">
+    <value>_Orientation cube</value>
+  </data>
+  <data name="AdvancedMetadataArrayPlugin_Title" xml:space="preserve">
+    <value>Advanced Array</value>
+  </data>
+  <data name="Audio_AudibleTrack_CheckBox" xml:space="preserve">
+    <value>Is _audible</value>
+  </data>
+  <data name="Audio_Beam_CheckBox" xml:space="preserve">
+    <value>Beam</value>
+  </data>
+  <data name="Audio_Beam_Invalid_Label" xml:space="preserve">
+    <value>Beam Angle: (none)</value>
+  </data>
+  <data name="Audio_Beam_Label_Format" xml:space="preserve">
+    <value>Beam Angle: {0}</value>
+    <comment>{0} = angle</comment>
+  </data>
+  <data name="Audio_Error_CannotInitializePlayer" xml:space="preserve">
+    <value>Cannot initialize audio player. Audio will not be audible.</value>
+  </data>
+  <data name="Audio_Mic0" xml:space="preserve">
+    <value>MIC0</value>
+  </data>
+  <data name="Audio_Mic0_CheckBox" xml:space="preserve">
+    <value>MIC 0</value>
+  </data>
+  <data name="Audio_Mic1" xml:space="preserve">
+    <value>MIC1</value>
+  </data>
+  <data name="Audio_Mic1_CheckBox" xml:space="preserve">
+    <value>MIC 1</value>
+  </data>
+  <data name="Audio_Mic2" xml:space="preserve">
+    <value>MIC2</value>
+  </data>
+  <data name="Audio_Mic2_CheckBox" xml:space="preserve">
+    <value>MIC 2</value>
+  </data>
+  <data name="Audio_Mic3" xml:space="preserve">
+    <value>MIC3</value>
+  </data>
+  <data name="Audio_Mic3_CheckBox" xml:space="preserve">
+    <value>MIC 3</value>
+  </data>
+  <data name="Audio_Output" xml:space="preserve">
+    <value>OUT</value>
+  </data>
+  <data name="Audio_Output_CheckBox" xml:space="preserve">
+    <value>_Output</value>
+  </data>
+  <data name="Audio_Plugin_Title" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="Audio_Requirements_ToolTip" xml:space="preserve">
+    <value>Requires an Audio stream to be available</value>
+  </data>
+  <data name="Audio_SpeakerBL" xml:space="preserve">
+    <value>SPKBL</value>
+  </data>
+  <data name="Audio_SpeakerBL_CheckBox" xml:space="preserve">
+    <value>SPK BL</value>
+  </data>
+  <data name="Audio_SpeakerBR" xml:space="preserve">
+    <value>SPKBR</value>
+  </data>
+  <data name="Audio_SpeakerBR_CheckBox" xml:space="preserve">
+    <value>SPK BR</value>
+  </data>
+  <data name="Audio_SpeakerC" xml:space="preserve">
+    <value>SPKC</value>
+  </data>
+  <data name="Audio_SpeakerC_CheckBox" xml:space="preserve">
+    <value>SPK C</value>
+  </data>
+  <data name="Audio_SpeakerL" xml:space="preserve">
+    <value>SPKL</value>
+  </data>
+  <data name="Audio_SpeakerLFE" xml:space="preserve">
+    <value>SPKLFE</value>
+  </data>
+  <data name="Audio_SpeakerLFE_CheckBox" xml:space="preserve">
+    <value>SPK LFE</value>
+  </data>
+  <data name="Audio_SpeakerL_CheckBox" xml:space="preserve">
+    <value>SPK L</value>
+  </data>
+  <data name="Audio_SpeakerR" xml:space="preserve">
+    <value>SPKR</value>
+  </data>
+  <data name="Audio_SpeakerR_CheckBox" xml:space="preserve">
+    <value>SPK R</value>
+  </data>
+  <data name="Audio_SpeakerSL" xml:space="preserve">
+    <value>SPKSL</value>
+  </data>
+  <data name="Audio_SpeakerSL_CheckBox" xml:space="preserve">
+    <value>SPK SL</value>
+  </data>
+  <data name="Audio_SpeakerSR" xml:space="preserve">
+    <value>SPKSR</value>
+  </data>
+  <data name="Audio_SpeakerSR_CheckBox" xml:space="preserve">
+    <value>SPK SR</value>
+  </data>
+  <data name="BodyIndex_Plugin_Title" xml:space="preserve">
+    <value>Body Index</value>
+  </data>
+  <data name="BodyIndex_Property_BodyIndex_Label" xml:space="preserve">
+    <value>Body Index</value>
+  </data>
+  <data name="BodyIndex_Property_BodyIndex_NoBody" xml:space="preserve">
+    <value>(none)</value>
+  </data>
+  <data name="BodyIndex_Property_Title" xml:space="preserve">
+    <value>Body Index values</value>
+  </data>
+  <data name="BodyIndex_Requirements_ToolTip" xml:space="preserve">
+    <value>Requires a Body Index stream to be available</value>
+  </data>
+  <data name="Body_Plugin_Title" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="Body_RenderBodies_CheckBox" xml:space="preserve">
+    <value>_Bodies</value>
+  </data>
+  <data name="Body_RenderHands_CheckBox" xml:space="preserve">
+    <value>_Hands</value>
+  </data>
+  <data name="Body_RenderInfo_CheckBox" xml:space="preserve">
+    <value>Body information</value>
+  </data>
+  <data name="Body_RenderJointOrientations_CheckBox" xml:space="preserve">
+    <value>Joint orientations</value>
+  </data>
+  <data name="Body_Requirements_ToolTip" xml:space="preserve">
+    <value>Requires a Body stream to be available</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>_Cancel</value>
+  </data>
+  <data name="Button_Ok" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="Color_Plugin_Title" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Color_Property_Blue_Label" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+  <data name="Color_Property_Green_Label" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="Color_Property_Red_Label" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="Color_Property_Title" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Color_Requirements_ToolTip" xml:space="preserve">
+    <value>Requires a Color stream to be available</value>
+  </data>
+  <data name="Depth_Plugin_Title" xml:space="preserve">
+    <value>Depth Plugin</value>
+  </data>
+  <data name="Depth_Property_Depth_Label" xml:space="preserve">
+    <value>Depth (mm)</value>
+  </data>
+  <data name="Depth_Property_Title" xml:space="preserve">
+    <value>Depth values</value>
+  </data>
+  <data name="Depth_Requirements_ToolTip" xml:space="preserve">
+    <value>Requires a Depth stream to be available</value>
+  </data>
+  <data name="Depth_Texture_CheckBox" xml:space="preserve">
+    <value>Surface can be _textured</value>
+  </data>
+  <data name="Depth_ViewType_2D_Color_Radio" xml:space="preserve">
+    <value>_Color ramp</value>
+  </data>
+  <data name="Depth_ViewType_2D_Grey_Radio" xml:space="preserve">
+    <value>_Grey ramp</value>
+  </data>
+  <data name="Depth_ViewType_3D_Color_Radio" xml:space="preserve">
+    <value>_Color Point Cloud</value>
+  </data>
+  <data name="Depth_ViewType_3D_Grey_Radio" xml:space="preserve">
+    <value>_Grey Point Cloud</value>
+  </data>
+  <data name="Depth_ViewType_3D_Surface_Radio" xml:space="preserve">
+    <value>_Surface with Normal</value>
+  </data>
+  <data name="Depth_ViewType_GroupBox" xml:space="preserve">
+    <value>View type</value>
+  </data>
+  <data name="Ir_Amplification_Prompt" xml:space="preserve">
+    <value>Amplification</value>
+  </data>
+  <data name="Ir_Amplification_ToolTip" xml:space="preserve">
+    <value>The amplification A in A * V^Gamma, where V is the normalized Value between 0 and 1</value>
+  </data>
+  <data name="Ir_Gamma_Prompt" xml:space="preserve">
+    <value>Gamma</value>
+  </data>
+  <data name="Ir_Gamma_ToolTip" xml:space="preserve">
+    <value>The Gamma in A * V^Gamma, where V is the normalized Value between 0 and 1</value>
+  </data>
+  <data name="Ir_Plugin_Title" xml:space="preserve">
+    <value>Infrared Plugin</value>
+  </data>
+  <data name="Ir_Property_Intensity_Label" xml:space="preserve">
+    <value>Intensity</value>
+  </data>
+  <data name="Ir_Property_Title" xml:space="preserve">
+    <value>IR values</value>
+  </data>
+  <data name="Ir_Requirements_ToolTip" xml:space="preserve">
+    <value>Requires an IR stream to be available</value>
+  </data>
+  <data name="Metadata_ViewArray_Add_Button" xml:space="preserve">
+    <value>_Add</value>
+  </data>
+  <data name="Metadata_ViewArray_CountFormat" xml:space="preserve">
+    <value>Count = {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="Metadata_ViewArray_Delete_Button" xml:space="preserve">
+    <value>_Delete</value>
+  </data>
+  <data name="Metadata_ViewArray_EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Metadata_ViewArray_MoveDown_Button" xml:space="preserve">
+    <value>Move _down</value>
+  </data>
+  <data name="Metadata_ViewArray_MoveUp_Button" xml:space="preserve">
+    <value>Move _up</value>
+  </data>
+  <data name="Metadata_ViewArray_Title" xml:space="preserve">
+    <value>Metadata Array</value>
+  </data>
+  <data name="Metadata_ViewArray_ViewButton" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="NoViewSettings_Text" xml:space="preserve">
+    <value>No settings for this plugin</value>
+  </data>
+  <data name="Property_X_Label" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Property_Y_Label" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="RawIr_Plugin_Title" xml:space="preserve">
+    <value>Raw Infrared Plugin</value>
+  </data>
+  <data name="RawIr_Property_Depth_Label" xml:space="preserve">
+    <value>Depth (mm)</value>
+  </data>
+  <data name="RawIr_Property_Intensity_Label" xml:space="preserve">
+    <value>Intensity</value>
+  </data>
+  <data name="RawIr_Property_Title" xml:space="preserve">
+    <value>Raw IR/Depth values</value>
+  </data>
+  <data name="RawIr_Requirements_ToolTip" xml:space="preserve">
+    <value>Requires a Raw IR stream to be available</value>
+  </data>
+  <data name="RawIr_Texture_CheckBox" xml:space="preserve">
+    <value>Surface can be _textured</value>
+  </data>
+  <data name="RawIr_ViewType_2D_Color_Radio" xml:space="preserve">
+    <value>Depth _color ramp</value>
+  </data>
+  <data name="RawIr_ViewType_2D_Grey_Radio" xml:space="preserve">
+    <value>Depth _grey ramp</value>
+  </data>
+  <data name="RawIr_ViewType_2D_Ir_Radio" xml:space="preserve">
+    <value>_Infrared</value>
+  </data>
+  <data name="RawIr_ViewType_3D_Color_Radio" xml:space="preserve">
+    <value>Depth _color Point Cloud</value>
+  </data>
+  <data name="RawIr_ViewType_3D_Grey_Radio" xml:space="preserve">
+    <value>Depth _grey Point Cloud</value>
+  </data>
+  <data name="RawIr_ViewType_3D_Ir_Radio" xml:space="preserve">
+    <value>_Infrared</value>
+  </data>
+  <data name="RawIr_ViewType_3D_Surface_Radio" xml:space="preserve">
+    <value>_Surface with Normal</value>
+  </data>
+  <data name="RawIr_ViewType_GroupBox" xml:space="preserve">
+    <value>View type</value>
+  </data>
+</root>

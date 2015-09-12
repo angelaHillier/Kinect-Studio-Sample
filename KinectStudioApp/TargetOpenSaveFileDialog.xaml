@@ -1,0 +1,207 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<Window x:Class="KinectStudioApp.TargetOpenSaveFileDialog"
+             AutomationProperties.AutomationId="TargetOpenSaveFileDialog" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:l="clr-namespace:KinectStudioApp"
+             xmlns:u="clr-namespace:KinectStudioUtility;assembly=KinectStudioUtility"
+             xmlns:mkt="clr-namespace:Microsoft.Kinect.Tools;assembly=Microsoft.Kinect.Tools"
+             mc:Ignorable="d" 
+             Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}"
+             Width="{Binding Width, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" MinWidth="300" MinHeight="300">
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSaveDialog}" Value="True">
+                    <Setter Property="Title" Value="{x:Static l:Strings.TargetSaveFile_Title}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsSaveDialog}" Value="False">
+                    <Setter Property="Title" Value="{x:Static l:Strings.TargetOpenFile_Title}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <u:LocalDateTimeConverter x:Key="DateConv" />
+        <u:SizeConverter x:Key="SizeConv" Format="{x:Static l:Strings.FileOpenSave_Size_Format}" />
+        <Image x:Key="RefreshImage" Source="\Images\Refresh.png" />
+        <Image x:Key="GoUpImage" Source="\Images\GoUp.png" />
+        <RoutedUICommand x:Key="RefreshCommand" />
+        <RoutedUICommand x:Key="GoUpCommand" />
+        <RoutedUICommand x:Key="OkCommand" />
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource RefreshCommand}" Executed="Refresh_Executed" />
+        <CommandBinding Command="{StaticResource GoUpCommand}" Executed="GoUp_Executed" CanExecute="GoUp_CanExecute" />
+        <CommandBinding Command="{StaticResource OkCommand}" Executed="Ok_Executed" CanExecute="Ok_CanExecute" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{StaticResource RefreshCommand}" />
+        <KeyBinding Modifiers="Alt" Key="Up" Command="{StaticResource GoUpCommand}" />
+    </Window.InputBindings>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button AutomationProperties.AutomationId="GoUp" Content="{StaticResource GoUpImage}" Command="{StaticResource GoUpCommand}" ToolTipService.ShowOnDisabled="True">
+                <Button.ToolTip>
+                    <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                        <Binding Source="{x:Static l:Strings.FileOpenSave_GoUp_ToolTip_Format}" />
+                        <Binding Path="ParentDirectory" />
+                        <Binding Source="{x:Static l:Strings.FileOpenSave_GoUp_ToolTip}" />
+                    </MultiBinding>
+                </Button.ToolTip>
+            </Button>
+
+            <TextBlock AutomationProperties.AutomationId="CurrentPath" Text="{Binding CurrentPath}" HorizontalAlignment="Stretch" Grid.Column="2" />
+            <Button AutomationProperties.AutomationId="Refresh" Content="{StaticResource RefreshImage}" Grid.Column="4" Command="{StaticResource RefreshCommand}">
+                <Button.ToolTip>
+                    <MultiBinding Converter="{StaticResource KinectStudioPlugin.FormatConverter}">
+                        <Binding Source="{x:Static l:Strings.FileOpenSave_Refresh_ToolTip_Format}" />
+                        <Binding Path="CurrentDirectory" />
+                    </MultiBinding>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+
+        <ListView AutomationProperties.AutomationId="FileList" ItemsSource="{Binding Items, NotifyOnTargetUpdated=True}" SelectedItem="{Binding SelectedItem}" Grid.Row="2" MouseDoubleClick="ListView_MouseDoubleClick" TargetUpdated="ListView_TargetUpdated" SelectionMode="Single">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="{x:Static l:Strings.FileOpenSave_Name_Header}" Width="{Binding NameWidth, Mode=TwoWay}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding}">
+                                    <ContentPresenter.Resources>
+                                        <DataTemplate DataType="{x:Type sys:String}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image AutomationProperties.AutomationId="FolderImage" Source="\Images\Folder.png" />
+                                                <TextBlock AutomationProperties.AutomationId="FolderName" Text="{Binding}" Margin="10,0,0,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                        <DataTemplate DataType="{x:Type mkt:KStudioFileInfo}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image AutomationProperties.AutomationId="FileImage" Source="\Images\File.png" />
+                                                <TextBlock AutomationProperties.AutomationId="FileName" Text="{Binding FilePath}" Margin="10,0,0,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ContentPresenter.Resources>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{x:Static l:Strings.FileOpenSave_Date_Header}" Width="{Binding DateWidth, Mode=TwoWay}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding}">
+                                    <ContentPresenter.Resources>
+                                        <DataTemplate DataType="{x:Type sys:String}">
+                                        </DataTemplate>
+                                        <DataTemplate DataType="{x:Type mkt:KStudioFileInfo}">
+                                            <TextBlock AutomationProperties.AutomationId="FileDate" Text="{Binding LastWriteUtcFileTime, Converter={StaticResource DateConv}}" />
+                                        </DataTemplate>
+                                    </ContentPresenter.Resources>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{x:Static l:Strings.FileOpenSave_Size_Header}" Width="{Binding SizeWidth, Mode=TwoWay}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding}" HorizontalAlignment="Right">
+                                    <ContentPresenter.Resources>
+                                        <DataTemplate DataType="{x:Type sys:String}">
+                                        </DataTemplate>
+                                        <DataTemplate DataType="{x:Type mkt:KStudioFileInfo}">
+                                            <TextBlock AutomationProperties.AutomationId="FileSize" Text="{Binding Size, Converter={StaticResource SizeConv}}" />
+                                        </DataTemplate>
+                                    </ContentPresenter.Resources>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox AutomationProperties.AutomationId="SelectedFileName" Text="{Binding FileName}" HorizontalAlignment="Stretch">
+                <TextBox.Style>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSaveDialog}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <ComboBox AutomationProperties.AutomationId="FileSpecs" Grid.Column="2" ItemsSource="{Binding FileTypes}" SelectedValue="{Binding FileSpec}" SelectedValuePath="Item1" DisplayMemberPath="Item2" />
+        </Grid>
+
+        <CheckBox AutomationProperties.AutomationId="ReadOnly" IsChecked="{Binding AsReadOnly}" Content="{x:Static l:Strings.FileOpen_ReadOnly_CheckBox}" Grid.Row="6" HorizontalAlignment="Left" Visibility="{Binding ShowReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <CheckBox.Style>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSaveDialog}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </CheckBox.Style>
+        </CheckBox>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="6">
+            <Button AutomationProperties.AutomationId="OK" IsDefault="True" Command="{StaticResource OkCommand}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSaveDialog}" Value="True">
+                                <Setter Property="Content" Value="{x:Static l:Strings.FileSave_Ok_Button}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsSaveDialog}" Value="False">
+                                <Setter Property="Content" Value="{x:Static l:Strings.FileOpen_Ok_Button}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button AutomationProperties.AutomationId="Cancel" Content="{x:Static l:Strings.Button_Cancel}" IsCancel="True" Margin="10,0,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

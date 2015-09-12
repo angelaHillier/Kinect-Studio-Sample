@@ -1,0 +1,162 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<UserControl x:Class="KinectStudioApp.MetadataViewContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:l="clr-namespace:KinectStudioApp">
+    <UserControl.Resources>
+        <RoutedUICommand x:Key="UnselectMetadataCommand" />
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <EventSetter Event="GotFocus" Handler="ListViewItem_GotFocus" />
+        </Style>
+    </UserControl.Resources>
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource UnselectMetadataCommand}" Executed="UnselectMetadataCommand_Executed" CanExecute="UnselectMetadataCommand_CanExecute" />
+    </UserControl.CommandBindings>
+
+    <Grid Margin="10" DataContext="{Binding MetadataInfo, RelativeSource={RelativeSource AncestorType=l:MetadataViewContent}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" MinHeight="50" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button AutomationProperties.AutomationId="MetadataUnselect" Style="{StaticResource UnselectMetadataToolbarButtonStyle}" Command="{StaticResource UnselectMetadataCommand}" />
+            <TextBlock AutomationProperties.AutomationId="ViewTitle" Text="{Binding View.Title, RelativeSource={RelativeSource AncestorType=l:MetadataViewContent}}" Margin="10,0,0,0" />
+            <TextBlock Text="{x:Static l:Strings.MetadataTitle_Separator}" />
+            <TextBlock AutomationProperties.AutomationId="MetadataSelected" Text="{Binding ShortName, TargetNullValue={x:Static l:Strings.Metadata_NotSelected}}" ToolTip="{Binding LongName}" Margin="10,0,0,0" />
+        </StackPanel>
+        <TabControl Grid.Row="2">
+            <TabItem Visibility="{Binding PublicMetadata, Converter={StaticResource NullToVisibilityConverter}}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock AutomationProperties.AutomationId="MetadataPublicTitle" Text="Public" ToolTip="{x:Static l:Strings.Metadata_Public_Title}" />
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Grid Visibility="{Binding PublicMetadata, Converter={StaticResource NullToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" MinHeight="50" />
+                    </Grid.RowDefinitions>
+                    <Button AutomationProperties.AutomationId="Add" ToolTip="{x:Static l:Strings.Metadata_Add_Button_ToolTip}" Margin="10,10,10,0" Command="{StaticResource AddMetadataCommand}" CommandParameter="{Binding PublicMetadata}" HorizontalAlignment="Left">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <Image Source="Images\AddMetadata.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PublicMetadata.IsReadOnly}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <ListView AutomationProperties.AutomationId="PublicMetadata" x:Name="PublicMetadataItemsControl" Grid.Row="1" Margin="5" ItemsSource="{Binding PublicMetadata}" Loaded="ListView_Loaded" DataContextChanged="ListView_DataContextChanged" ScrollViewer.CanContentScroll="False" IsTabStop="True" SelectionMode="Single" KeyboardNavigation.TabNavigation="Cycle">
+                        <ListView.Style>
+                            <Style TargetType="ListView">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsReadOnly}" Value="False">
+                                        <Setter Property="View">
+                                            <Setter.Value>
+                                                <GridView AllowsColumnReorder="False">
+                                                    <GridViewColumn CellTemplate="{StaticResource DeleteMetadataCellTemplate}" HeaderContainerStyle="{StaticResource DeleteMetadataHeaderStyle}" />
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="{x:Static l:Strings.Metadata_Key_Header}" />
+                                                    <GridViewColumn Header="{x:Static l:Strings.Metadata_Value_Header}" CellTemplateSelector="{StaticResource KinectStudioPlugin.WritableFileMetaTempSel}" />
+                                                </GridView>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsReadOnly}" Value="True">
+                                        <Setter Property="View">
+                                            <Setter.Value>
+                                                <GridView AllowsColumnReorder="False">
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="{x:Static l:Strings.Metadata_Key_Header}" />
+                                                    <GridViewColumn Header="{x:Static l:Strings.Metadata_Value_Header}" CellTemplateSelector="{StaticResource KinectStudioPlugin.ReadOnlyFileMetaTempSel}" />
+                                                </GridView>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Style>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Visibility="{Binding PersonalMetadata, Converter={StaticResource NullToVisibilityConverter}}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock AutomationProperties.AutomationId="MetadataPersonalTitle" Text="Personal" ToolTip="{x:Static l:Strings.Metadata_Personal_Title}" />
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Grid Visibility="{Binding PersonalMetadata, Converter={StaticResource NullToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" MinHeight="50" />
+                    </Grid.RowDefinitions>
+                    <Button AutomationProperties.AutomationId="Add" ToolTip="{x:Static l:Strings.Metadata_Add_Button_ToolTip}" Margin="10,10,10,0" Command="{StaticResource AddMetadataCommand}" CommandParameter="{Binding PersonalMetadata}" HorizontalAlignment="Left">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <Image Source="Images\AddMetadata.png" Style="{StaticResource DisabledButtonImageStyle}" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PersonalMetadata.IsReadOnly}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <ListView AutomationProperties.AutomationId="PersonalMetadata" x:Name="PersonalMetadataItemsControl" Grid.Row="1" Margin="5" ItemsSource="{Binding PersonalMetadata}" Loaded="ListView_Loaded" DataContextChanged="ListView_DataContextChanged" IsTabStop="True" SelectionMode="Single" KeyboardNavigation.TabNavigation="Cycle">
+                        <ListView.Style>
+                            <Style TargetType="ListView">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsReadOnly}" Value="False">
+                                        <Setter Property="View">
+                                            <Setter.Value>
+                                                <GridView AllowsColumnReorder="False">
+                                                    <GridViewColumn CellTemplate="{StaticResource DeleteMetadataCellTemplate}" HeaderContainerStyle="{StaticResource DeleteMetadataHeaderStyle}" />
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="{x:Static l:Strings.Metadata_Key_Header}" />
+                                                    <GridViewColumn Header="{x:Static l:Strings.Metadata_Value_Header}" CellTemplateSelector="{StaticResource KinectStudioPlugin.WritableFileMetaTempSel}" />
+                                                </GridView>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsReadOnly}" Value="True">
+                                        <Setter Property="View">
+                                            <Setter.Value>
+                                                <GridView AllowsColumnReorder="False">
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="{x:Static l:Strings.Metadata_Key_Header}" />
+                                                    <GridViewColumn Header="{x:Static l:Strings.Metadata_Value_Header}" CellTemplateSelector="{StaticResource KinectStudioPlugin.ReadOnlyFileMetaTempSel}" />
+                                                </GridView>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Style>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

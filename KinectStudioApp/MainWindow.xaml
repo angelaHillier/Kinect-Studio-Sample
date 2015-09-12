@@ -1,0 +1,65 @@
+﻿<!--
+THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
+PARTICULAR PURPOSE.  
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+
+<s:ToolsUIWindow x:Class="KinectStudioApp.MainWindow"
+        AutomationProperties.AutomationId="MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:KinectStudioApp"
+        xmlns:s="clr-namespace:Microsoft.Xbox.Tools.Shared;assembly=Microsoft.Xbox.Tools.Shared"
+        Icon="Images\KStudio.ico"
+        Background="{s:ThemeBinding WindowBackgroundBrush}"
+        Foreground="{s:ThemeBinding ControlForegroundBrush}"
+        FontFamily="{s:ThemeBinding DefaultFontFamily}"
+        FontSize="{s:ThemeBinding DefaultFontSize}">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static s:ToolsUIWindow.CloseDocumentCommand}" Executed="CloseDocumentCommand_Executed" CanExecute="CloseDocumentCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource EditLayoutsCommand}" Executed="EditLayoutsCommand_Executed" CanExecute="EditLayoutsCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource OpenRecentReadOnlyLocalFileCommand}" Executed="OpenRecentReadOnlyLocalFileCommand_Executed" CanExecute="OpenRecentLocalFileCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource OpenRecentWritableLocalFileCommand}" Executed="OpenRecentWritableLocalFileCommand_Executed" CanExecute="OpenRecentLocalFileCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource OpenRecentTargetFileCommand}" Executed="OpenRecentTargetFileCommand_Executed" CanExecute="OpenRecentTargetFileCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource BrowseLocalFileCommand}" Executed="BrowseLocalFileCommand_Executed" CanExecute="BrowseLocalFileCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource BrowseTargetFileCommand}" Executed="BrowseTargetFileCommand_Executed" CanExecute="BrowseTargetFileCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource BrowseTargetFilePathCommand}" Executed="BrowseTargetFilePathCommand_Executed" CanExecute="BrowseTargetFilePathCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource TargetConnectCommand}" Executed="TargetConnectCommand_Executed" CanExecute="TargetConnectCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource TargetDisconnectCommand}" Executed="TargetDisconnectCommand_Executed" CanExecute="TargetDisconnectCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource TargetToggleCommand}" Executed="TargetToggleCommand_Executed" CanExecute="TargetToggleCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource SelectMetadataViewCommand}" Executed="SelectMetadataViewCommand_Executed" CanExecute="SelectMetadataViewCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource MetadataCommand}" Executed="MetadataCommand_Executed" CanExecute="MetadataCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource AddMetadataCommand}" Executed="AddMetadataCommand_Executed" CanExecute="AddMetadataCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource DeleteMetadataCommand}" Executed="DeleteMetadataCommand_Executed" CanExecute="DeleteMetadataCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource RecordStartCommand}" Executed="RecordStartCommand_Executed" CanExecute="RecordStartCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource RecordStopCommand}" Executed="RecordStopCommand_Executed" CanExecute="RecordStopCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource RecordCloseCommand}" Executed="RecordCloseCommand_Executed" CanExecute="RecordCloseCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource RecordToggleCommand}" Executed="RecordToggleCommand_Executed" CanExecute="RecordToggleCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource RecordUnselectAllCommand}" Executed="RecordUnselectAllCommand_Executed" CanExecute="RecordUnselectAllCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackOpenCommand}" Executed="PlaybackOpenCommand_Executed" CanExecute="PlaybackOpenCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackCloseCommand}" Executed="PlaybackCloseCommand_Executed" CanExecute="PlaybackCloseCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackPlayCommand}" Executed="PlaybackPlayCommand_Executed" CanExecute="PlaybackPlayCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackPauseCommand}" Executed="PlaybackPauseCommand_Executed" CanExecute="PlaybackPauseCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackStopCommand}" Executed="PlaybackStopCommand_Executed" CanExecute="PlaybackStopCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackStepCommand}" Executed="PlaybackStepCommand_Executed" CanExecute="PlaybackStepCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackToggleCommand}" Executed="PlaybackToggleCommand_Executed" CanExecute="PlaybackToggleCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackUnselectAllCommand}" Executed="PlaybackUnselectAllCommand_Executed" CanExecute="PlaybackUnselectAllCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackDisableAllPausePointsCommand}" Executed="PlaybackDisableAllPausePointsCommand_Executed" CanExecute="PlaybackDisableAllPausePointsCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackEnableAllPausePointsCommand}" Executed="PlaybackEnableAllPausePointsCommand_Executed" CanExecute="PlaybackEnableAllPausePointsCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource PlaybackRemoveAllPausePointsCommand}" Executed="PlaybackRemoveAllPausePointsCommand_Executed" CanExecute="PlaybackRemoveAllPausePointsCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource MonitorStartCommand}" Executed="MonitorStartCommand_Executed" CanExecute="MonitorStartCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource MonitorStopCommand}" Executed="MonitorStopCommand_Executed" CanExecute="MonitorStopCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource MonitorUnselectAllCommand}" Executed="MonitorUnselectAllCommand_Executed" CanExecute="MonitorUnselectAllCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource EditPluginMetadataSettingsCommand}" Executed="EditPluginMetadataSettingsCommand_Executed" CanExecute="EditPluginMetadataSettingsCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource SetInOutPointsByTimelineRangeCommand}" Executed="SetInOutPointsByTimelineRangeCommand_Executed" CanExecute="SetInOutPointsByTimelineRangeCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource EditBufferSizeCommand}" Executed="EditBufferSizeCommand_Executed" CanExecute="EditBufferSizeCommand_CanExecute" />
+        <CommandBinding Command="{StaticResource SetDefaultBufferSizeCommand}" Executed="SetDefaultBufferSizeCommand_Executed" CanExecute="SetDefaultBufferSizeCommand_CanExecute" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="K" Modifiers="Control" Command="{StaticResource TargetToggleCommand}" />
+        <KeyBinding Key="R" Modifiers="Control" Command="{StaticResource RecordToggleCommand}" />
+        <KeyBinding Key="P" Modifiers="Control" Command="{StaticResource PlaybackToggleCommand}" />
+    </Window.InputBindings>
+</s:ToolsUIWindow>
